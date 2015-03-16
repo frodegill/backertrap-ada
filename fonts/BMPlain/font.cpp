@@ -10,7 +10,6 @@
 #include "font.h"
 
 const byte g_BMPlainFont7_alphabeth[] = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
-const byte g_BMPlainFont7_height = 7;
 
 byte g_BMPlainFont7_font[] = {
 4, //[SPACE]
@@ -824,8 +823,8 @@ byte g_BMPlainFont7_font[] = {
 0b00000000
 };
 
-
 BMPlainFont7::BMPlainFont7()
+: Font(&g_BMPlainFont7_alphabeth[0], 7, 1, &g_BMPlainFont7_font[0])
 {
 }
 

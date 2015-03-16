@@ -7,9 +7,10 @@
 // Font-data from <URL: http://www.dafont.com/bm-plain.font?fpp=100&l[]=10&l[]=1 >
 
 #include "../../defines.h"
+#include "../font.h"
 
 
-class BMPlainFont7
+class BMPlainFont7 : public Font
 {
 public:
   BMPlainFont7();
