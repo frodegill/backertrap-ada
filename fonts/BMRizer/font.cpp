@@ -12,7 +12,7 @@
 const byte g_BMRizerFont6_alphabeth[] = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz";
 
 byte g_BMRizerFont6_font[] = {
-4, //[SPACE]
+6, //[SPACE]
 0b00000000,
 0b00000000,
 0b00000000,
@@ -706,11 +706,7 @@ byte g_BMRizerFont6_font[] = {
 0b00111000,
 0b01110000,
 0b11111100,
-0b00000000,
-
-
-
-
+0b00000000
 };
 
 BMRizerFont6::BMRizerFont6()
