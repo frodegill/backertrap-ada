@@ -7,6 +7,8 @@
 #include "../Page.h"
 #include "../../fonts/BMPlain/font.h"
 #include "../../fonts/BMRizer/font.h"
+#include "../../fonts/Volter/font.h"
+
 
 class BootPage : public Page
 {
@@ -24,6 +26,7 @@ public:
 private:
   BMPlainFont7 m_BMPlainFont7;
   BMRizerFont6 m_BMRizerFont6;
+  VolterFont9  m_VolterFont9;
 };
 
 #endif // _BOOT_PAGE_H_
