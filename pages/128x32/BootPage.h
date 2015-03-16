@@ -5,7 +5,8 @@
 // See LICENSE file for license
 
 #include "../Page.h"
-
+#include "../../fonts/BMPlain/font.h"
+#include "../../fonts/BMRizer/font.h"
 
 class BootPage : public Page
 {
@@ -19,6 +20,10 @@ public:
 public:
 	void OnActivated();
 	void OnDeactivated();
+  
+private:
+  BMPlainFont7 m_BMPlainFont7;
+  BMRizerFont6 m_BMRizerFont6;
 };
 
 #endif // _BOOT_PAGE_H_
