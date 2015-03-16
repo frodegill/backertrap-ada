@@ -989,11 +989,7 @@ byte g_VolterFont9_font[] = {
 0b00100000,
 0b11000000,
 0b00000000,
-0b00000000,
-
-
-
-
+0b00000000
 };
 
 VolterFont9::VolterFont9()
