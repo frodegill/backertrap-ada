@@ -9,9 +9,9 @@
 
 #include "font.h"
 
-const byte g_BMRizerFont6_alphabeth[] = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz";
+const uint8 g_BMRizerFont6_alphabeth[] = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz";
 
-byte g_BMRizerFont6_font[] = {
+uint8 g_BMRizerFont6_font[] = {
 6, //[SPACE]
 0b00000000,
 0b00000000,

@@ -9,9 +9,9 @@
 
 #include "font.h"
 
-const byte g_FreePixelFont12_alphabeth[] = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+const uint8 g_FreePixelFont12_alphabeth[] = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
 
-byte g_FreePixelFont12_font[] = {
+uint8 g_FreePixelFont12_font[] = {
 4, //[SPACE]
 0b00000000,
 0b00000000,

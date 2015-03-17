@@ -4,17 +4,20 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for license
 
+#include "../defines.h"
+
+
 class Font
 {
 public:
-  Font(const byte* alphabeth, const byte height, const byte margin, const byte* fontdata);
+  Font(const uint8* alphabeth, const uint8 height, const uint8 margin, const uint8* fontdata);
 	~Font();
 
 private:
-  const byte* m_alphabeth;
-  byte m_height;
-  byte m_margin;
-  const byte* m_fontdata;
+  const uint8* m_alphabeth;
+  uint8 m_height;
+  uint8 m_margin;
+  const uint8* m_fontdata;
 };
 
 #endif // _FONT_H_

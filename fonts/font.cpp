@@ -10,7 +10,7 @@
 #include "font.h"
 
 
-Font::Font(const byte* alphabeth, byte height, byte margin,const byte* fontdata)
+Font::Font(const uint8* alphabeth, uint8 height, uint8 margin,const uint8* fontdata)
 : m_alphabeth(alphabeth),
   m_height(height),
   m_margin(margin),
