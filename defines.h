@@ -16,6 +16,8 @@
 
 #define UNUSED(x)
 #define NULL (0L)
-typedef unsigned char byte;
+
+typedef unsigned char  uint8;
+typedef unsigned short uint16;
 
 #endif // _DEFINES_H_

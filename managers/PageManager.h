@@ -30,7 +30,7 @@ private:
 	BootPage m_bootpage;
 
 	Page::PageId m_page_list[MAX_PAGE_STACK_SIZE];
-	byte         m_page_list_length;
+	uint8        m_page_list_length;
 };
 
 #endif // _PAGE_MANAGER_H_
