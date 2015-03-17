@@ -2,7 +2,7 @@
 #define _DISPLAY_MANAGER_H_
 
 // Copyright (C) 2015  Frode Roxrud Gill
-// See LICENSE file for license
+// See LICENSE file for GPLv3 license
 
 #include "../displays/NHD-C12832A1ZFSW-FBW-3V3/Display.h"
 

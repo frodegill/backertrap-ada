@@ -2,7 +2,7 @@
 #define _DEFINES_H_
 
 // Copyright (C) 2015  Frode Roxrud Gill
-// See LICENSE file for license
+// See LICENSE file for GPLv3 license
 
 
 #define MAX_PAGE_STACK_SIZE (16)
