@@ -8,9 +8,5 @@ passwd
 *.o
 *.dep
 
-# Precompiled Headers
-*.gch
-*.pch
-
 # Executables
 backertrap-ada
