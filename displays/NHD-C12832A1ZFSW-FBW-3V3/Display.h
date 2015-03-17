@@ -1,14 +1,13 @@
-#ifndef _DISPLAY_H_
-#define _DISPLAY_H_
+#ifndef _DISPLAY_NHDC12832A1ZFSWFBW3V3_H_
+#define _DISPLAY_NHDC12832A1ZFSWFBW3V3_H_
 
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for license
 
 #include "../../defines.h"
-#ifdef DISPLAY_NHDC12832A1ZFSWFBW3V3
 
 
-class Display
+class DisplayNHDC12832A1ZFSWFBW3V3
 {
 public:
 	enum BacklightStatus
@@ -18,8 +17,8 @@ public:
 	};
 	
 public:
-	Display();
-	~Display();
+	DisplayNHDC12832A1ZFSWFBW3V3();
+	~DisplayNHDC12832A1ZFSWFBW3V3();
 	
 public:
 	void SetBrightness(double UNUSED(brightness)) {}
@@ -30,6 +29,4 @@ public:
 
 };
 
-#endif // DISPLAY_NHDC12832A1ZFSWFBW3V3
-
-#endif // _DISPLAY_H_
+#endif // _DISPLAY_NHDC12832A1ZFSWFBW3V3_H_

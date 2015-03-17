@@ -7,18 +7,13 @@
 #else
 #endif
 
-#include "../../defines.h"
-#ifdef STORAGE_AT45DB642D
-
 #include "Storage.h"
 
 
-Storage::Storage()
+StorageAT45DB642D::StorageAT45DB642D()
 {
 }
 
-Storage::~Storage()
+StorageAT45DB642D::~StorageAT45DB642D()
 {
 }
-
-#endif // STORAGE_AT45DB642D

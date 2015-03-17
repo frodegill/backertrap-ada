@@ -5,10 +5,7 @@
 // See LICENSE file for license
 
 #include "../defines.h"
-
-#ifdef DISPLAY_NHDC12832A1ZFSWFBW3V3
-# include "../pages/128x32/BootPage.h"
-#endif
+#include "../pages/128x32/BootPage.h"
 
 
 class PageManager

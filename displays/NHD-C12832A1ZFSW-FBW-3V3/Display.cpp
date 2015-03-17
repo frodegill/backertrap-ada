@@ -7,18 +7,13 @@
 #else
 #endif
 
-#include "../../defines.h"
-#ifdef DISPLAY_NHDC12832A1ZFSWFBW3V3
-
 #include "Display.h"
 
 
-Display::Display()
+DisplayNHDC12832A1ZFSWFBW3V3::DisplayNHDC12832A1ZFSWFBW3V3()
 {
 }
 
-Display::~Display()
+DisplayNHDC12832A1ZFSWFBW3V3::~DisplayNHDC12832A1ZFSWFBW3V3()
 {
 }
-
-#endif // DISPLAY_NHDC12832A1ZFSWFBW3V3

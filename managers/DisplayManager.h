@@ -4,11 +4,7 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for license
 
-#include "../defines.h"
-
-#ifdef DISPLAY_NHDC12832A1ZFSWFBW3V3
-# include "../displays/NHD-C12832A1ZFSW-FBW-3V3/Display.h"
-#endif
+#include "../displays/NHD-C12832A1ZFSW-FBW-3V3/Display.h"
 
 
 class DisplayManager
@@ -18,7 +14,7 @@ public:
 	~DisplayManager();
 	
 private:
-	Display m_display;
+	DisplayNHDC12832A1ZFSWFBW3V3 m_display;
 };
 
 #endif // _DISPLAY_MANAGER_H_
