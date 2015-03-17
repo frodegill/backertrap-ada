@@ -9,7 +9,6 @@ all:    $(PROGRAM)
 .PHONY: all
 
 # source files
-PCH = pch.h
 DEBUG_INFO = YES
 SOURCES = $(shell find . -name '*.cpp')
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -19,30 +18,17 @@ DEPS = $(OBJECTS:.o=.dep)
 CPP = avr-g++
 CPPFLAGS = -D$(BOARD) -W -Wall -Werror -pipe -I/usr/lib/avr/include
 LIBSFLAGS = -L/usr/lib/avr/lib
-ifdef PCH
- CPPFLAGS += -DPRECOMP
-endif
 ifdef DEBUG_INFO
  CPPFLAGS += -g
 else
  CPPFLAGS += -O
 endif
 
-ifdef PCH
-%.o: %.cpp $(PCH).gch
-else
 %.o: %.cpp
-endif
 	$(CPP) $(CPPFLAGS) -o $@ -c $<
 
 %.dep: %.cpp
 	$(CPP) $(CPPFLAGS) -MM $< -MT $(<:.cpp=.o) > $@
-
-############ Precompiled header ################
-ifdef PCH
-$(PCH).gch: $(PCH)
-	$(CPP) -x c++ -c $(PCH) -o $(PCH).gch $(CPPFLAGS)
-endif
 
 ############# Main application #################
 $(PROGRAM):	$(OBJECTS) $(DEPS)
@@ -57,6 +43,3 @@ endif
 clean:
 	find . -name '*~' -delete
 	-rm -f $(PROGRAM) $(OBJECTS) $(DEPS)
-ifdef PCH
-	-rm -f $(PCH).gch
-endif

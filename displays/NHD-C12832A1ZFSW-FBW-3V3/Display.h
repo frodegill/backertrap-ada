@@ -1,35 +1,25 @@
-#ifndef _DISPLAY_H_
-#define _DISPLAY_H_
+#ifndef _DISPLAY_NHDC12832A1ZFSWFBW3V3_H_
+#define _DISPLAY_NHDC12832A1ZFSWFBW3V3_H_
 
 // Copyright (C) 2015  Frode Roxrud Gill
-// See LICENSE file for license
+// See LICENSE file for GPLv3 license
 
-#include "../../defines.h"
-#ifdef DISPLAY_NHDC12832A1ZFSWFBW3V3
+#include "../Display.h"
 
 
-class Display
+class DisplayNHDC12832A1ZFSWFBW3V3 : public Display
 {
 public:
-	enum BacklightStatus
-	{
-		ON,
-		OFF
-	};
-	
-public:
-	Display();
-	~Display();
+	DisplayNHDC12832A1ZFSWFBW3V3();
+	~DisplayNHDC12832A1ZFSWFBW3V3();
 	
 public:
 	void SetBrightness(double UNUSED(brightness)) {}
-	void SetBacklightStatus(BacklightStatus UNUSED(status)) {}
+	void SetBacklightStatus(Display::BacklightStatus UNUSED(status)) {}
 
 	void ClearDisplay() {}
 	void RefreshDisplay() {}
 
 };
 
-#endif // DISPLAY_NHDC12832A1ZFSWFBW3V3
-
-#endif // _DISPLAY_H_
+#endif // _DISPLAY_NHDC12832A1ZFSWFBW3V3_H_

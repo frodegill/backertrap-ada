@@ -1,21 +1,18 @@
-#ifndef _STORAGE_H_
-#define _STORAGE_H_
+#ifndef _STORAGE_AT45DB642D_H_
+#define _STORAGE_AT45DB642D_H_
 
 // Copyright (C) 2015  Frode Roxrud Gill
-// See LICENSE file for license
+// See LICENSE file for GPLv3 license
 
-#include "../../defines.h"
-#ifdef STORAGE_AT45DB642D
+#include "../Storage.h"
 
 
-class Storage
+class StorageAT45DB642D : public Storage
 {
 public:
-	Storage();
-	~Storage();
+	StorageAT45DB642D();
+	~StorageAT45DB642D();
 
 };
 
-#endif // STORAGE_AT45DB642D
-
-#endif // _STORAGE_H_
+#endif // _STORAGE_AT45DB642D_H_

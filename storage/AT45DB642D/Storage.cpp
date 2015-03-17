@@ -1,24 +1,15 @@
 
 // Copyright (C) 2015  Frode Roxrud Gill
-// See LICENSE file for license
-
-#ifdef PRECOMP
-# include "../../pch.h"
-#else
-#endif
-
-#include "../../defines.h"
-#ifdef STORAGE_AT45DB642D
+// See LICENSE file for GPLv3 license
 
 #include "Storage.h"
 
 
-Storage::Storage()
+StorageAT45DB642D::StorageAT45DB642D()
+: Storage()
 {
 }
 
-Storage::~Storage()
+StorageAT45DB642D::~StorageAT45DB642D()
 {
 }
-
-#endif // STORAGE_AT45DB642D

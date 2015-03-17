@@ -1,24 +1,15 @@
 
 // Copyright (C) 2015  Frode Roxrud Gill
-// See LICENSE file for license
-
-#ifdef PRECOMP
-# include "../../pch.h"
-#else
-#endif
-
-#include "../../defines.h"
-#ifdef DISPLAY_NHDC12832A1ZFSWFBW3V3
+// See LICENSE file for GPLv3 license
 
 #include "Display.h"
 
 
-Display::Display()
+DisplayNHDC12832A1ZFSWFBW3V3::DisplayNHDC12832A1ZFSWFBW3V3()
+: Display()
 {
 }
 
-Display::~Display()
+DisplayNHDC12832A1ZFSWFBW3V3::~DisplayNHDC12832A1ZFSWFBW3V3()
 {
 }
-
-#endif // DISPLAY_NHDC12832A1ZFSWFBW3V3

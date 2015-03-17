@@ -2,7 +2,7 @@
 #define _BACKERTRAP_ADA_APP_H_
 
 // Copyright (C) 2015  Frode Roxrud Gill
-// See LICENSE file for license
+// See LICENSE file for GPLv3 license
 
 #include "managers/DisplayManager.h"
 #include "managers/PageManager.h"

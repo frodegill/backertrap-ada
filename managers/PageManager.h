@@ -2,13 +2,10 @@
 #define _PAGE_MANAGER_H_
 
 // Copyright (C) 2015  Frode Roxrud Gill
-// See LICENSE file for license
+// See LICENSE file for GPLv3 license
 
 #include "../defines.h"
-
-#ifdef DISPLAY_NHDC12832A1ZFSWFBW3V3
-# include "../pages/128x32/BootPage.h"
-#endif
+#include "../pages/128x32/BootPage.h"
 
 
 class PageManager
@@ -30,7 +27,7 @@ private:
 	BootPage m_bootpage;
 
 	Page::PageId m_page_list[MAX_PAGE_STACK_SIZE];
-	byte         m_page_list_length;
+	uint8        m_page_list_length;
 };
 
 #endif // _PAGE_MANAGER_H_
