@@ -3,18 +3,17 @@
 // See LICENSE file for license
 
 #ifdef PRECOMP
-# include "../../pch.h"
+# include "../pch.h"
 #else
 #endif
 
 #include "Storage.h"
 
 
-StorageAT45DB642D::StorageAT45DB642D()
-: Storage()
+Storage::Storage()
 {
 }
 
-StorageAT45DB642D::~StorageAT45DB642D()
+Storage::~Storage()
 {
 }

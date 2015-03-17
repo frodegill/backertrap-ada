@@ -4,10 +4,10 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for license
 
-#include "../../defines.h"
+#include "../Storage.h"
 
 
-class StorageAT45DB642D
+class StorageAT45DB642D : public Storage
 {
 public:
 	StorageAT45DB642D();

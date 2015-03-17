@@ -11,6 +11,7 @@
 
 
 DisplayNHDC12832A1ZFSWFBW3V3::DisplayNHDC12832A1ZFSWFBW3V3()
+: Display()
 {
 }
 
