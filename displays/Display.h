@@ -5,6 +5,7 @@
 // See LICENSE file for GPLv3 license
 
 #include "../defines.h"
+#include "../fonts/font.h"
 
 
 class Display
@@ -44,8 +45,8 @@ public:
 	void DrawLine(uint16 x, uint16 y, uint16 delta_x, uint16 delta_y, DrawMode mode);
 	void DrawRect(uint16 x, uint16 y, uint16 width, uint16 height, DrawMode mode);
 	void DrawFilledRect(uint16 x, uint16 y, uint16 width, uint16 height, DrawMode mode);
-	uint16 DrawChar(uint16 x, uint16 y, uint8 ch, DrawMode mode); //returns width of character
-	uint16 DrawText(uint16 x, uint16 y, uint8* str, DrawMode mode); //returns width of text
+	uint16 DrawChar(uint16 x, uint16 y, uint8 ch, DrawMode mode, const Font& font); //returns width of character
+	uint16 DrawText(uint16 x, uint16 y, uint8* str, DrawMode mode, const Font& font); //returns width of text
 };
 
 #endif // _DISPLAY_H_

@@ -824,10 +824,30 @@ uint8 g_BMPlainFont7_font[] = {
 };
 
 BMPlainFont7::BMPlainFont7()
-: Font(&g_BMPlainFont7_alphabeth[0], 7, 1, &g_BMPlainFont7_font[0])
+: Font()
 {
 }
 
 BMPlainFont7::~BMPlainFont7()
 {
+}
+
+const uint8* BMPlainFont7::GetAlphabeth() const
+{
+	return &g_BMPlainFont7_alphabeth[0];
+}
+
+uint8 BMPlainFont7::GetHeight() const
+{
+	return 7;
+}
+
+uint8 BMPlainFont7::GetMargin() const
+{
+	return 1;
+}
+
+const uint8* BMPlainFont7::GetFontdata() const
+{
+	return &g_BMPlainFont7_font[0];
 }

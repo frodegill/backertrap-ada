@@ -16,6 +16,14 @@ public:
   FreePixelFont12();
   ~FreePixelFont12();
 
+public:
+	const uint8* GetAlphabeth() const;
+	uint8 GetHeight() const;
+	uint8 GetMargin() const;
+
+protected:
+	const uint8* GetFontdata() const;
+
 };
 
 #endif //_FREEPIXEL_FONT_12_H_

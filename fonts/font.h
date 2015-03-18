@@ -10,14 +10,18 @@
 class Font
 {
 public:
-  Font(const uint8* alphabeth, const uint8 height, const uint8 margin, const uint8* fontdata);
+  Font();
 	~Font();
 
-private:
-  const uint8* m_alphabeth;
-  uint8 m_height;
-  uint8 m_margin;
-  const uint8* m_fontdata;
+public:
+	const uint8* GetAlphabeth() const {return NULL;}
+	uint8 GetHeight() const {return 0;}
+	uint8 GetMargin() const {return 0;}
+	const uint8* GetFontdata(uint8 UNUSED(ch)) const;
+
+protected:
+	const uint8* GetFontdata() const {return NULL;}
+
 };
 
 #endif // _FONT_H_

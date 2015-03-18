@@ -710,10 +710,30 @@ uint8 g_BMRizerFont6_font[] = {
 };
 
 BMRizerFont6::BMRizerFont6()
-: Font(&g_BMRizerFont6_alphabeth[0], 6, 1, &g_BMRizerFont6_font[0])
+: Font()
 {
 }
 
 BMRizerFont6::~BMRizerFont6()
 {
+}
+
+const uint8* BMRizerFont6::GetAlphabeth() const
+{
+	return &g_BMRizerFont6_alphabeth[0];
+}
+
+uint8 BMRizerFont6::GetHeight() const
+{
+	return 6;
+}
+
+uint8 BMRizerFont6::GetMargin() const
+{
+	return 1;
+}
+
+const uint8* BMRizerFont6::GetFontdata() const
+{
+	return &g_BMRizerFont6_font[0];
 }

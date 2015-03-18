@@ -1258,10 +1258,30 @@ uint8 g_FreePixelFont12_font[] = {
 };
 
 FreePixelFont12::FreePixelFont12()
-: Font(&g_FreePixelFont12_alphabeth[0], 12, 1, &g_FreePixelFont12_font[0])
+: Font()
 {
 }
 
 FreePixelFont12::~FreePixelFont12()
 {
+}
+
+const uint8* FreePixelFont12::GetAlphabeth() const
+{
+	return &g_FreePixelFont12_alphabeth[0];
+}
+
+uint8 FreePixelFont12::GetHeight() const
+{
+	return 12;
+}
+
+uint8 FreePixelFont12::GetMargin() const
+{
+	return 1;
+}
+
+const uint8* FreePixelFont12::GetFontdata() const
+{
+	return &g_FreePixelFont12_font[0];
 }

@@ -993,10 +993,30 @@ uint8 g_VolterFont9_font[] = {
 };
 
 VolterFont9::VolterFont9()
-: Font(&g_VolterFont9_alphabeth[0], 9, 1, &g_VolterFont9_font[0])
+: Font()
 {
 }
 
 VolterFont9::~VolterFont9()
 {
+}
+
+const uint8* VolterFont9::GetAlphabeth() const
+{
+	return &g_VolterFont9_alphabeth[0];
+}
+
+uint8 VolterFont9::GetHeight() const
+{
+	return 9;
+}
+
+uint8 VolterFont9::GetMargin() const
+{
+	return 1;
+}
+
+const uint8* VolterFont9::GetFontdata() const
+{
+	return &g_VolterFont9_font[0];
 }

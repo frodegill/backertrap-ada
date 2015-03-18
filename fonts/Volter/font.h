@@ -16,6 +16,14 @@ public:
   VolterFont9();
   ~VolterFont9();
 
+public:
+	const uint8* GetAlphabeth() const;
+	uint8 GetHeight() const;
+	uint8 GetMargin() const;
+
+protected:
+	const uint8* GetFontdata() const;
+
 };
 
 #endif //_VOLTER_FONT_9_H_

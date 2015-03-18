@@ -94,12 +94,25 @@ void Display::DrawFilledRect(uint16 x, uint16 y, uint16 width, uint16 height, Dr
 	}
 }
 
-uint16 Display::DrawChar(uint16 UNUSED(x), uint16 UNUSED(y), uint8 UNUSED(ch), DrawMode UNUSED(mode)) //returns width of character
+uint16 Display::DrawChar(uint16 UNUSED(x), uint16 UNUSED(y), uint8 UNUSED(ch), DrawMode UNUSED(mode), const Font& UNUSED(font)) //returns width of character
 {
 	return 0;
 }
 
-uint16 Display::DrawText(uint16 UNUSED(x), uint16 UNUSED(y), uint8* UNUSED(str), DrawMode UNUSED(mode)) //returns width of text
+uint16 Display::DrawText(uint16 x, uint16 y, uint8* str, DrawMode mode, const Font& font) //returns width of text
 {
-	return 0;
+	uint16 text_width = 0;
+
+	uint16 display_width = GetWidth();
+	uint16 display_height = GetHeight();
+	if (y < display_height)
+	{
+		uint8 ch;
+		while ((ch=*str++) && (x+text_width)<display_width)
+		{
+			text_width += DrawChar(x+text_width, y, ch, mode, font);
+		}
+	}
+	
+	return text_width;
 }

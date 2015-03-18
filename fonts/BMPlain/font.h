@@ -16,6 +16,14 @@ public:
   BMPlainFont7();
   ~BMPlainFont7();
 
+public:
+	const uint8* GetAlphabeth() const;
+	uint8 GetHeight() const;
+	uint8 GetMargin() const;
+
+protected:
+	const uint8* GetFontdata() const;
+
 };
 
 #endif //_BMPLAIN_FONT_7_H_

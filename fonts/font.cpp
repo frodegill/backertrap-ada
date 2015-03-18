@@ -10,14 +10,19 @@
 #include "font.h"
 
 
-Font::Font(const uint8* alphabeth, uint8 height, uint8 margin,const uint8* fontdata)
-: m_alphabeth(alphabeth),
-  m_height(height),
-  m_margin(margin),
-  m_fontdata(fontdata)
+Font::Font()
 {
 }
 
 Font::~Font()
 {
+}
+
+const uint8* Font::GetFontdata(uint8 UNUSED(ch)) const
+{
+#if 0
+	const uint8* alphabeth = GetAlphabeth();
+	const uint8* fontdata = GetFontdata();
+#endif
+	return NULL;
 }

@@ -16,6 +16,14 @@ public:
   BMRizerFont6();
   ~BMRizerFont6();
 
+public:
+	const uint8* GetAlphabeth() const;
+	uint8 GetHeight() const;
+	uint8 GetMargin() const;
+
+protected:
+	const uint8* GetFontdata() const;
+
 };
 
 #endif //_BMRIZER_FONT_6_H_
