@@ -18,11 +18,18 @@ Font::~Font()
 {
 }
 
-const uint8* Font::GetFontdata(uint8 UNUSED(ch)) const
+const uint8* Font::GetFontdata(uint8 ch) const
 {
-#if 0
 	const uint8* alphabeth = GetAlphabeth();
+	const uint8* alpha_ptr = alphabeth;
+	while (*alpha_ptr && *(alpha_ptr+1) && *alpha_ptr!=ch) alpha_ptr++;
+
 	const uint8* fontdata = GetFontdata();
-#endif
-	return NULL;
+	int i;
+	for (i=0; i<(alpha_ptr-alphabeth); i++)
+	{
+		fontdata += *fontdata;
+	}
+
+	return fontdata;
 }

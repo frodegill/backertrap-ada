@@ -17,7 +17,7 @@ public:
 	const uint8* GetAlphabeth() const {return NULL;}
 	uint8 GetHeight() const {return 0;}
 	uint8 GetMargin() const {return 0;}
-	const uint8* GetFontdata(uint8 UNUSED(ch)) const;
+	const uint8* GetFontdata(uint8 ch) const;
 
 protected:
 	const uint8* GetFontdata() const {return NULL;}
