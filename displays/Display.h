@@ -41,12 +41,12 @@ public:
 	void ClearDisplay() {}
 	void RefreshDisplay() {}
 
-	void DrawPixel(uint16 x, uint16 y, DrawMode mode);
-	void DrawLine(uint16 x, uint16 y, uint16 delta_x, uint16 delta_y, DrawMode mode);
-	void DrawRect(uint16 x, uint16 y, uint16 width, uint16 height, DrawMode mode);
-	void DrawFilledRect(uint16 x, uint16 y, uint16 width, uint16 height, DrawMode mode);
-	uint16 DrawChar(uint16 x, uint16 y, uint8 ch, DrawMode mode, const Font& font); //returns width of character
-	uint16 DrawText(uint16 x, uint16 y, uint8* str, DrawMode mode, const Font& font); //returns width of text
+	void DrawPixel(sint16 x, sint16 y, DrawMode mode);
+	void DrawLine(sint16 x, sint16 y, uint16 delta_x, uint16 delta_y, DrawMode mode);
+	void DrawRect(sint16 x, sint16 y, uint16 width, uint16 height, DrawMode mode);
+	void DrawFilledRect(sint16 x, sint16 y, uint16 width, uint16 height, DrawMode mode);
+	uint16 DrawChar(sint16 x, sint16 y, uint8 ch, DrawMode mode, const Font& font); //returns width of character, including margin
+	uint16 DrawText(sint16 x, sint16 y, uint8* str, DrawMode mode, const Font& font); //returns width of text
 };
 
 #endif // _DISPLAY_H_

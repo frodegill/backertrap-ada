@@ -13,14 +13,14 @@ Display::~Display()
 {
 }
 
-void Display::DrawPixel(uint16 x, uint16 y, DrawMode mode)
+void Display::DrawPixel(sint16 x, sint16 y, DrawMode mode)
 {
 	uint16 display_width = GetWidth();
-	if (x >= display_width)
+	if (x<0 || x>=static_cast<sint16>(display_width))
 		return;
 
 	uint16 display_height = GetHeight();
-	if (y >= display_height)
+	if (y<0 || y>=static_cast<sint16>(display_height))
 		return;
 
 	uint8* framebuffer = GetFramebuffer();
@@ -38,7 +38,7 @@ void Display::DrawPixel(uint16 x, uint16 y, DrawMode mode)
 	}
 }
 
-void Display::DrawLine(uint16 x, uint16 y, uint16 delta_x, uint16 delta_y, DrawMode mode)
+void Display::DrawLine(sint16 x, sint16 y, uint16 delta_x, uint16 delta_y, DrawMode mode)
 {
 	double delta;
 	uint16 i;
@@ -60,7 +60,7 @@ void Display::DrawLine(uint16 x, uint16 y, uint16 delta_x, uint16 delta_y, DrawM
 	}
 }
 
-void Display::DrawRect(uint16 x, uint16 y, uint16 width, uint16 height, DrawMode mode)
+void Display::DrawRect(sint16 x, sint16 y, uint16 width, uint16 height, DrawMode mode)
 {
 	if (width<=2 || height<=2)
 	{
@@ -82,7 +82,7 @@ void Display::DrawRect(uint16 x, uint16 y, uint16 width, uint16 height, DrawMode
 	}
 }
 
-void Display::DrawFilledRect(uint16 x, uint16 y, uint16 width, uint16 height, DrawMode mode)
+void Display::DrawFilledRect(sint16 x, sint16 y, uint16 width, uint16 height, DrawMode mode)
 {
 	uint16 i, j;
 	for (i=0; i<width; i++)
@@ -94,18 +94,45 @@ void Display::DrawFilledRect(uint16 x, uint16 y, uint16 width, uint16 height, Dr
 	}
 }
 
-uint16 Display::DrawChar(uint16 UNUSED(x), uint16 UNUSED(y), uint8 UNUSED(ch), DrawMode UNUSED(mode), const Font& UNUSED(font)) //returns width of character
+uint16 Display::DrawChar(sint16 x, sint16 y, uint8 ch, DrawMode mode, const Font& font) //returns width of character, including margin
 {
-	return 0;
+	const uint8* ch_data = font.GetFontdata(ch);
+	const uint8 ch_width = *ch_data;
+
+	int row, col, bit;
+	for (row=0; row<font.GetHeight(); row++)
+	{
+		ch_data++;
+		bit = 7;
+		for (col=0; col<ch_width; col++)
+		{
+			if (*ch_data&1<<bit)
+			{
+				DrawPixel(x+col, y+row, mode);
+			}
+			
+			if (bit==0)
+			{
+				bit = 7;
+				ch_data++;
+			}
+			else
+			{
+				bit--;
+			}
+		}
+	}
+
+	return ch_width + font.GetMargin();
 }
 
-uint16 Display::DrawText(uint16 x, uint16 y, uint8* str, DrawMode mode, const Font& font) //returns width of text
+uint16 Display::DrawText(sint16 x, sint16 y, uint8* str, DrawMode mode, const Font& font) //returns width of text
 {
 	uint16 text_width = 0;
 
 	uint16 display_width = GetWidth();
 	uint16 display_height = GetHeight();
-	if (y < display_height)
+	if ((y+font.GetHeight())>=0 && y<static_cast<sint16>(display_height))
 	{
 		uint8 ch;
 		while ((ch=*str++) && (x+text_width)<display_width)
