@@ -2,16 +2,14 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for license
 
-#ifdef PRECOMP
-# include "../../pch.h"
-#else
-#endif
-
 #include "font.h"
 
-const uint8 g_BMRizerFont6_alphabeth[] = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz";
+#include "avr/pgmspace.h"
 
-uint8 g_BMRizerFont6_font[] = {
+
+const uint8 g_BMRizerFont6_alphabet_p[] PROGMEM = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz";
+
+const uint8 g_BMRizerFont6_font_p[] PROGMEM = {
 6, //[SPACE]
 0b00000000,
 0b00000000,
@@ -718,22 +716,12 @@ BMRizerFont6::~BMRizerFont6()
 {
 }
 
-const uint8* BMRizerFont6::GetAlphabeth() const
+uint8 BMRizerFont6::GetAlphabetByte(uint8 pos) const
 {
-	return &g_BMRizerFont6_alphabeth[0];
+	return pgm_read_byte(&g_BMRizerFont6_font_p[pos]);
 }
 
-uint8 BMRizerFont6::GetHeight() const
+uint8 BMRizerFont6::GetFontdataByte(uint16 ch_offset, uint8 pos) const
 {
-	return 6;
-}
-
-uint8 BMRizerFont6::GetMargin() const
-{
-	return 1;
-}
-
-const uint8* BMRizerFont6::GetFontdata() const
-{
-	return &g_BMRizerFont6_font[0];
+	return pgm_read_byte(&g_BMRizerFont6_font_p[ch_offset+pos]);
 }

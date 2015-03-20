@@ -2,16 +2,14 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for license
 
-#ifdef PRECOMP
-# include "../../pch.h"
-#else
-#endif
-
 #include "font.h"
 
-const uint8 g_BMPlainFont7_alphabeth[] = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+#include "avr/pgmspace.h"
 
-uint8 g_BMPlainFont7_font[] = {
+
+const uint8 g_BMPlainFont7_alphabet_p[] PROGMEM = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+
+const uint8 g_BMPlainFont7_font_p[] PROGMEM = {
 4, //[SPACE]
 0b00000000,
 0b00000000,
@@ -832,22 +830,12 @@ BMPlainFont7::~BMPlainFont7()
 {
 }
 
-const uint8* BMPlainFont7::GetAlphabeth() const
+uint8 BMPlainFont7::GetAlphabetByte(uint8 pos) const
 {
-	return &g_BMPlainFont7_alphabeth[0];
+	return pgm_read_byte(&g_BMPlainFont7_alphabet_p[pos]);
 }
 
-uint8 BMPlainFont7::GetHeight() const
+uint8 BMPlainFont7::GetFontdataByte(uint16 ch_offset, uint8 pos) const
 {
-	return 7;
-}
-
-uint8 BMPlainFont7::GetMargin() const
-{
-	return 1;
-}
-
-const uint8* BMPlainFont7::GetFontdata() const
-{
-	return &g_BMPlainFont7_font[0];
+	return pgm_read_byte(&g_BMPlainFont7_font_p[ch_offset+pos]);
 }

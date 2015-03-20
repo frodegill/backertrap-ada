@@ -18,19 +18,27 @@ Font::~Font()
 {
 }
 
-const uint8* Font::GetFontdata(uint8 ch) const
+uint16 Font::GetFontdataChOffset(uint8 ch) const
 {
 	uint8 font_height = GetHeight();
-	const uint8* alphabeth = GetAlphabeth();
-	const uint8* alpha_ptr = alphabeth;
-	while (*alpha_ptr && *(alpha_ptr+1) && *alpha_ptr!=ch) alpha_ptr++;
-
-	const uint8* fontdata = GetFontdata();
-	int i;
-	for (i=0; i<(alpha_ptr-alphabeth); i++)
+	uint8 font_width;
+	uint8 alphabet_pos = 0;
+	uint8 alphabet_byte;
+	uint16 offset = 0;
+	while(true)
 	{
-		fontdata += ((*fontdata>>3)+1)*font_height + 1;
-	}
+		alphabet_byte = GetAlphabetByte(alphabet_pos);
+		if (alphabet_byte == ch)
+		{
+			return offset;
+		}
+		else if (alphabet_byte == 0)
+		{
+			return 0;
+		}
 
-	return fontdata;
+		font_width = GetFontdataByte(offset, 0);
+		offset += (1 + ((font_width>>3)+1)*font_height);
+		alphabet_pos++;
+	}
 }

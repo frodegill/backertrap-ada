@@ -14,13 +14,12 @@ public:
 	~Font();
 
 public:
-	const uint8* GetAlphabeth() const {return NULL;}
 	uint8 GetHeight() const {return 0;}
-	uint8 GetMargin() const {return 0;}
-	const uint8* GetFontdata(uint8 ch) const;
+	uint8 GetMargin() const {return 1;}
 
-protected:
-	const uint8* GetFontdata() const {return NULL;}
+	uint8 GetAlphabetByte(uint8 UNUSED(pos)) const {return 0;}
+	uint16 GetFontdataChOffset(uint8 ch) const;
+	uint8 GetFontdataByte(uint16 UNUSED(ch_offset), uint8 UNUSED(pos)) const {return 0;}
 
 };
 

@@ -96,17 +96,17 @@ void Display::DrawFilledRect(sint16 x, sint16 y, uint16 width, uint16 height, Dr
 
 uint16 Display::DrawChar(sint16 x, sint16 y, uint8 ch, DrawMode mode, const Font& font) //returns width of character, including margin
 {
-	const uint8* ch_data = font.GetFontdata(ch);
-	const uint8 ch_width = *ch_data;
+	uint16 ch_offset = font.GetFontdataChOffset(ch);
+	uint8 ch_width = font.GetFontdataByte(ch_offset, 0);
 
-	int row, col, bit;
+	uint8 row, col, bit, ch_data, pos=0;
 	for (row=0; row<font.GetHeight(); row++)
 	{
-		ch_data++;
+		ch_data = font.GetFontdataByte(ch_offset, ++pos);
 		bit = 7;
 		for (col=0; col<ch_width; col++)
 		{
-			if (*ch_data&1<<bit)
+			if (ch_data&(1<<bit))
 			{
 				DrawPixel(x+col, y+row, mode);
 			}
@@ -114,7 +114,7 @@ uint16 Display::DrawChar(sint16 x, sint16 y, uint8 ch, DrawMode mode, const Font
 			if (bit==0)
 			{
 				bit = 7;
-				ch_data++;
+				ch_data = font.GetFontdataByte(ch_offset, ++pos);
 			}
 			else
 			{

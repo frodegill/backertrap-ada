@@ -2,16 +2,14 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for license
 
-#ifdef PRECOMP
-# include "../../pch.h"
-#else
-#endif
-
 #include "font.h"
 
-const uint8 g_VolterFont9_alphabeth[] = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+#include "avr/pgmspace.h"
 
-uint8 g_VolterFont9_font[] = {
+
+const uint8 g_VolterFont9_alphabet_p[] PROGMEM = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+
+const uint8 g_VolterFont9_font_p[] PROGMEM = {
 4, //[SPACE]
 0b00000000,
 0b00000000,
@@ -1001,22 +999,12 @@ VolterFont9::~VolterFont9()
 {
 }
 
-const uint8* VolterFont9::GetAlphabeth() const
+uint8 VolterFont9::GetAlphabetByte(uint8 pos) const
 {
-	return &g_VolterFont9_alphabeth[0];
+	return pgm_read_byte(&g_VolterFont9_font_p[pos]);
 }
 
-uint8 VolterFont9::GetHeight() const
+uint8 VolterFont9::GetFontdataByte(uint16 ch_offset, uint8 pos) const
 {
-	return 9;
-}
-
-uint8 VolterFont9::GetMargin() const
-{
-	return 1;
-}
-
-const uint8* VolterFont9::GetFontdata() const
-{
-	return &g_VolterFont9_font[0];
+	return pgm_read_byte(&g_VolterFont9_font_p[ch_offset+pos]);
 }

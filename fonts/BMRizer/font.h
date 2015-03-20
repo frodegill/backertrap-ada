@@ -17,12 +17,10 @@ public:
   ~BMRizerFont6();
 
 public:
-	const uint8* GetAlphabeth() const;
-	uint8 GetHeight() const;
-	uint8 GetMargin() const;
+	uint8 GetHeight() const {return 6;}
 
-protected:
-	const uint8* GetFontdata() const;
+	uint8 GetAlphabetByte(uint8 pos) const;
+	uint8 GetFontdataByte(uint16 ch_offset, uint8 pos) const;
 
 };
 
