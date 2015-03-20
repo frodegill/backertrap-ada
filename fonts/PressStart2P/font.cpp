@@ -2,16 +2,14 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for license
 
-#ifdef PRECOMP
-# include "../../pch.h"
-#else
-#endif
-
 #include "font.h"
 
-const uint8 g_PressStart2PFont8_alphabeth[] = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+#include "avr/pgmspace.h"
 
-uint8 g_PressStart2PFont8_font[] = {
+
+const uint8 g_PressStart2PFont8_alphabeth[] PROGMEM = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+
+const uint8 g_PressStart2PFont8_font[] PROGMEM = {
 4, //[SPACE]
 0b00000000,
 0b00000000,
@@ -911,22 +909,12 @@ PressStart2PFont8::~PressStart2PFont8()
 {
 }
 
-const uint8* PressStart2PFont8::GetAlphabeth() const
+uint8 PressStart2PFont8::GetAlphabetByte(uint8 pos) const
 {
-  return &g_PressStart2PFont8_alphabeth[0];
+	return pgm_read_byte(&g_PressStart2PFont8_font[pos]);
 }
 
-uint8 PressStart2PFont8::GetHeight() const
+uint8 PressStart2PFont8::GetFontdataByte(uint16 ch_offset, uint8 pos) const
 {
-  return 12;
-}
-
-uint8 PressStart2PFont8::GetMargin() const
-{
-  return 1;
-}
-
-const uint8* PressStart2PFont8::GetFontdata() const
-{
-  return &g_PressStart2PFont8_font[0];
+	return pgm_read_byte(&g_PressStart2PFont8_font[ch_offset+pos]);
 }
