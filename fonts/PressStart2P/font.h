@@ -4,7 +4,7 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for license
 //
-// Font-data from <URL: http://www.dafont.com/free-pixel.font?fpp=100&l[]=10&l[]=1 >
+// Font-data from <URL: http://www.dafont.com/press-start-2p.font?fpp=100&l[]=10&l[]=1 >
 
 #include "../../defines.h"
 #include "../font.h"
