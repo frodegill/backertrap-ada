@@ -1,38 +1,91 @@
 #
 # Based on Makefile from <URL: http://hak5.org/forums/index.php?showtopic=2077&p=27959 >
+# and <URL: http://web.mit.edu/pricem/work/6.270/Makefile >
+#
+# For Makefile documentation, see <URL: http://www.gnu.org/software/make/manual/make.html >
 
 PROGRAM = backertrap-ada
-BOARD = XMEGA256A3
-
-############# Main application #################
-all:    $(PROGRAM)
-.PHONY: all
-
-# source files
+BOARD = ATXMEGAA3BU_XPLD
+MCU = atxmega256a3
 DEBUG_INFO = YES
-SOURCES = $(shell find . -name '*.cpp')
-OBJECTS = $(SOURCES:.cpp=.o)
+FORMAT = ihex
+
+##########
+
+SRC = $(shell find . -name '*.cpp')
+ASM_SRC = $(shell find . -name '*.S')
+OBJECTS = $(SRC:.cpp=.o) $(ASM_SRC:.S=.o)
+LISTING = $(SRC:.cpp=.lst) $(ASM_SRC:.S=.lst)
 DEPS = $(OBJECTS:.o=.dep)
 
-######## compiler- and linker settings #########
+##########
+
 CPP = avr-g++
-CPPFLAGS = -D$(BOARD) -W -Wall -Werror -pipe -I/usr/lib/avr/include
-LIBSFLAGS = -L/usr/lib/avr/lib
+OBJCOPY = avr-objcopy
+OBJDUMP = avr-objdump
+SIZE = avr-size
+NM = avr-nm
+
+CPP_FLAGS = -D$(BOARD) \
+           -mmcu=$(MCU) -DF_CPU=32000000l -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
+           -W -Wall -Werror -pipe \
+           -I/usr/lib/avr/include
 ifdef DEBUG_INFO
- CPPFLAGS += -g
+ CPP_FLAGS += -g
 else
- CPPFLAGS += -O
+ CPP_FLAGS += -O
 endif
 
-%.o: %.cpp
-	$(CPP) $(CPPFLAGS) -o $@ -c $<
+ASM_FLAGS = -mmcu=$(MCU) -x assembler-with-cpp -Wa,-adhlns=$(<:.S=.lst),-gstabs
+
+LIBS_FLAGS = -L/usr/lib/avr/lib
+
+##########
+
+all:    build
+.PHONY: clean all build elf hex eep lss sym size
+
+build: elf hex eep lss sym size
+
+elf: $(PROGRAM).elf
+
+hex: $(PROGRAM).hex
+
+eep: $(PROGRAM).eep
+
+lss: $(PROGRAM).lss
+
+sym: $(PROGRAM).sym
+
+size: $(PROGRAM).size
 
 %.dep: %.cpp
-	$(CPP) $(CPPFLAGS) -MM $< -MT $(<:.cpp=.o) > $@
+	$(CPP) $(CPP_FLAGS) -MM $< -MT $(<:.cpp=.o) > $@
 
-############# Main application #################
-$(PROGRAM):	$(OBJECTS) $(DEPS)
-	$(CPP) -o $@ $(OBJECTS) $(LIBSFLAGS)
+%.o: %.cpp
+	$(CPP) $(CPP_FLAGS) -o $@ -c $<
+
+%.o: %.S
+	$(CPP) $(CPP_FLAGS) -o $@ -c $<
+
+%.elf: $(DEPS) $(OBJECTS)
+	$(CPP) $(CPP_FLAGS) $(OBJECTS) --output $@ $(LDFLAGS)
+
+%.hex: %.elf
+	$(OBJCOPY) -O $(FORMAT) -R .eeprom $< $@
+
+%.eep: %.elf
+	-$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" \
+	--change-section-lma .eeprom=0 -O $(FORMAT) $< $@
+
+%.lss: %.elf
+	$(OBJDUMP) -h -S $< > $@
+
+%.sym: %.elf
+	$(NM) -n $< > $@
+
+%.size: %.elf
+	$(SIZE) -A $<
 
 ################ Dependencies ##################
 ifneq ($(MAKECMDGOALS),clean)
@@ -42,4 +95,5 @@ endif
 ################### Clean ######################
 clean:
 	find . -name '*~' -delete
-	-rm -f $(PROGRAM) $(OBJECTS) $(DEPS)
+	-rm -f $(DEPS) $(OBJECTS) \
+		$(PROGRAM) $(PROGRAM).elf $(PROGRAM).hex $(PROGRAM).eep $(PROGRAM).lss $(PROGRAM).sym

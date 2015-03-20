@@ -8,5 +8,10 @@ passwd
 *.o
 *.dep
 
-# Executables
+# Application files
 backertrap-ada
+backertrap-ada.eep
+backertrap-ada.elf
+backertrap-ada.hex
+backertrap-ada.lss
+backertrap-ada.sym
