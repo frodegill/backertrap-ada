@@ -35,8 +35,8 @@ public:
 	uint8* GetFramebuffer() const {return NULL;}
 
 public:
-	void SetBrightness(double UNUSED(brightness)) {}
-	void SetBacklightStatus(BacklightStatus UNUSED(status)) {}
+	void SetBrightness(double UNUSED_PARAM(brightness)) {}
+	void SetBacklightStatus(BacklightStatus UNUSED_PARAM(status)) {}
 
 	void ClearDisplay() {}
 	void RefreshDisplay() {}

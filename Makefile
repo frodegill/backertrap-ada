@@ -5,7 +5,7 @@
 # For Makefile documentation, see <URL: http://www.gnu.org/software/make/manual/make.html >
 
 PROGRAM = backertrap-ada
-BOARD = ATXMEGAA3BU_XPLD
+BOARD = XMEGA_A3BU_XPLAINED
 MCU = atxmega256a3
 DEBUG_INFO = YES
 FORMAT = ihex
@@ -26,10 +26,15 @@ OBJDUMP = avr-objdump
 SIZE = avr-size
 NM = avr-nm
 
-CPP_FLAGS = -D$(BOARD) \
+CPP_FLAGS = -DBOARD=$(BOARD) \
            -mmcu=$(MCU) -DF_CPU=32000000l -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
            -W -Wall -Werror -pipe \
-           -I/usr/lib/avr/include
+           -I/usr/lib/avr/include \
+           -I./3rd-party/Atmel \
+           -I./3rd-party/Atmel/common/services/ioport \
+           -I./3rd-party/Atmel/common/utils \
+           -I./3rd-party/Atmel/xmega/utils \
+           -I./3rd-party/Atmel/xmega/utils/preprosessor
 ifdef DEBUG_INFO
  CPP_FLAGS += -g
 else

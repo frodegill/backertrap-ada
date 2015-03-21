@@ -4,7 +4,7 @@
 
 #include "font.h"
 
-#include "avr/pgmspace.h"
+#include "xmega/utils/progmem.h"
 
 
 const uint8 g_FreePixelFont12_alphabet_p[] PROGMEM = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";

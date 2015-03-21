@@ -17,9 +17,9 @@ public:
 	uint8 GetHeight() const {return 0;}
 	uint8 GetMargin() const {return 1;}
 
-	uint8 GetAlphabetByte(uint8 UNUSED(pos)) const {return 0;}
+	uint8 GetAlphabetByte(uint8 UNUSED_PARAM(pos)) const {return 0;}
 	uint16 GetFontdataChOffset(uint8 ch) const;
-	uint8 GetFontdataByte(uint16 UNUSED(ch_offset), uint8 UNUSED(pos)) const {return 0;}
+	uint8 GetFontdataByte(uint16 UNUSED_PARAM(ch_offset), uint8 UNUSED_PARAM(pos)) const {return 0;}
 
 };
 

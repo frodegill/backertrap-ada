@@ -18,8 +18,8 @@ public:
 	uint16 GetHeight() const {return 32;}
 	
 public:
-	void SetBrightness(double UNUSED(brightness)) {}
-	void SetBacklightStatus(Display::BacklightStatus UNUSED(status)) {}
+	void SetBrightness(double UNUSED_PARAM(brightness)) {}
+	void SetBacklightStatus(Display::BacklightStatus status);
 
 	void ClearDisplay() {}
 	void RefreshDisplay() {}
