@@ -31,8 +31,20 @@ CPP_FLAGS = -DBOARD=$(BOARD) \
            -W -Wall -Werror -pipe \
            -I/usr/lib/avr/include \
            -I./3rd-party/Atmel \
+           -I./3rd-party/Atmel/common/boards \
+           -I./3rd-party/Atmel/common/services/clock \
+           -I./3rd-party/Atmel/common/services/delay \
+           -I./3rd-party/Atmel/common/services/gpio \
            -I./3rd-party/Atmel/common/services/ioport \
+           -I./3rd-party/Atmel/common/services/sleepmgr \
+           -I./3rd-party/Atmel/common/services/spi \
            -I./3rd-party/Atmel/common/utils \
+           -I./3rd-party/Atmel/xmega/boards \
+           -I./3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained \
+           -I./3rd-party/Atmel/xmega/drivers/cpu \
+           -I./3rd-party/Atmel/xmega/drivers/pmic \
+           -I./3rd-party/Atmel/xmega/drivers/sleep \
+           -I./3rd-party/Atmel/xmega/drivers/usart \
            -I./3rd-party/Atmel/xmega/utils \
            -I./3rd-party/Atmel/xmega/utils/preprosessor
 ifdef DEBUG_INFO

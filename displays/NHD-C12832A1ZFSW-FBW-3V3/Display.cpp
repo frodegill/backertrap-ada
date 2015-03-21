@@ -16,5 +16,5 @@ DisplayNHDC12832A1ZFSWFBW3V3::~DisplayNHDC12832A1ZFSWFBW3V3()
 
 void DisplayNHDC12832A1ZFSWFBW3V3::SetBacklightStatus(Display::BacklightStatus status)
 {
-    arch_ioport_set_pin_level(NHD_C12832A1Z_BACKLIGHT, Display::OFF != status);
+    ioport_set_pin_level(NHD_C12832A1Z_BACKLIGHT, Display::OFF != status);
 }
