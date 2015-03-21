@@ -7,9 +7,9 @@
 #include "xmega/utils/progmem.h"
 
 
-const uint8 g_BMPlainFont7_alphabet_p[] PROGMEM = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+const U8 g_BMPlainFont7_alphabet_p[] PROGMEM = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
 
-const uint8 g_BMPlainFont7_font_p[] PROGMEM = {
+const U8 g_BMPlainFont7_font_p[] PROGMEM = {
 4, //[SPACE]
 0b00000000,
 0b00000000,
@@ -830,12 +830,12 @@ BMPlainFont7::~BMPlainFont7()
 {
 }
 
-uint8 BMPlainFont7::GetAlphabetByte(uint8 pos) const
+U8 BMPlainFont7::GetAlphabetByte(U8 pos) const
 {
 	return pgm_read_byte(&g_BMPlainFont7_alphabet_p[pos]);
 }
 
-uint8 BMPlainFont7::GetFontdataByte(uint16 ch_offset, uint8 pos) const
+U8 BMPlainFont7::GetFontdataByte(U16 ch_offset, U8 pos) const
 {
 	return pgm_read_byte(&g_BMPlainFont7_font_p[ch_offset+pos]);
 }

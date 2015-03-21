@@ -18,13 +18,13 @@ Font::~Font()
 {
 }
 
-uint16 Font::GetFontdataChOffset(uint8 ch) const
+U16 Font::GetFontdataChOffset(U8 ch) const
 {
-	uint8 font_height = GetHeight();
-	uint8 font_width;
-	uint8 alphabet_pos = 0;
-	uint8 alphabet_byte;
-	uint16 offset = 0;
+	U8 font_height = GetHeight();
+	U8 font_width;
+	U8 alphabet_pos = 0;
+	U8 alphabet_byte;
+	U16 offset = 0;
 	while(true)
 	{
 		alphabet_byte = GetAlphabetByte(alphabet_pos);

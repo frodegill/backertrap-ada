@@ -29,8 +29,4 @@
 # define NULL (0L)
 #endif
 
-typedef unsigned char  uint8;
-typedef unsigned short uint16;
-typedef signed short   sint16;
-
 #endif // _DEFINES_H_

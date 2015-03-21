@@ -7,9 +7,9 @@
 #include "xmega/utils/progmem.h"
 
 
-const uint8 g_BMRizerFont6_alphabet_p[] PROGMEM = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz";
+const U8 g_BMRizerFont6_alphabet_p[] PROGMEM = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz";
 
-const uint8 g_BMRizerFont6_font_p[] PROGMEM = {
+const U8 g_BMRizerFont6_font_p[] PROGMEM = {
 6, //[SPACE]
 0b00000000,
 0b00000000,
@@ -716,12 +716,12 @@ BMRizerFont6::~BMRizerFont6()
 {
 }
 
-uint8 BMRizerFont6::GetAlphabetByte(uint8 pos) const
+U8 BMRizerFont6::GetAlphabetByte(U8 pos) const
 {
 	return pgm_read_byte(&g_BMRizerFont6_font_p[pos]);
 }
 
-uint8 BMRizerFont6::GetFontdataByte(uint16 ch_offset, uint8 pos) const
+U8 BMRizerFont6::GetFontdataByte(U16 ch_offset, U8 pos) const
 {
 	return pgm_read_byte(&g_BMRizerFont6_font_p[ch_offset+pos]);
 }

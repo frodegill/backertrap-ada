@@ -30,9 +30,9 @@ public:
 	~Display();
 
 public:
-	uint16 GetWidth() const {return 0;}
-	uint16 GetHeight() const {return 0;}
-	uint8* GetFramebuffer() const {return NULL;}
+	U16 GetWidth() const {return 0;}
+	U16 GetHeight() const {return 0;}
+	U8* GetFramebuffer() const {return NULL;}
 
 public:
 	void SetBrightness(double UNUSED_PARAM(brightness)) {}
@@ -41,12 +41,12 @@ public:
 	void ClearDisplay() {}
 	void RefreshDisplay() {}
 
-	void DrawPixel(sint16 x, sint16 y, DrawMode mode);
-	void DrawLine(sint16 x, sint16 y, uint16 delta_x, uint16 delta_y, DrawMode mode);
-	void DrawRect(sint16 x, sint16 y, uint16 width, uint16 height, DrawMode mode);
-	void DrawFilledRect(sint16 x, sint16 y, uint16 width, uint16 height, DrawMode mode);
-	uint16 DrawChar(sint16 x, sint16 y, uint8 ch, DrawMode mode, const Font& font); //returns width of character, including margin
-	uint16 DrawText(sint16 x, sint16 y, uint8* str, DrawMode mode, const Font& font); //returns width of text
+	void DrawPixel(S16 x, S16 y, DrawMode mode);
+	void DrawLine(S16 x, S16 y, U16 delta_x, U16 delta_y, DrawMode mode);
+	void DrawRect(S16 x, S16 y, U16 width, U16 height, DrawMode mode);
+	void DrawFilledRect(S16 x, S16 y, U16 width, U16 height, DrawMode mode);
+	U16 DrawChar(S16 x, S16 y, U8 ch, DrawMode mode, const Font& font); //returns width of character, including margin
+	U16 DrawText(S16 x, S16 y, U8* str, DrawMode mode, const Font& font); //returns width of text
 };
 
 #endif // _DISPLAY_H_

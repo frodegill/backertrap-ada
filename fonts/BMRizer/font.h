@@ -17,10 +17,10 @@ public:
   ~BMRizerFont6();
 
 public:
-	uint8 GetHeight() const {return 6;}
+	U8 GetHeight() const {return 6;}
 
-	uint8 GetAlphabetByte(uint8 pos) const;
-	uint8 GetFontdataByte(uint16 ch_offset, uint8 pos) const;
+	U8 GetAlphabetByte(U8 pos) const;
+	U8 GetFontdataByte(U16 ch_offset, U8 pos) const;
 
 };
 

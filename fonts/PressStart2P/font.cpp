@@ -7,9 +7,9 @@
 #include "xmega/utils/progmem.h"
 
 
-const uint8 g_PressStart2PFont8_alphabeth[] PROGMEM = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+const U8 g_PressStart2PFont8_alphabeth[] PROGMEM = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
 
-const uint8 g_PressStart2PFont8_font[] PROGMEM = {
+const U8 g_PressStart2PFont8_font[] PROGMEM = {
 4, //[SPACE]
 0b00000000,
 0b00000000,
@@ -909,12 +909,12 @@ PressStart2PFont8::~PressStart2PFont8()
 {
 }
 
-uint8 PressStart2PFont8::GetAlphabetByte(uint8 pos) const
+U8 PressStart2PFont8::GetAlphabetByte(U8 pos) const
 {
 	return pgm_read_byte(&g_PressStart2PFont8_font[pos]);
 }
 
-uint8 PressStart2PFont8::GetFontdataByte(uint16 ch_offset, uint8 pos) const
+U8 PressStart2PFont8::GetFontdataByte(U16 ch_offset, U8 pos) const
 {
 	return pgm_read_byte(&g_PressStart2PFont8_font[ch_offset+pos]);
 }

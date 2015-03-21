@@ -14,8 +14,8 @@ public:
 	~DisplayNHDC12832A1ZFSWFBW3V3();
 
 public:
-	uint16 GetWidth() const {return 128;}
-	uint16 GetHeight() const {return 32;}
+	U16 GetWidth() const {return 128;}
+	U16 GetHeight() const {return 32;}
 	
 public:
 	void SetBrightness(double UNUSED_PARAM(brightness)) {}
