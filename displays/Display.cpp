@@ -97,12 +97,16 @@ void Display::DrawFilledRect(S16 x, S16 y, U16 width, U16 height, DrawMode mode)
 U16 Display::DrawChar(S16 x, S16 y, U8 ch, DrawMode mode, const Font& font) //returns width of character, including margin
 {
 	U16 ch_offset = font.GetFontdataChOffset(ch);
-	U8 ch_width = font.GetFontdataByte(ch_offset, 0);
+  U8 pos = 0;
+	U8 ch_width = font.GetFontdataByte(ch_offset, pos++);
+  U8 ch_height = font.GetFontdataByte(ch_offset, pos++);
+  U8 ch_vertical_offset = (ch_height&0xF0)>>4;  
+  ch_height = ch_height&0x0F;
 
-	U8 row, col, bit, ch_data, pos=0;
-	for (row=0; row<font.GetHeight(); row++)
+	U8 row, col, bit, ch_data;
+	for (row=ch_vertical_offset; row<(ch_vertical_offset+ch_height); row++)
 	{
-		ch_data = font.GetFontdataByte(ch_offset, ++pos);
+		ch_data = font.GetFontdataByte(ch_offset, pos++);
 		bit = 7;
 		for (col=0; col<ch_width; col++)
 		{
@@ -114,7 +118,7 @@ U16 Display::DrawChar(S16 x, S16 y, U8 ch, DrawMode mode, const Font& font) //re
 			if (bit==0)
 			{
 				bit = 7;
-				ch_data = font.GetFontdataByte(ch_offset, ++pos);
+				ch_data = font.GetFontdataByte(ch_offset, pos++);
 			}
 			else
 			{
@@ -126,13 +130,13 @@ U16 Display::DrawChar(S16 x, S16 y, U8 ch, DrawMode mode, const Font& font) //re
 	return ch_width + font.GetMargin();
 }
 
-U16 Display::DrawText(S16 x, S16 y, U8* str, DrawMode mode, const Font& font) //returns width of text
+U16 Display::DrawText(S16 x, S16 y, const U8* str, DrawMode mode, const Font& font) //returns width of text
 {
 	U16 text_width = 0;
 
 	U16 display_width = GetWidth();
 	U16 display_height = GetHeight();
-	if ((y+font.GetHeight())>=0 && y<static_cast<S16>(display_height))
+	if ((y+font.GetFontHeight())>=0 && y<static_cast<S16>(display_height))
 	{
 		U8 ch;
 		while ((ch=*str++) && (x+text_width)<display_width)

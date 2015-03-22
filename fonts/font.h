@@ -7,6 +7,8 @@
 #include "../defines.h"
 
 
+#define CHAR_SIZE(x,y,y_offset) (x&0xFF),((y_offset&0x0F)<<4)|(y&0x0F)
+
 class Font
 {
 public:
@@ -14,7 +16,7 @@ public:
 	~Font();
 
 public:
-	U8 GetHeight() const {return 0;}
+	U8 GetFontHeight() const {return 0;}
 	U8 GetMargin() const {return 1;}
 
 	U8 GetAlphabetByte(U8 UNUSED_PARAM(pos)) const {return 0;}

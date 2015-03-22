@@ -20,8 +20,7 @@ Font::~Font()
 
 U16 Font::GetFontdataChOffset(U8 ch) const
 {
-	U8 font_height = GetHeight();
-	U8 font_width;
+	U8 ch_width, ch_height;
 	U8 alphabet_pos = 0;
 	U8 alphabet_byte;
 	U16 offset = 0;
@@ -37,8 +36,9 @@ U16 Font::GetFontdataChOffset(U8 ch) const
 			return 0;
 		}
 
-		font_width = GetFontdataByte(offset, 0);
-		offset += (1 + ((font_width>>3)+1)*font_height);
+		ch_width = GetFontdataByte(offset, 0);
+    ch_height = GetFontdataByte(offset, 1)&0x0F;
+		offset += (1 + 1 + ((ch_width>>3)+1)*ch_height);
 		alphabet_pos++;
 	}
 }

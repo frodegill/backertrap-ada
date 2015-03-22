@@ -17,7 +17,7 @@ public:
   ~FreePixelFont12();
 
 public:
-	U8 GetHeight() const {return 12;}
+	U8 GetFontHeight() const {return 12;}
 
 	U8 GetAlphabetByte(U8 pos) const;
 	U8 GetFontdataByte(U16 ch_offset, U8 pos) const;
