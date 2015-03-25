@@ -13,49 +13,74 @@ FORMAT = ihex
 ##########
 
 SRC = $(shell find . -name '*.cpp')
-ASM_SRC = $(shell find . -name '*.S')
-OBJECTS = $(SRC:.cpp=.o) $(ASM_SRC:.S=.o)
-LISTING = $(SRC:.cpp=.lst) $(ASM_SRC:.S=.lst)
+CSRC = $(shell find . -name '*.c')
+ASM_SRC = ./3rd-party/Atmel/xmega/applications/xmega_a3bu_xplained_demo/qtouch/qt_asm_xmega.s \
+          ./3rd-party/Atmel/xmega/drivers/cpu/ccp.s \
+          ./3rd-party/Atmel/xmega/drivers/nvm/nvm_asm.s
+OBJECTS = $(SRC:.cpp=.o) $(CSRC:.c=.o) $(ASM_SRC:.s=.o)
+LISTING = $(SRC:.cpp=.lst) $(CSRC:.c=.lst) $(ASM_SRC:.s=.lst)
 DEPS = $(OBJECTS:.o=.dep)
 
 ##########
 
+CC  = avr-gcc
 CPP = avr-g++
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
 SIZE = avr-size
 NM = avr-nm
+LD = avg-gcc
 
-CPP_FLAGS = -DBOARD=$(BOARD) \
-           -mmcu=$(MCU) -DF_CPU=32000000l -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
-           -W -Wall -Werror -pipe \
-           -I/usr/lib/avr/include \
-           -I./3rd-party/Atmel \
-           -I./3rd-party/Atmel/common/boards \
-           -I./3rd-party/Atmel/common/services/clock \
-           -I./3rd-party/Atmel/common/services/delay \
-           -I./3rd-party/Atmel/common/services/gpio \
-           -I./3rd-party/Atmel/common/services/ioport \
-           -I./3rd-party/Atmel/common/services/sleepmgr \
-           -I./3rd-party/Atmel/common/services/spi \
-           -I./3rd-party/Atmel/common/utils \
-           -I./3rd-party/Atmel/xmega/boards \
-           -I./3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained \
-           -I./3rd-party/Atmel/xmega/drivers/cpu \
-           -I./3rd-party/Atmel/xmega/drivers/pmic \
-           -I./3rd-party/Atmel/xmega/drivers/sleep \
-           -I./3rd-party/Atmel/xmega/drivers/usart \
-           -I./3rd-party/Atmel/xmega/utils \
-           -I./3rd-party/Atmel/xmega/utils/preprosessor
+CXX_FLAGS = -DBOARD=$(BOARD) \
+            -D CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA \
+            -D GFX_MONO_C12832_A1Z=1 \
+            -D IOPORT_XMEGA_COMPAT \
+            -D NUMBER_OF_PORTS=1 \
+            -D QTOUCH_STUDIO_MASKS=1 \
+            -D QT_DELAY_CYCLES=1 \
+            -D QT_NUM_CHANNELS=4 \
+            -D SNS=F \
+            -D SNSK=F \
+            -D _QTOUCH_ \
+            -D _SNS1_SNSK1_SAME_PORT_ \
+            -mmcu=$(MCU) -DF_CPU=32000000l -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
+            -W -Wall -pipe \
+            -I/usr/lib/avr/include \
+            -I. \
+            -isystem ./3rd-party/Atmel \
+            -isystem ./3rd-party/Atmel/common/boards \
+            -isystem ./3rd-party/Atmel/common/components/display/st7565r \
+            -isystem ./3rd-party/Atmel/common/services/clock \
+            -isystem ./3rd-party/Atmel/common/services/delay \
+            -isystem ./3rd-party/Atmel/common/services/gpio \
+            -isystem ./3rd-party/Atmel/common/services/ioport \
+            -isystem ./3rd-party/Atmel/common/services/sleepmgr \
+            -isystem ./3rd-party/Atmel/common/services/spi \
+            -isystem ./3rd-party/Atmel/common/utils \
+            -isystem ./3rd-party/Atmel/xmega/boards \
+            -isystem ./3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained \
+            -isystem ./3rd-party/Atmel/xmega/drivers/cpu \
+            -isystem ./3rd-party/Atmel/xmega/drivers/pmic \
+            -isystem ./3rd-party/Atmel/xmega/drivers/sleep \
+            -isystem ./3rd-party/Atmel/xmega/drivers/usart \
+            -isystem ./3rd-party/Atmel/xmega/utils \
+            -isystem ./3rd-party/Atmel/xmega/utils/preprosessor
 ifdef DEBUG_INFO
- CPP_FLAGS += -g
+ CXX_FLAGS += -g
 else
- CPP_FLAGS += -O
+ CXX_FLAGS += -O
 endif
 
-ASM_FLAGS = -mmcu=$(MCU) -x assembler-with-cpp -Wa,-adhlns=$(<:.S=.lst),-gstabs
+CC_FLAGS = $(CXX_FLAGS) -std=gnu99
 
-LIBS_FLAGS = -L/usr/lib/avr/lib
+CPP_FLAGS = $(CXX_FLAGS) -DHIDE_UNUSED_PARAMS -Werror
+
+ASM_FLAGS = -mmcu=$(MCU) -x assembler-with-cpp -Wa,-adhlns=$(<:.s=.lst),-gstabs
+
+LIBS_FLAGS = -L/usr/lib/avr/lib \
+             -L./3rd-party/Atmel/xmega/applications/xmega_a3bu_xplained_demo/qtouch
+
+LIBS = -lavrxmega6g1-4qt-k-0rs
 
 ##########
 
@@ -79,14 +104,22 @@ size: $(PROGRAM).size
 %.dep: %.cpp
 	$(CPP) $(CPP_FLAGS) -MM $< -MT $(<:.cpp=.o) > $@
 
+%.dep: %.c
+	$(CC) $(CC_FLAGS) -MM $< -MT $(<:.c=.o) > $@
+
+%.dep: %.s
+
 %.o: %.cpp
 	$(CPP) $(CPP_FLAGS) -o $@ -c $<
 
-%.o: %.S
-	$(CPP) $(CPP_FLAGS) -o $@ -c $<
+%.o: %.c
+	$(CC) $(CC_FLAGS) -o $@ -c $<
+
+%.o: %.s
+	$(CPP) $(ASM_FLAGS) -o $@ -c $<
 
 %.elf: $(DEPS) $(OBJECTS)
-	$(CPP) $(CPP_FLAGS) $(OBJECTS) --output $@ $(LDFLAGS)
+	$(LD) $(CPP_FLAGS) $(OBJECTS) --output $@ $(LIBS) $(LIBS_FLAGS)
 
 %.hex: %.elf
 	$(OBJCOPY) -O $(FORMAT) -R .eeprom $< $@
