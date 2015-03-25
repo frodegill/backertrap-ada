@@ -6,12 +6,15 @@ passwd
 
 # Compiled Object files
 *.o
-*.dep
+*.d
 
 # Application files
 backertrap-ada
+backertrap-ada.bin
 backertrap-ada.eep
 backertrap-ada.elf
 backertrap-ada.hex
 backertrap-ada.lss
+backertrap-ada.map
 backertrap-ada.sym
+

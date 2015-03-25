@@ -5,7 +5,6 @@
 // See LICENSE file for GPLv3 license
 
 
-
 #define MAX_PAGE_STACK_SIZE (16)
 
 #ifndef UNUSED_PARAM
@@ -23,12 +22,10 @@
 # include "common/services/delay/delay.h"
 # include "common/services/gpio/gpio.h"
 # include "common/services/ioport/ioport.h"
-# include "common/services/ioport/xmega/ioport_compat.h"
 # include "common/services/sleepmgr/sleepmgr.h"
 # include "common/services/spi/usart_spi.h"
 # include "common/utils/interrupt.h"
 # include "xmega/drivers/cpu/xmega_reset_cause.h"
-# define CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA
 # include "xmega/drivers/nvm/nvm.h"
 # include "xmega/drivers/pmic/pmic.h"
 # include "xmega/drivers/rtc32/rtc32.h"
