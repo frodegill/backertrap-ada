@@ -15,13 +15,6 @@ class PressStart2PFont8 : public Font
 public:
   PressStart2PFont8();
   ~PressStart2PFont8();
-
-public:
-	U8 GetFontHeight() const {return 8;}
-
-	U8 GetAlphabetByte(U8 pos) const;
-	U8 GetFontdataByte(U16 ch_offset, U8 pos) const;
-
 };
 
 #endif //_PRESSSTART2P_FONT_8_H_

@@ -966,20 +966,10 @@ CHAR_SIZE(5,11,0), //}
 };
 
 FreePixelFont12::FreePixelFont12()
-: Font()
+: Font(12, 1, &g_FreePixelFont12_alphabet_p[0], &g_FreePixelFont12_font_p[0])
 {
 }
 
 FreePixelFont12::~FreePixelFont12()
 {
-}
-
-U8 FreePixelFont12::GetAlphabetByte(U8 pos) const
-{
-	return pgm_read_byte(&g_FreePixelFont12_font_p[pos]);
-}
-
-U8 FreePixelFont12::GetFontdataByte(U16 ch_offset, U8 pos) const
-{
-	return pgm_read_byte(&g_FreePixelFont12_font_p[ch_offset+pos]);
 }

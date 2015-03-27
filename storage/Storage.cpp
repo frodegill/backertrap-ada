@@ -5,10 +5,7 @@
 #include "Storage.h"
 
 
-Storage::Storage()
-{
-}
-
-Storage::~Storage()
+Storage::Storage(int (*vtable)(void* storage, VTABLE_FUNC vfunc, void* param))
+: m_vtable(vtable)
 {
 }

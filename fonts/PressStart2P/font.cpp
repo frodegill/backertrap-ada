@@ -737,20 +737,10 @@ CHAR_SIZE(4,7,0), //}
 };
 
 PressStart2PFont8::PressStart2PFont8()
-: Font()
+: Font(8, 1, &g_PressStart2PFont8_alphabeth[0], &g_PressStart2PFont8_font[0])
 {
 }
 
 PressStart2PFont8::~PressStart2PFont8()
 {
-}
-
-U8 PressStart2PFont8::GetAlphabetByte(U8 pos) const
-{
-	return pgm_read_byte(&g_PressStart2PFont8_font[pos]);
-}
-
-U8 PressStart2PFont8::GetFontdataByte(U16 ch_offset, U8 pos) const
-{
-	return pgm_read_byte(&g_PressStart2PFont8_font[ch_offset+pos]);
 }

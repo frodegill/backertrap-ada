@@ -7,6 +7,14 @@
 #include "xmega/utils/progmem.h"
 
 
+const U8 g_SymbolsFont_alphabet_p[] PROGMEM = {
+	SymbolsFont::UP,
+	SymbolsFont::DOWN,
+	SymbolsFont::BACK,
+	SymbolsFont::OK,
+	0
+};
+
 const U8 g_SymbolsFont_font_p[] PROGMEM = {
 CHAR_SIZE(4,4,0), //UP
 0b11010000,
@@ -34,20 +42,10 @@ CHAR_SIZE(4,4,0), //OK
 };
 
 SymbolsFont::SymbolsFont()
-: Font()
+: Font(4, 1, &g_SymbolsFont_alphabet_p[0], &g_SymbolsFont_font_p[0])
 {
 }
 
 SymbolsFont::~SymbolsFont()
 {
-}
-
-U8 SymbolsFont::GetAlphabetByte(U8 pos) const
-{
-	return pos;
-}
-
-U8 SymbolsFont::GetFontdataByte(U16 ch_offset, U8 pos) const
-{
-	return pgm_read_byte(&g_SymbolsFont_font_p[ch_offset+pos]);
 }

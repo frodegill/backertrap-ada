@@ -5,11 +5,11 @@
 #include "Display.h"
 
 
-Display::Display()
-{
-}
-
-Display::~Display()
+Display::Display(int (*vtable)(void* display, VTABLE_FUNC vfunc, void* param), U16 width, U16 height, U8* framebuffer)
+: m_vtable(vtable),
+  m_width(width),
+  m_height(height),
+  m_framebuffer(framebuffer)
 {
 }
 

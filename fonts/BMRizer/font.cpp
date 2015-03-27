@@ -584,20 +584,10 @@ CHAR_SIZE(6,4,1), //z
 };
 
 BMRizerFont6::BMRizerFont6()
-: Font()
+: Font(6, 1, &g_BMRizerFont6_alphabet_p[0], &g_BMRizerFont6_font_p[0])
 {
 }
 
 BMRizerFont6::~BMRizerFont6()
 {
-}
-
-U8 BMRizerFont6::GetAlphabetByte(U8 pos) const
-{
-	return pgm_read_byte(&g_BMRizerFont6_font_p[pos]);
-}
-
-U8 BMRizerFont6::GetFontdataByte(U16 ch_offset, U8 pos) const
-{
-	return pgm_read_byte(&g_BMRizerFont6_font_p[ch_offset+pos]);
 }

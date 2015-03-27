@@ -602,20 +602,10 @@ CHAR_SIZE(3,5,1), //}
 };
 
 BMPlainFont7::BMPlainFont7()
-: Font()
+: Font(7, 1, &g_BMPlainFont7_alphabet_p[0], &g_BMPlainFont7_font_p[0])
 {
 }
 
 BMPlainFont7::~BMPlainFont7()
 {
-}
-
-U8 BMPlainFont7::GetAlphabetByte(U8 pos) const
-{
-	return pgm_read_byte(&g_BMPlainFont7_alphabet_p[pos]);
-}
-
-U8 BMPlainFont7::GetFontdataByte(U16 ch_offset, U8 pos) const
-{
-	return pgm_read_byte(&g_BMPlainFont7_font_p[ch_offset+pos]);
 }

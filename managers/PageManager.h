@@ -24,7 +24,7 @@ private:
 	Page* GetCurrentPage();
 
 private:
-	BootPage m_bootpage;
+	BootPage128x32 m_bootpage;
 
 	Page::PageId m_page_list[MAX_PAGE_STACK_SIZE];
 	U8           m_page_list_length;

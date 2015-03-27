@@ -742,7 +742,7 @@ CHAR_SIZE(4,7,0), //}
 };
 
 VolterFont9::VolterFont9()
-: Font()
+: Font(9, 1, &g_VolterFont9_alphabet_p[0], &g_VolterFont9_font_p[0])
 {
 }
 

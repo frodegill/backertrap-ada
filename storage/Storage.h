@@ -10,9 +10,17 @@
 class Storage
 {
 public:
-	Storage();
-	~Storage();
+	enum VTABLE_FUNC
+	{
+	};
 
+public:
+	Storage(int (*vtable)(void* storage, VTABLE_FUNC vfunc, void* param));
+
+public: //Atmel - Why no virtual!?!
+
+private:
+	int (* m_vtable)(void* storage, VTABLE_FUNC vfunc, void* param);
 };
 
 #endif // _STORAGE_H_

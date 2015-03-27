@@ -13,15 +13,12 @@
 #include "../../fonts/Symbols/font.h"
 
 
-class BootPage : public Page
+class BootPage128x32 : public Page
 {
 public:
-	BootPage();
-	~BootPage();
+	BootPage128x32();
+	~BootPage128x32();
 
-	PageId GetId() {return BOOTPAGE;}
-
-	//From Page
 public:
 	void OnActivated();
 	void OnDeactivated();

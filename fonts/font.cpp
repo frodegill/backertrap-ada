@@ -10,12 +10,22 @@
 #include "font.h"
 
 
-Font::Font()
+Font::Font(U8 height, U8 margin, const U8* alphabet_p, const U8* fontdata_p)
+: m_height(height),
+  m_margin(margin),
+  m_alphabet_p(alphabet_p),
+  m_fontdata_p(fontdata_p)
 {
 }
 
-Font::~Font()
+U8 Font::GetAlphabetByte(U8 pos) const
 {
+	return pgm_read_byte(&m_alphabet_p[pos]);
+}
+
+U8 Font::GetFontdataByte(U16 ch_offset, U8 pos) const
+{
+	return pgm_read_byte(&m_fontdata_p[ch_offset+pos]);
 }
 
 U16 Font::GetFontdataChOffset(U8 ch) const

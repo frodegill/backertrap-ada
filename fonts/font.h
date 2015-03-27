@@ -12,17 +12,21 @@
 class Font
 {
 public:
-  Font();
-	~Font();
+  Font(U8 height, U8 margin, const U8* alphabet_p, const U8* fontdata_p);
 
 public:
-	U8 GetFontHeight() const {return 0;}
-	U8 GetMargin() const {return 1;}
-
-	U8 GetAlphabetByte(U8 UNUSED_PARAM(pos)) const {return 0;}
+	U8 GetFontHeight() const {return m_height;}
+	U8 GetMargin() const {return m_margin;}
+	
+	U8 GetAlphabetByte(U8 pos) const;
+	U8 GetFontdataByte(U16 ch_offset, U8 pos) const;
 	U16 GetFontdataChOffset(U8 ch) const;
-	U8 GetFontdataByte(U16 UNUSED_PARAM(ch_offset), U8 UNUSED_PARAM(pos)) const {return 0;}
 
+private:
+	U8 m_height;
+	U8 m_margin;
+	const U8* m_alphabet_p;
+	const U8* m_fontdata_p;
 };
 
 #endif // _FONT_H_
