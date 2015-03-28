@@ -7,10 +7,12 @@
 
 int StorageAT45DB642DVTable(void* storage, Storage::VTABLE_FUNC vfunc, void* param)
 {
+#if 0 //UNUSED
 	StorageAT45DB642D* native_storage = static_cast<StorageAT45DB642D*>(storage);
 	switch(vfunc)
 	{
 	}
+#endif
 	return 0;
 }
 
