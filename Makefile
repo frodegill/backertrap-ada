@@ -80,7 +80,8 @@
 #
 
 # Application target name.
-TARGET = backertrap-ada.elf
+PROGRAM = backertrap-ada
+TARGET = $(PROGRAM).elf
 
 # Microcontroller: atxmega128a1, atmega128, attiny261, etc.
 MCU = atxmega256a3
@@ -88,50 +89,12 @@ BOARD = XMEGA_A3BU_XPLAINED
 
 # C source files located from the top-level source directory
 C_SRC = $(shell find . -name '*.c')
-#       common/components/display/st7565r/st7565r.c        \
-#       common/services/calendar/calendar.c                \
-#       common/services/clock/xmega/sysclk.c               \
-#       common/services/gfx_mono/gfx_mono_c12832_a1z.c     \
-#       common/services/gfx_mono/gfx_mono_framebuffer.c    \
-#       common/services/gfx_mono/gfx_mono_generic.c        \
-#       common/services/gfx_mono/gfx_mono_menu.c           \
-#       common/services/gfx_mono/gfx_mono_spinctrl.c       \
-#       common/services/gfx_mono/gfx_mono_text.c           \
-#       common/services/gfx_mono/sysfont.c                 \
-#       common/services/ioport/xmega/ioport_compat.c       \
-#       common/services/sleepmgr/xmega/sleepmgr.c          \
-#       common/services/spi/xmega_usart_spi/usart_spi.c    \
-#       common/services/usb/class/cdc/device/udi_cdc.c     \
-#       common/services/usb/class/cdc/device/udi_cdc_desc.c \
-#       common/services/usb/udc/udc.c                      \
-#       xmega/applications/xmega_a3bu_xplained_demo/adc_sensors.c \
-#       xmega/applications/xmega_a3bu_xplained_demo/bitmaps.c \
-#       xmega/applications/xmega_a3bu_xplained_demo/cdc.c  \
-#       xmega/applications/xmega_a3bu_xplained_demo/date_time.c \
-#       xmega/applications/xmega_a3bu_xplained_demo/keyboard.c \
-#       xmega/applications/xmega_a3bu_xplained_demo/lightsensor.c \
-#       xmega/applications/xmega_a3bu_xplained_demo/main.c \
-#       xmega/applications/xmega_a3bu_xplained_demo/ntc_sensor.c \
-#       xmega/applications/xmega_a3bu_xplained_demo/production_date.c \
-#       xmega/applications/xmega_a3bu_xplained_demo/qtouch/touch.c \
-#       xmega/applications/xmega_a3bu_xplained_demo/timezone.c \
-#       xmega/boards/xmega_a3bu_xplained/init.c            \
-#       xmega/drivers/adc/adc.c                            \
-#       xmega/drivers/adc/xmega_aau/adc_aau.c              \
-#       xmega/drivers/nvm/nvm.c                            \
-#       xmega/drivers/rtc32/rtc32.c                        \
-#       xmega/drivers/tc/tc.c                              \
-#       xmega/drivers/usart/usart.c                        \
-#       xmega/drivers/usb/usb_device.c
 
 # CPP source files located from the top-level source directory
 CPP_SRC = $(shell find . -name '*.cpp')
 
 # Assembler source files located from the top-level source directory
 ASM_SRC = $(shell find . -name '*.s')
-#       xmega/applications/xmega_a3bu_xplained_demo/qtouch/qt_asm_xmega.s \
-#       xmega/drivers/cpu/ccp.s                            \
-#       xmega/drivers/nvm/nvm_asm.s
 
 # Include path located from the top-level source directory
 INC_PATH = \
@@ -493,8 +456,7 @@ endif
 .PHONY: clean
 clean:
 	find . -name '*~' -delete
-	-rm -f $(DEPS) $(OBJECTS) \
-		$(PROGRAM) $(PROGRAM).elf $(PROGRAM).hex $(PROGRAM).eep $(PROGRAM).lss $(PROGRAM).sym
+	-rm -f $(obj-y) $(dep-files) $(TARGET) $(PROGRAM).hex $(PROGRAM).eep $(PROGRAM).lss $(PROGRAM).sym
 
 # Rebuild the project.
 .PHONY: rebuild
