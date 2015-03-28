@@ -15,8 +15,8 @@ public:
 	{
 		SetBrightnessFunc,
 		SetBacklightStatusFunc,
-		ClearDisplayFunc,
-		RefreshDisplayFunc
+		ClearFramebufferFunc,
+		SwapBuffersFunc
 	};
 
 	enum BacklightStatus
@@ -36,6 +36,8 @@ public:
 public:
 	Display(int (*vtable)(void* display, VTABLE_FUNC vfunc, void* param), U16 width, U16 height, U8* framebuffer);
 
+  void Init() {}
+
 public:
 	U16 GetWidth() const {return m_width;}
 	U16 GetHeight() const {return m_height;}
@@ -44,8 +46,8 @@ public:
 public: //Atmel - Why no virtual!?!
 	void SetBrightness(double brightness) {m_vtable(this, SetBrightnessFunc, &brightness);}
 	void SetBacklightStatus(BacklightStatus status) {m_vtable(this, SetBacklightStatusFunc, &status);}
-	void ClearDisplay()  {m_vtable(this, ClearDisplayFunc, NULL);}
-	void RefreshDisplay() {m_vtable(this, RefreshDisplayFunc, NULL);}
+	void ClearFramebuffer()  {m_vtable(this, ClearFramebufferFunc, NULL);}
+	void SwapBuffers() {m_vtable(this, SwapBuffersFunc, NULL);}
 
 public:
 	void DrawPixel(S16 x, S16 y, DrawMode mode);

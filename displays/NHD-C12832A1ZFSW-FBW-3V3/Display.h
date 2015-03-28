@@ -6,6 +6,9 @@
 
 #include "../Display.h"
 
+#define NHDC12832A1ZFSWFBW3V3_WIDTH  (128)
+#define NHDC12832A1ZFSWFBW3V3_HEIGHT (32)
+#define NHDC12832A1ZFSWFBW3V3_PAGES  (NHDC12832A1ZFSWFBW3V3_HEIGHT/8)
 
 class DisplayNHDC12832A1ZFSWFBW3V3 : public Display
 {
@@ -13,12 +16,14 @@ public:
 	DisplayNHDC12832A1ZFSWFBW3V3();
 	~DisplayNHDC12832A1ZFSWFBW3V3();
 
+  void Init();
+
 public:
 	void SetBrightness(double UNUSED_PARAM(brightness)) {}
 	void SetBacklightStatus(Display::BacklightStatus status);
 
-	void ClearDisplay() {}
-	void RefreshDisplay() {}
+  void ClearFramebuffer();
+  void SwapBuffers();
 
 };
 
