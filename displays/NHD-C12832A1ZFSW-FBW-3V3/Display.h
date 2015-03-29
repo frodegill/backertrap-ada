@@ -16,7 +16,7 @@ public:
 	DisplayNHDC12832A1ZFSWFBW3V3();
 	~DisplayNHDC12832A1ZFSWFBW3V3();
 
-  void Init();
+  bool Init();
 
 public:
 	void SetBrightness(double UNUSED_PARAM(brightness)) {}

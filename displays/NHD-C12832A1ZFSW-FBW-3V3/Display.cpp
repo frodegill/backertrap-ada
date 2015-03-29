@@ -42,16 +42,18 @@ DisplayNHDC12832A1ZFSWFBW3V3::~DisplayNHDC12832A1ZFSWFBW3V3()
 {
 }
 
-void DisplayNHDC12832A1ZFSWFBW3V3::Init()
+bool DisplayNHDC12832A1ZFSWFBW3V3::Init()
 {
-    /* Initialize the low-level display controller. */
-    st7565r_init();
+	/* Initialize the low-level display controller. */
+	st7565r_init();
 
-    /* Set display to output data from line 0 */
-    st7565r_set_display_start_line_address(0);
+	/* Set display to output data from line 0 */
+	st7565r_set_display_start_line_address(0);
 
-    ClearFramebuffer();
-    SwapBuffers();
+	ClearFramebuffer();
+	SwapBuffers();
+
+	return true;
 }
 
 void DisplayNHDC12832A1ZFSWFBW3V3::SetBacklightStatus(Display::BacklightStatus status)

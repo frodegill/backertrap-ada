@@ -4,6 +4,7 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for GPLv3 license
 
+#include "managers/ButtonManager.h"
 #include "managers/DisplayManager.h"
 #include "managers/PageManager.h"
 #include "managers/PowerManager.h"
@@ -16,8 +17,11 @@ class BackertrapAdaApp
 public:
 	BackertrapAdaApp();
 	~BackertrapAdaApp();
-	
+
+  bool Init();
+
 private:
+	ButtonManager  m_button_manager;
 	DisplayManager m_display_manager;
 	PageManager    m_page_manager;
 	PowerManager   m_power_manager;

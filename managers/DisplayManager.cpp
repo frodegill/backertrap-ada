@@ -12,3 +12,8 @@ DisplayManager::DisplayManager()
 DisplayManager::~DisplayManager()
 {
 }
+
+bool DisplayManager::Init()
+{
+	return m_display.Init();
+}

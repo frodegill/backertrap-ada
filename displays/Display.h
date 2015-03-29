@@ -36,8 +36,6 @@ public:
 public:
 	Display(int (*vtable)(void* display, VTABLE_FUNC vfunc, void* param), U16 width, U16 height, U8* framebuffer);
 
-  void Init() {}
-
 public:
 	U16 GetWidth() const {return m_width;}
 	U16 GetHeight() const {return m_height;}

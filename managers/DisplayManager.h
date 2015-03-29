@@ -12,7 +12,9 @@ class DisplayManager
 public:
 	DisplayManager();
 	~DisplayManager();
-	
+
+	bool Init();
+
 private:
 	DisplayNHDC12832A1ZFSWFBW3V3 m_display;
 };

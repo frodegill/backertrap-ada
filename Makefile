@@ -134,14 +134,11 @@ INC_PATH = \
        -isystem ./3rd-party/Atmel/xmega/applications/xmega_a3bu_xplained_demo/atxmega256a3bu_xmega_a3bu_xplained/gcc
 
 # Library paths from the top-level source directory
-LIB_PATH =  \
-       -L./3rd-party/Atmel/xmega/lib \
-       -L./3rd-party/Atmel/xmega/lib/qtouch
+LIB_PATH = -L./3rd-party/Atmel/xmega/lib \
+           -L./3rd-party/Atmel/xmega/lib/qtouch
 
 # Libraries to link with the project
-LIBS =  \
-       avrxmega6g1-4qt-k-0rs \
-       m                                                 
+LIBS = avrxmega6g1-4qt-k-0rs
 
 # Additional options for debugging. By default the common Makefile.in will
 # add -gdwarf-2.
@@ -257,7 +254,7 @@ AS              := $(CROSS)as
 CC              := $(CROSS)gcc
 CPP             := $(CROSS)gcc -E
 CXX             := $(CROSS)g++
-LD              := $(CROSS)gcc
+LD              := $(CROSS)g++
 NM              := $(CROSS)nm
 OBJCOPY         := $(CROSS)objcopy
 OBJDUMP         := $(CROSS)objdump
@@ -456,7 +453,7 @@ endif
 .PHONY: clean
 clean:
 	find . -name '*~' -delete
-	-rm -f $(obj-y) $(dep-files) $(TARGET) $(PROGRAM).hex $(PROGRAM).eep $(PROGRAM).lss $(PROGRAM).sym
+	-rm -f $(obj-y) $(dep-files) $(TARGET) $(PROGRAM).hex $(PROGRAM).eep $(PROGRAM).lss $(PROGRAM).sym $(PROGRAM).map $(PROGRAM).bin
 
 # Rebuild the project.
 .PHONY: rebuild
