@@ -17,6 +17,6 @@ ButtonManager::~ButtonManager()
 
 bool ButtonManager::Init()
 {
-  //touch_init();
+  touch_init();
   return true;
 }

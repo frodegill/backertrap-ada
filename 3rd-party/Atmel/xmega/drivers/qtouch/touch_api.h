@@ -49,6 +49,11 @@
 #ifndef TOUCH_API_H
 #define TOUCH_API_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+  
 bool check_touch_key_pressed(void);
 void touch_init(void);
 
@@ -1070,6 +1075,10 @@ extern void qt_enable_slider(    channel_t from_channel,
 
 #endif
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* TOUCH_API_H */
 

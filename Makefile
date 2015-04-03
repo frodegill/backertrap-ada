@@ -84,7 +84,7 @@ PROGRAM = backertrap-ada
 TARGET = $(PROGRAM).elf
 
 # Microcontroller: atxmega128a1, atmega128, attiny261, etc.
-MCU = atxmega256a3
+MCU = atxmega256a3bu
 BOARD = XMEGA_A3BU_XPLAINED
 
 # C source files located from the top-level source directory
