@@ -78,7 +78,6 @@ void sysclk_init(void)
 				CONFIG_SYSCLK_PSBCDIV);
 	}
 #if (CONFIG_OSC_RC32_CAL==48000000UL)
-#ifdef FIX_THIS
 	MSB(cal) = nvm_read_production_signature_row(
 			nvm_get_production_signature_row_offset(USBRCOSC));
 	LSB(cal) = nvm_read_production_signature_row(
@@ -92,7 +91,6 @@ void sysclk_init(void)
 		cal = 0x2340;
 	}
 	osc_user_calibration(OSC_ID_RC32MHZ,cal);
-#endif //FIX_THIS
 #endif
 	/*
 	 * Switch to the selected initial system clock source, unless
