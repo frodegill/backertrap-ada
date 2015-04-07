@@ -54,10 +54,10 @@ void Display::DrawPixel(S16 x, S16 y, DrawMode mode)
 		default: break;
 	}
 	
-	if (x < m_min_x_dirty) m_min_x_dirty=x;
-	if (y < m_min_y_dirty) m_min_y_dirty=y;
-	if (x > m_max_x_dirty) m_max_x_dirty=x;
-	if (y > m_max_y_dirty) m_max_y_dirty=y;
+	if (x < static_cast<S16>(m_min_x_dirty)) m_min_x_dirty=x;
+	if (y < static_cast<S16>(m_min_y_dirty)) m_min_y_dirty=y;
+	if (x > static_cast<S16>(m_max_x_dirty)) m_max_x_dirty=x;
+	if (y > static_cast<S16>(m_max_y_dirty)) m_max_y_dirty=y;
 }
 
 void Display::DrawLine(S16 x, S16 y, U16 delta_x, U16 delta_y, DrawMode mode)
