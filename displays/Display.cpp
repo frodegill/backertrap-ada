@@ -11,6 +11,23 @@ Display::Display(int (*vtable)(void* display, VTABLE_FUNC vfunc, void* param), U
   m_height(height),
   m_framebuffer(framebuffer)
 {
+	ResetDirty();
+}
+
+void Display::GetDirty(U16& min_x_dirty, U16& min_y_dirty, U16& max_x_dirty, U16& max_y_dirty)
+{
+	min_x_dirty = m_min_x_dirty;
+	min_y_dirty = m_min_y_dirty;
+	max_x_dirty = m_max_x_dirty;
+	max_y_dirty = m_max_y_dirty;
+}
+
+void Display::ResetDirty()
+{
+	m_min_x_dirty = GetWidth();
+	m_min_y_dirty = GetHeight();
+	m_max_x_dirty = 0;
+	m_max_y_dirty = 0;
 }
 
 void Display::DrawPixel(S16 x, S16 y, DrawMode mode)
@@ -36,6 +53,11 @@ void Display::DrawPixel(S16 x, S16 y, DrawMode mode)
 		case XOR: framebuffer[byte_pos] ^= 1<<bit_x; break;
 		default: break;
 	}
+	
+	if (x < m_min_x_dirty) m_min_x_dirty=x;
+	if (y < m_min_y_dirty) m_min_y_dirty=y;
+	if (x > m_max_x_dirty) m_max_x_dirty=x;
+	if (y > m_max_y_dirty) m_max_y_dirty=y;
 }
 
 void Display::DrawLine(S16 x, S16 y, U16 delta_x, U16 delta_y, DrawMode mode)

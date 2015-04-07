@@ -40,6 +40,8 @@ public:
 	U16 GetWidth() const {return m_width;}
 	U16 GetHeight() const {return m_height;}
 	U8* GetFramebuffer() const {return m_framebuffer;}
+	void GetDirty(U16& min_x_dirty, U16& min_y_dirty, U16& max_x_dirty, U16& max_y_dirty);
+	void ResetDirty();
 
 public: //Atmel - Why no virtual!?!
 	void SetBrightness(double brightness) {m_vtable(this, SetBrightnessFunc, &brightness);}
@@ -60,6 +62,11 @@ private:
 	U16 m_width;
 	U16 m_height;
 	U8* m_framebuffer;
+	U16 m_min_x_dirty;
+	U16 m_min_y_dirty;
+	U16 m_max_x_dirty;
+	U16 m_max_y_dirty;
+	
 };
 
 #endif // _DISPLAY_H_
