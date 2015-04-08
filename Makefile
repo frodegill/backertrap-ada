@@ -335,6 +335,7 @@ archive-flags-gnu-y += rcs
 cflags-gnu-y    += -Wall -Wstrict-prototypes -Wmissing-prototypes
 cflags-gnu-y    += -Werror-implicit-function-declaration
 cxxflags-gnu-y  += -Wall
+cppflags-gnu-y  += -Wall -Werror
 # IAR doesn't allow arithmetic on void pointers, so warn about that.
 cflags-gnu-y    += -Wpointer-arith
 cxxflags-gnu-y  += -Wpointer-arith
