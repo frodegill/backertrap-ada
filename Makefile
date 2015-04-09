@@ -193,11 +193,8 @@ LDFLAGS =  \
 PREBUILD_CMD = 
 POSTBUILD_CMD = 
 
-# Output target file
-target          := $(TARGET)
-
 # Output project name (target name minus suffix)
-project         := $(basename $(target))
+project         := $(basename $(TARGET))
 
 # Allow override of operating system detection. The user can add OS=Linux or
 # OS=Windows on the command line to explicit set the host OS.
@@ -246,8 +243,6 @@ OBJDUMP         := $(CROSS)objdump
 SIZE            := $(CROSS)size
 
 # Strings for beautifying output
-MSG_MKDIR               = "MKDIR   $(dir $@)"
-
 MSG_INFO                = "INFO    "
 MSG_PREBUILD            = "PREBUILD  $(PREBUILD_CMD)"
 MSG_POSTBUILD           = "POSTBUILD $(POSTBUILD_CMD)"
@@ -389,22 +384,15 @@ eepromflags-gnu-y       += --change-section-lma .eeprom=0
 # Source files list and part informations must already be included before
 # running this makefile
 
-# If a custom build directory is specified, use it -- force trailing / in directory name.
-ifdef BUILD_DIR
-	build-dir       := $(dir $(BUILD_DIR))$(if $(notdir $(BUILD_DIR)),$(notdir $(BUILD_DIR))/)
-else
-	build-dir        =
-endif
-
 # Create object files list from source files list.
-obj-y                   := $(addprefix $(build-dir), $(addsuffix .o,$(basename $(C_SRC) $(CPP_SRC) $(ASM_SRC))))
+obj-y                   := $(addsuffix .o,$(basename $(C_SRC) $(CPP_SRC) $(ASM_SRC)))
 
 # Create dependency files list from source files list.
 dep-files               := $(wildcard $(foreach f,$(obj-y),$(basename $(f)).d))
 
 # Default target.
 .PHONY: all
-all: prebuild $(target) $(project).lss $(project).sym $(project).hex $(project).bin postbuild
+all: prebuild $(TARGET) $(project).lss $(project).sym $(project).hex $(project).bin postbuild
 
 prebuild:
 ifneq ($(strip $(PREBUILD_CMD)),)
@@ -432,46 +420,22 @@ rebuild: clean all
 objfiles: $(obj-y)
 
 # Create object files from C source files.
-$(build-dir)%.o: %.c
-	$(Q)test -d $(dir $@) || echo $(MSG_MKDIR)
-ifeq ($(os),Windows)
-	$(Q)test -d $(patsubst %/,%,$(dir $@)) || mkdir $(subst /,\,$(dir $@))
-else
-	$(Q)test -d $(dir $@) || mkdir -p $(dir $@)
-endif
+%.o: %.c
 	@echo $(MSG_COMPILING)
 	$(Q)$(CC) $(c_flags) -c $< -o $@
 
 # Create object files from C++ source files.
-$(build-dir)%.o: %.cpp
-	$(Q)test -d $(dir $@) || echo $(MSG_MKDIR)
-ifeq ($(os),Windows)
-	$(Q)test -d $(patsubst %/,%,$(dir $@)) || mkdir $(subst /,\,$(dir $@))
-else
-	$(Q)test -d $(dir $@) || mkdir -p $(dir $@)
-endif
+%.o: %.cpp
 	@echo $(MSG_COMPILING_CXX)
 	$(Q)$(CXX) $(cxx_flags) -c $< -o $@
 
 # Preprocess and assemble: create object files from assembler source files.
-$(build-dir)%.o: %.s
-	$(Q)test -d $(dir $@) || echo $(MSG_MKDIR)
-ifeq ($(os),Windows)
-	$(Q)test -d $(patsubst %/,%,$(dir $@)) || mkdir $(subst /,\,$(dir $@))
-else
-	$(Q)test -d $(dir $@) || mkdir -p $(dir $@)
-endif
+%.o: %.s
 	@echo $(MSG_ASSEMBLING)
 	$(Q)$(CC) $(a_flags) -c $< -o $@
 
 # Preprocess and assemble: create object files from assembler source files.
-$(build-dir)%.o: %.S
-	$(Q)test -d $(dir $@) || echo $(MSG_MKDIR)
-ifeq ($(os),Windows)
-	$(Q)test -d $(patsubst %/,%,$(dir $@)) || mkdir $(subst /,\,$(dir $@))
-else
-	$(Q)test -d $(dir $@) || mkdir -p $(dir $@)
-endif
+%.o: %.S
 	@echo $(MSG_ASSEMBLING)
 	$(Q)$(CC) $(a_flags) -c $< -o $@
 
@@ -479,7 +443,7 @@ endif
 include $(dep-files)
 
 # Link the object files into an ELF file.
-$(target): $(obj-y)
+$(TARGET): $(obj-y)
 	@echo $(MSG_LINKING)
 	$(Q)$(LD) $(l_flags) $(obj-y) $(libflags-gnu-y) -o $@
 	@echo $(MSG_SIZE)
@@ -487,27 +451,27 @@ $(target): $(obj-y)
 	$(Q)$(SIZE) -Bx $@
 
 # Create extended function listing from target output file.
-%.lss: $(target)
+%.lss: $(TARGET)
 	@echo $(MSG_EXTENDED_LISTING)
 	$(Q)$(OBJDUMP) -h -S $< > $@
 
 # Create symbol table from target output file.
-%.sym: $(target)
+%.sym: $(TARGET)
 	@echo $(MSG_SYMBOL_TABLE)
 	$(Q)$(NM) -n $< > $@
 
 # Create Intel HEX image from ELF output file.
-%.hex: $(target)
+%.hex: $(TARGET)
 	@echo $(MSG_IHEX_IMAGE)
 	$(Q)$(OBJCOPY) -O ihex $(flashflags-gnu-y)  $< $@
 
 # Create EEPROM Intel HEX image from ELF output file.
-%.eep: $(target)
+%.eep: $(TARGET)
 	@echo $(MSG_EEPROM_IMAGE)
 	$(Q)$(OBJCOPY) $(eepromflags-gnu-y) -O ihex $< $@  || exit 0
 
 # Create binary image from ELF output file.
-%.bin: $(target)
+%.bin: $(TARGET)
 	@echo $(MSG_BINARY_IMAGE)
 	$(Q)$(OBJCOPY) -O binary $< $@
 
