@@ -208,7 +208,6 @@ OBJDUMP         := $(CROSS)objdump
 SIZE            := $(CROSS)size
 
 # Strings for beautifying output
-MSG_INFO                = "INFO    "
 MSG_PREBUILD            = "PREBUILD  $(PREBUILD_CMD)"
 MSG_POSTBUILD           = "POSTBUILD $(POSTBUILD_CMD)"
 
