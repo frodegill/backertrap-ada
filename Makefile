@@ -156,9 +156,6 @@ EEPROMFLAGS =
 # Makefile.in will add -R .eeprom -R .usb_descriptor_table.
 FLASHFLAGS = 
 
-# Extra flags to use when archiving.
-ARCHIVE_FLAGS = 
-
 # Extra flags to use when assembling.
 ASM_FLAGS = 
 
@@ -202,17 +199,6 @@ target          := $(TARGET)
 # Output project name (target name minus suffix)
 project         := $(basename $(target))
 
-# Output target file (typically ELF or static library)
-ifeq ($(suffix $(target)),.a)
-target_type     := lib
-else
-ifeq ($(suffix $(target)),.elf)
-target_type     := elf
-else
-$(error "Target type $(target_type) is not supported")
-endif
-endif
-
 # Allow override of operating system detection. The user can add OS=Linux or
 # OS=Windows on the command line to explicit set the host OS.
 #
@@ -249,7 +235,6 @@ endif
 endif
 
 CROSS           ?= avr-
-AR              := $(CROSS)ar
 AS              := $(CROSS)as
 CC              := $(CROSS)gcc
 CPP             := $(CROSS)gcc -E
@@ -260,11 +245,6 @@ OBJCOPY         := $(CROSS)objcopy
 OBJDUMP         := $(CROSS)objdump
 SIZE            := $(CROSS)size
 
-# On Windows, we need to override the shell to force the use of cmd.exe
-ifeq ($(os),Windows)
-SHELL           := cmd
-endif
-
 # Strings for beautifying output
 MSG_MKDIR               = "MKDIR   $(dir $@)"
 
@@ -272,7 +252,6 @@ MSG_INFO                = "INFO    "
 MSG_PREBUILD            = "PREBUILD  $(PREBUILD_CMD)"
 MSG_POSTBUILD           = "POSTBUILD $(POSTBUILD_CMD)"
 
-MSG_ARCHIVING           = "AR      $@"
 MSG_ASSEMBLING          = "AS      $@"
 MSG_BINARY_IMAGE        = "OBJCOPY $@"
 MSG_COMPILING           = "CC      $@"
@@ -310,7 +289,6 @@ else
   Q = @
 endif
 
-archive-flags-gnu-y     := $(ARCHIVE_FLAGS)
 asm-flags-gnu-y         := $(ASM_FLAGS)
 cflags-gnu-y            := $(CFLAGS)
 cxxflags-gnu-y          := $(CXXFLAGS)
@@ -326,9 +304,6 @@ eepromflags-gnu-y       := $(EEPROMFLAGS)
 cflags-gnu-y    += -pipe
 asm-flags-gnu-y += -pipe
 ldflags-gnu-y   += -pipe
-
-# Archiver flags.
-archive-flags-gnu-y += rcs
 
 # Always enable warnings. And be very careful about implicit
 # declarations.
@@ -402,7 +377,6 @@ a_flags  = $(cpuflags-gnu-y) $(depflags) $(cppflags-gnu-y) $(asm-flags-gnu-y) -D
 c_flags  = $(cpuflags-gnu-y) $(dbgflags-gnu-y) $(depflags) $(optflags-gnu-y) $(cppflags-gnu-y) $(cflags-gnu-y)
 cxx_flags= $(cpuflags-gnu-y) $(dbgflags-gnu-y) $(depflags) $(optflags-gnu-y) $(cppflags-gnu-y) $(cxxflags-gnu-y)
 l_flags  = $(cpuflags-gnu-y) $(optflags-gnu-y) $(ldflags-gnu-y)
-ar_flags = $(archive-flags-gnu-y)
 
 # Intel Hex file production flags
 flashflags-gnu-y        += -R .eeprom -R .usb_descriptor_table
@@ -430,13 +404,7 @@ dep-files               := $(wildcard $(foreach f,$(obj-y),$(basename $(f)).d))
 
 # Default target.
 .PHONY: all
-ifeq ($(target_type),lib)
-all: $(target) $(project).lss $(project).sym
-else
-ifeq ($(target_type),elf)
 all: prebuild $(target) $(project).lss $(project).sym $(project).hex $(project).bin postbuild
-endif
-endif
 
 prebuild:
 ifneq ($(strip $(PREBUILD_CMD)),)
@@ -510,15 +478,6 @@ endif
 # Include all dependency files to add depedency to all header files in use.
 include $(dep-files)
 
-ifeq ($(target_type),lib)
-# Archive object files into an archive
-$(target): $(obj-y)
-	@echo $(MSG_ARCHIVING)
-	$(Q)$(AR) $(ar_flags) $@ $(obj-y)
-	@echo $(MSG_SIZE)
-	$(Q)$(SIZE) -Bxt $@
-else
-ifeq ($(target_type),elf)
 # Link the object files into an ELF file.
 $(target): $(obj-y)
 	@echo $(MSG_LINKING)
@@ -526,8 +485,6 @@ $(target): $(obj-y)
 	@echo $(MSG_SIZE)
 	$(Q)$(SIZE) -Ax $@
 	$(Q)$(SIZE) -Bx $@
-endif
-endif
 
 # Create extended function listing from target output file.
 %.lss: $(target)
