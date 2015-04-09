@@ -196,41 +196,6 @@ POSTBUILD_CMD =
 # Output project name (target name minus suffix)
 project         := $(basename $(TARGET))
 
-# Allow override of operating system detection. The user can add OS=Linux or
-# OS=Windows on the command line to explicit set the host OS.
-#
-# This allows to work around broken uname utility on certain systems.
-ifdef OS
-  ifeq ($(strip $(OS)), Linux)
-    os_type     := Linux
-  endif
-  ifeq ($(strip $(OS)), Windows)
-    os_type     := windows32_64
-  endif
-endif
-
-os_type         ?= $(strip $(shell uname))
-
-ifeq ($(os_type),windows32)
-os              := Windows
-else
-ifeq ($(os_type),windows64)
-os              := Windows
-else
-ifeq ($(os_type),windows32_64)
-os              ?= Windows
-else
-ifeq ($(os_type),)
-os              := Windows
-else
-# Default to Linux style operating system. Both Cygwin and mingw are fully
-# compatible (for this Makefile) with Linux.
-os              := Linux
-endif
-endif
-endif
-endif
-
 CROSS           ?= avr-
 AS              := $(CROSS)as
 CC              := $(CROSS)gcc
@@ -474,8 +439,3 @@ $(TARGET): $(obj-y)
 %.bin: $(TARGET)
 	@echo $(MSG_BINARY_IMAGE)
 	$(Q)$(OBJCOPY) -O binary $< $@
-
-# Provide information about the detected host operating system.
-.SECONDARY: info-os
-info-os:
-	@echo $(MSG_INFO)$(os) build host detected
