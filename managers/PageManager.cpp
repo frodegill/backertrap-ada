@@ -18,6 +18,11 @@ PageManager::~PageManager()
 	}
 }
 
+bool PageManager::Init()
+{
+	return true;
+}
+
 void PageManager::PushPage(Page::PageId id)
 {
 	if (MAX_PAGE_STACK_SIZE > (m_page_list_length+1))

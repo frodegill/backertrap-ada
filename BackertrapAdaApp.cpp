@@ -24,7 +24,8 @@ bool BackertrapAdaApp::Init()
   pmic_init();
 
   if (!m_button_manager.Init() ||
-	    !m_display_manager.Init())
+	    !m_display_manager.Init() ||
+		  !m_page_manager.Init())
 	{
     return false;
 	}
@@ -32,12 +33,22 @@ bool BackertrapAdaApp::Init()
   return true;
 }
 
+void BackertrapAdaApp::Run()
+{
+	m_page_manager.PushPage(Page::BOOTPAGE);
+}
+
 /********************************/
+
+BackertrapAdaApp g_app;
+BackertrapAdaApp* APP() {return &g_app;}
 
 int main()
 {
-	BackertrapAdaApp app;
-	app.Init();
+	if (g_app.Init())
+	{
+		g_app.Run();
+	}
 
 	return 0;
 }

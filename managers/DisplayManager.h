@@ -15,6 +15,8 @@ public:
 
 	bool Init();
 
+	Display* GetDisplay() {return &m_display;}
+
 private:
 	DisplayNHDC12832A1ZFSWFBW3V3 m_display;
 };

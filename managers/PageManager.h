@@ -15,6 +15,8 @@ public:
 public:
 	PageManager();
 	~PageManager();
+
+	bool Init();
 	
 public:
 	void PushPage(Page::PageId id);
