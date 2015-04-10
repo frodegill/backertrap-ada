@@ -438,3 +438,9 @@ $(TARGET): $(obj-y)
 %.bin: $(TARGET)
 	@echo $(MSG_BINARY_IMAGE)
 	$(Q)$(OBJCOPY) -O binary $< $@
+
+.PHONY: flash
+flash: $(project).hex
+	dfu-programmer $(MCU) erase
+	dfu-programmer $(MCU) flash --suppress-bootloader-mem $(project).hex
+	dfu-programmer $(MCU) start
