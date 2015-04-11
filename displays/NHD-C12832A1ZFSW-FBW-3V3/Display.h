@@ -20,8 +20,9 @@ public:
   bool Init();
 
 public:
-	void SetBrightness(double UNUSED_PARAM(brightness)) {}
+	void SetBrightness(double brightness);
 	void SetBacklightStatus(Display::BacklightStatus status);
+	void SetSleep(bool sleep);
 
   void ClearFramebuffer();
   void SwapBuffers();

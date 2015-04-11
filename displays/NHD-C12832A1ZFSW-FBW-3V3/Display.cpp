@@ -21,6 +21,10 @@ int DisplayNHDC12832A1ZFSWFBW3V3VTable(void* display, Display::VTABLE_FUNC vfunc
 			native_display->SetBacklightStatus(*reinterpret_cast<Display::BacklightStatus*>(param));
 			break;
 
+		case Display::SetSleepFunc:
+			native_display->SetSleep(*reinterpret_cast<bool*>(param));
+			break;
+
 		case Display::ClearFramebufferFunc:
 			native_display->ClearFramebuffer();
 			break;
@@ -56,9 +60,30 @@ bool DisplayNHDC12832A1ZFSWFBW3V3::Init()
 	return true;
 }
 
+void DisplayNHDC12832A1ZFSWFBW3V3::SetBrightness(double brightness)
+{
+	st7565r_set_contrast(ST7565R_DISPLAY_CONTRAST_MIN +
+	                     (ST7565R_DISPLAY_CONTRAST_MAX-ST7565R_DISPLAY_CONTRAST_MIN)*brightness);
+}
+
 void DisplayNHDC12832A1ZFSWFBW3V3::SetBacklightStatus(Display::BacklightStatus status)
 {
 	ioport_set_pin_level(NHD_C12832A1Z_BACKLIGHT, Display::OFF != status);
+}
+
+void DisplayNHDC12832A1ZFSWFBW3V3::SetSleep(bool sleep)
+{
+	if (sleep)
+	{
+		st7565r_sleep_enable();
+		st7565r_display_off();
+		st7565r_set_all_pixels(true);
+	}
+	else
+	{
+		st7565r_set_all_pixels(false);
+		st7565r_sleep_disable();
+	}
 }
 
 void DisplayNHDC12832A1ZFSWFBW3V3::ClearFramebuffer()

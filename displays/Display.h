@@ -15,6 +15,7 @@ public:
 	{
 		SetBrightnessFunc,
 		SetBacklightStatusFunc,
+		SetSleepFunc,
 		ClearFramebufferFunc,
 		SwapBuffersFunc
 	};
@@ -46,6 +47,8 @@ public:
 public: //Atmel - Why no virtual!?!
 	void SetBrightness(double brightness) {m_vtable(this, SetBrightnessFunc, &brightness);}
 	void SetBacklightStatus(BacklightStatus status) {m_vtable(this, SetBacklightStatusFunc, &status);}
+	void SetSleep(bool sleep) {m_vtable(this, SetSleepFunc, &sleep);}
+	
 	void ClearFramebuffer()  {m_vtable(this, ClearFramebufferFunc, NULL);}
 	void SwapBuffers() {m_vtable(this, SwapBuffersFunc, NULL);}
 
