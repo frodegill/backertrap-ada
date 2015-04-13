@@ -30,6 +30,14 @@ void Display::ResetDirty()
 	m_max_y_dirty = 0;
 }
 
+void Display::DirtyAll()
+{
+	m_min_x_dirty = 0;
+	m_min_y_dirty = 0;
+	m_max_x_dirty = GetWidth()-1;
+	m_max_y_dirty = GetHeight()-1;
+}
+
 void Display::DrawPixel(S16 x, S16 y, DrawMode mode)
 {
 	U16 display_width = GetWidth();
@@ -152,7 +160,7 @@ U16 Display::DrawChar(S16 x, S16 y, U8 ch, DrawMode mode, const Font& font) //re
 	return ch_width + font.GetMargin();
 }
 
-U16 Display::DrawText(S16 x, S16 y, const U8* str, DrawMode mode, const Font& font) //returns width of text
+U16 Display::DrawText(S16 x, S16 y, U8 PROGMEM_PTR_T str, DrawMode mode, const Font& font) //returns width of text
 {
 	U16 text_width = 0;
 
@@ -161,7 +169,7 @@ U16 Display::DrawText(S16 x, S16 y, const U8* str, DrawMode mode, const Font& fo
 	if ((y+font.GetFontHeight())>=0 && y<static_cast<S16>(display_height))
 	{
 		U8 ch;
-		while ((ch=*str++) && (x+text_width)<display_width)
+		while ((ch=PROGMEM_READ_BYTE((U8 PROGMEM_PTR_T)(str++))) && (x+text_width)<display_width)
 		{
 			text_width += DrawChar(x+text_width, y, ch, mode, font);
 		}

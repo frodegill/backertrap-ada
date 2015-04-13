@@ -7,7 +7,7 @@
 #include "xmega/utils/progmem.h"
 
 
-const U8 g_SymbolsFont_alphabet_p[] PROGMEM = {
+static PROGMEM_DECLARE(U8, g_SymbolsFont_alphabet_p[]) = {
 	SymbolsFont::UP,
 	SymbolsFont::DOWN,
 	SymbolsFont::BACK,
@@ -15,7 +15,7 @@ const U8 g_SymbolsFont_alphabet_p[] PROGMEM = {
 	0
 };
 
-const U8 g_SymbolsFont_font_p[] PROGMEM = {
+static PROGMEM_DECLARE(U8, g_SymbolsFont_font_p[]) = {
 CHAR_SIZE(4,4,0), //UP
 0b11010000,
 0b10000000,

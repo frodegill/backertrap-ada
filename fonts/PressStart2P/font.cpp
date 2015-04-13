@@ -7,9 +7,9 @@
 #include "xmega/utils/progmem.h"
 
 
-const U8 g_PressStart2PFont8_alphabeth[] PROGMEM = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+static PROGMEM_DECLARE(U8, g_PressStart2PFont8_alphabeth[]) = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
 
-const U8 g_PressStart2PFont8_font[] PROGMEM = {
+static PROGMEM_DECLARE(U8, g_PressStart2PFont8_font[]) = {
 CHAR_SIZE(4,0,0), //[SPACE]
 
 CHAR_SIZE(3,7,0), //!

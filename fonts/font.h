@@ -12,7 +12,7 @@
 class Font
 {
 public:
-  Font(U8 height, U8 margin, const U8* alphabet_p, const U8* fontdata_p);
+  Font(U8 height, U8 margin, U8 PROGMEM_PTR_T alphabet_p, U8 PROGMEM_PTR_T fontdata_p);
 
 public:
 	U8 GetFontHeight() const {return m_height;}
@@ -25,8 +25,8 @@ public:
 private:
 	U8 m_height;
 	U8 m_margin;
-	const U8* m_alphabet_p;
-	const U8* m_fontdata_p;
+	U8 PROGMEM_PTR_T m_alphabet_p;
+	U8 PROGMEM_PTR_T m_fontdata_p;
 };
 
 #endif // _FONT_H_
