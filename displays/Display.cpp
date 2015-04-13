@@ -50,9 +50,9 @@ void Display::DrawPixel(S16 x, S16 y, DrawMode mode)
 
 	U8* framebuffer = GetFramebuffer();
 
-	U16 byte_x = (x/8);
-	U8 bit_x = x - (byte_x*8);
-	U16 byte_pos = (display_width/8)*y + byte_x;
+	U16 byte_x = (x>>3);
+	U8 bit_x = x - (byte_x<<3);
+	U16 byte_pos = (display_width>>3)*y + byte_x;
 	switch(mode)
 	{
 		case OR:  framebuffer[byte_pos] |= 1<<bit_x; break;

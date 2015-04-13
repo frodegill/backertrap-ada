@@ -5,7 +5,7 @@
 #include "Display.h"
 
 
-U8 g_DisplayNHDC12832A1ZFSWFBW3V3_framebuffer_p[NHDC12832A1ZFSWFBW3V3_WIDTH*NHDC12832A1ZFSWFBW3V3_HEIGHT/8];
+U8 g_DisplayNHDC12832A1ZFSWFBW3V3_framebuffer[NHDC12832A1ZFSWFBW3V3_WIDTH*NHDC12832A1ZFSWFBW3V3_HEIGHT/8];
 
 
 int DisplayNHDC12832A1ZFSWFBW3V3VTable(void* display, Display::VTABLE_FUNC vfunc, void* param)
@@ -38,7 +38,7 @@ int DisplayNHDC12832A1ZFSWFBW3V3VTable(void* display, Display::VTABLE_FUNC vfunc
 
 
 DisplayNHDC12832A1ZFSWFBW3V3::DisplayNHDC12832A1ZFSWFBW3V3()
-: Display(::DisplayNHDC12832A1ZFSWFBW3V3VTable, 128, 32, NULL)
+: Display(::DisplayNHDC12832A1ZFSWFBW3V3VTable, 128, 32, &g_DisplayNHDC12832A1ZFSWFBW3V3_framebuffer[0])
 {
 }
 
@@ -56,6 +56,9 @@ bool DisplayNHDC12832A1ZFSWFBW3V3::Init()
 
 	ClearFramebuffer();
 	SwapBuffers();
+
+	SetBrightness(0.5);
+	SetBacklightStatus(Display::ON);
 
 	return true;
 }
@@ -91,8 +94,9 @@ void DisplayNHDC12832A1ZFSWFBW3V3::ClearFramebuffer()
 	U16 i;
 	for (i=0; i<(NHDC12832A1ZFSWFBW3V3_WIDTH*NHDC12832A1ZFSWFBW3V3_HEIGHT/8); i++)
 	{
-		g_DisplayNHDC12832A1ZFSWFBW3V3_framebuffer_p[i] = 0;
+		g_DisplayNHDC12832A1ZFSWFBW3V3_framebuffer[i] = 0;
 	}
+	DirtyAll();
 }
 
 void DisplayNHDC12832A1ZFSWFBW3V3::SwapBuffers()
@@ -124,7 +128,7 @@ void DisplayNHDC12832A1ZFSWFBW3V3::SwapBuffers()
 
 			for (y=0; y<8; y++)
 			{
-				fb_data = g_DisplayNHDC12832A1ZFSWFBW3V3_framebuffer_p[(page*8 + y)*NHDC12832A1ZFSWFBW3V3_BYTES_PER_ROW + x_byte];
+				fb_data = g_DisplayNHDC12832A1ZFSWFBW3V3_framebuffer[(page*8 + y)*NHDC12832A1ZFSWFBW3V3_BYTES_PER_ROW + x_byte];
 				for (x=0; x<8; x++)
 				{
 					if (fb_data & (1<<(7-x)))
