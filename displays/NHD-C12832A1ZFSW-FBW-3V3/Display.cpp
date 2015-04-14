@@ -133,7 +133,7 @@ void DisplayNHDC12832A1ZFSWFBW3V3::SwapBuffers()
 				{
 					if (fb_data & (1<<(7-x)))
 					{
-						data[x] |= 1<<(7-y);
+						data[7-x] |= 1<<y;
 					}
 				}
 			}
