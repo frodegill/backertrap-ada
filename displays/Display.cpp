@@ -106,7 +106,7 @@ void Display::DrawRect(S16 x, S16 y, U16 width, U16 height, DrawMode mode)
 		}
 		for (i=1; i<height-1; i++)
 		{
-			DrawPixel(x, y+1, mode);
+			DrawPixel(x, y+i, mode);
 			DrawPixel(x+width-1, y+i, mode);
 		}
 	}
