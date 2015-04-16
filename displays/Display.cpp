@@ -160,7 +160,7 @@ U16 Display::DrawChar(S16 x, S16 y, U8 ch, DrawMode mode, const Font& font) //re
 	return ch_width + font.GetMargin();
 }
 
-U16 Display::DrawText(S16 x, S16 y, U8 PROGMEM_PTR_T str, DrawMode mode, const Font& font) //returns width of text
+U16 Display::DrawText(S16 x, S16 y, U8 PROGMEM_PTR_T str_p, DrawMode mode, const Font& font) //returns width of text
 {
 	U16 text_width = 0;
 
@@ -169,7 +169,7 @@ U16 Display::DrawText(S16 x, S16 y, U8 PROGMEM_PTR_T str, DrawMode mode, const F
 	if ((y+font.GetFontHeight())>=0 && y<static_cast<S16>(display_height))
 	{
 		U8 ch;
-		while ((ch=PROGMEM_READ_BYTE((U8 PROGMEM_PTR_T)(str++))) && (x+text_width)<display_width)
+		while ((ch=PROGMEM_READ_BYTE((U8 PROGMEM_PTR_T)(str_p++))) && (x+text_width)<display_width)
 		{
 			text_width += DrawChar(x+text_width, y, ch, mode, font);
 		}

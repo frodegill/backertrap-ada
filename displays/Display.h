@@ -59,7 +59,7 @@ public:
 	void DrawRect(S16 x, S16 y, U16 width, U16 height, DrawMode mode);
 	void DrawFilledRect(S16 x, S16 y, U16 width, U16 height, DrawMode mode);
 	U16 DrawChar(S16 x, S16 y, U8 ch, DrawMode mode, const Font& font); //returns width of character, including margin
-	U16 DrawText(S16 x, S16 y, U8 PROGMEM_PTR_T str, DrawMode mode, const Font& font); //returns width of text
+	U16 DrawText(S16 x, S16 y, U8 PROGMEM_PTR_T str_p, DrawMode mode, const Font& font); //returns width of text
 
 private:
 	int (* m_vtable)(void* display, VTABLE_FUNC vfunc, void* param);
