@@ -7,7 +7,7 @@
 #include "xmega/utils/progmem.h"
 
 
-static PROGMEM_DECLARE(U8, g_BMRizerFont6_alphabet_p[]) = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz";
+static PROGMEM_DECLARE(U8, g_BMRizerFont6_alphabet_p[]) = " !\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz";
 
 static PROGMEM_DECLARE(U8, g_BMRizerFont6_font_p[]) = {
 CHAR_SIZE(6,0,0), //[SPACE]

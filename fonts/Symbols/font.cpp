@@ -16,33 +16,37 @@ static PROGMEM_DECLARE(U8, g_SymbolsFont_alphabet_p[]) = {
 };
 
 static PROGMEM_DECLARE(U8, g_SymbolsFont_font_p[]) = {
-CHAR_SIZE(4,4,0), //UP
-0b11010000,
-0b10000000,
-0b11010000,
-0b11010000,
-
-CHAR_SIZE(4,4,0), //DOWN
-0b11010000,
-0b11010000,
-0b10000000,
-0b11010000,
-
-CHAR_SIZE(4,4,0), //BACK
-0b10110000,
+CHAR_SIZE(5,5,0), //UP
+0b11011000,
+0b10001000,
 0b00000000,
-0b10110000,
-0b11110000,
+0b11011000,
+0b11011000,
 
-CHAR_SIZE(4,4,0), //OK
-0b11110000,
-0b11100000,
-0b01010000,
-0b10110000
+CHAR_SIZE(5,5,0), //DOWN
+0b11011000,
+0b11011000,
+0b00000000,
+0b10001000,
+0b11011000,
+
+CHAR_SIZE(5,5,0), //BACK
+0b11011000,
+0b10011000,
+0b00000000,
+0b10011000,
+0b11011000,
+
+CHAR_SIZE(5,5,0), //OK
+0b11111000,
+0b11101000,
+0b01011000,
+0b10111000,
+0b11111000
 };
 
 SymbolsFont::SymbolsFont()
-: Font(4, 1, &g_SymbolsFont_alphabet_p[0], &g_SymbolsFont_font_p[0])
+: Font(5, 1, &g_SymbolsFont_alphabet_p[0], &g_SymbolsFont_font_p[0])
 {
 }
 

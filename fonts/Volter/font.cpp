@@ -7,7 +7,7 @@
 #include "xmega/utils/progmem.h"
 
 
-static PROGMEM_DECLARE(U8, g_VolterFont9_alphabet_p[]) = "!\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
+static PROGMEM_DECLARE(U8, g_VolterFont9_alphabet_p[]) = " !\"#%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]_abcdefghijklmnopqrstuvwxyz{}";
 
 static PROGMEM_DECLARE(U8, g_VolterFont9_font_p[]) = {
 CHAR_SIZE(4,0,0), //[SPACE]
