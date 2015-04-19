@@ -46,6 +46,10 @@
 #ifndef DRIVERS_RTC32_RTC32_H
 #define DRIVERS_RTC32_RTC32_H
 
+#ifdef __cplusplus
+extern "C" {
+	#endif
+
 #include <compiler.h>
 #include <conf_rtc32.h>
 
@@ -321,5 +325,9 @@ void rtc_init(void);
 	}
 \endcode
  */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* DRIVERS_RTC32_RTC32_H */
