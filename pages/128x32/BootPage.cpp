@@ -6,6 +6,10 @@
 #include "../../BackertrapAdaApp.h"
 
 
+static PROGMEM_DECLARE(U8, BACKERTRAP_ADA_p[])   = "Backertrap Ada";
+static PROGMEM_DECLARE(U8, PRESS_ANY_BUTTON_p[]) = "!#%&[Press any button]";
+
+
 int BootPage128x32VTable(void* page, Page::VTABLE_FUNC vfunc, void* param)
 {
 	BootPage128x32* native_page = static_cast<BootPage128x32*>(page);
@@ -42,13 +46,14 @@ void BootPage128x32::OnActivated()
 	display->ClearFramebuffer();
 
 	display->DrawChar(0,    0, SymbolsFont::BACK, Display::OR, *symbols);
-	display->DrawChar(124,  0, SymbolsFont::UP,   Display::OR, *symbols);
-	display->DrawChar(0,   28, SymbolsFont::OK,   Display::OR, *symbols);
-	display->DrawChar(124, 28, SymbolsFont::DOWN, Display::OR, *symbols);
+	display->DrawChar(123,  0, SymbolsFont::UP,   Display::OR, *symbols);
+	display->DrawChar(0,   27, SymbolsFont::OK,   Display::OR, *symbols);
+	display->DrawChar(123, 27, SymbolsFont::DOWN, Display::OR, *symbols);
 
-	display->DrawText(6, 6, reinterpret_cast<const U8*>("Backertrap Ada"), Display::OR, *generic12px);
-
-	display->DrawText(6, 20, reinterpret_cast<const U8*>("[Press any button]"), Display::OR, *generic6px);
+//	display->DrawText(6, 6, &BACKERTRAP_ADA_p[0], Display::OR, *generic12px);
+	display->DrawNumber(6, 6, 12345, Display::OR, *generic12px);
+	
+	display->DrawText(6, 20, &PRESS_ANY_BUTTON_p[0], Display::OR, *generic6px);
 
 	display->SwapBuffers();
 }
