@@ -1,0 +1,776 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>6.2</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRGCC8.CPP</ToolchainName>
+    <ProjectGuid>{31ba6e71-f56a-49bb-8be9-9d22c63d253e}</ProjectGuid>
+    <avrdevice>ATxmega256A3BU</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>CPP</Language>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AssemblyName>backertrap-ada</AssemblyName>
+    <Name>backertrap-ada</Name>
+    <RootNamespace>backertrap-ada</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
+    <UncachedRange />
+    <preserveEEPROM>true</preserveEEPROM>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
+    <BootSegment>2</BootSegment>
+    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.22.0" />
+        </dependencies>
+      </framework-data>
+    </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
+    <com_atmel_avrdbg_tool_atmelice>
+      <ToolOptions>
+        <InterfaceProperties>
+          <PdiClock>4000000</PdiClock>
+        </InterfaceProperties>
+        <InterfaceName>PDI</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.atmelice</ToolType>
+      <ToolNumber>J41800004646</ToolNumber>
+      <ToolName>Atmel-ICE</ToolName>
+    </com_atmel_avrdbg_tool_atmelice>
+    <avrtoolinterface>PDI</avrtoolinterface>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGccCpp>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>BOARD=XMEGA_A3BU_XPLAINED</Value>
+            <Value>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</Value>
+            <Value>IOPORT_XMEGA_COMPAT</Value>
+            <Value>NUMBER_OF_PORTS=1</Value>
+            <Value>QTOUCH_STUDIO_MASKS=1</Value>
+            <Value>QT_DELAY_CYCLES=1</Value>
+            <Value>QT_NUM_CHANNELS=4</Value>
+            <Value>SNS=F</Value>
+            <Value>SNSK=F</Value>
+            <Value>_QTOUCH_</Value>
+            <Value>_SNS1_SNSK1_SAME_PORT_</Value>
+            <Value>NDEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>..</Value>
+            <Value>../3rd-party/Atmel</Value>
+            <Value>../3rd-party/Atmel/common/boards</Value>
+            <Value>../3rd-party/Atmel/common/components/display/st7565r</Value>
+            <Value>../3rd-party/Atmel/common/services/clock</Value>
+            <Value>../3rd-party/Atmel/common/services/delay</Value>
+            <Value>../3rd-party/Atmel/common/services/gpio</Value>
+            <Value>../3rd-party/Atmel/common/services/ioport</Value>
+            <Value>../3rd-party/Atmel/common/services/sleepmgr</Value>
+            <Value>../3rd-party/Atmel/common/services/spi</Value>
+            <Value>../3rd-party/Atmel/common/utils</Value>
+            <Value>../3rd-party/Atmel/xmega/boards</Value>
+            <Value>../3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/cpu</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/nvm</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/pmic</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/rtc32</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/sleep</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/tc</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/usart</Value>
+            <Value>../3rd-party/Atmel/xmega/utils</Value>
+            <Value>../3rd-party/Atmel/xmega/utils/preprocessor</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcccpp.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcccpp.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>BOARD=XMEGA_A3BU_XPLAINED</Value>
+            <Value>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</Value>
+            <Value>IOPORT_XMEGA_COMPAT</Value>
+            <Value>NUMBER_OF_PORTS=1</Value>
+            <Value>QTOUCH_STUDIO_MASKS=1</Value>
+            <Value>QT_DELAY_CYCLES=1</Value>
+            <Value>QT_NUM_CHANNELS=4</Value>
+            <Value>SNS=F</Value>
+            <Value>SNSK=F</Value>
+            <Value>_QTOUCH_</Value>
+            <Value>_SNS1_SNSK1_SAME_PORT_</Value>
+            <Value>NDEBUG</Value>
+          </ListValues>
+        </avrgcccpp.compiler.symbols.DefSymbols>
+        <avrgcccpp.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>..</Value>
+            <Value>../3rd-party/Atmel</Value>
+            <Value>../3rd-party/Atmel/common/boards</Value>
+            <Value>../3rd-party/Atmel/common/components/display/st7565r</Value>
+            <Value>../3rd-party/Atmel/common/services/clock</Value>
+            <Value>../3rd-party/Atmel/common/services/delay</Value>
+            <Value>../3rd-party/Atmel/common/services/gpio</Value>
+            <Value>../3rd-party/Atmel/common/services/ioport</Value>
+            <Value>../3rd-party/Atmel/common/services/sleepmgr</Value>
+            <Value>../3rd-party/Atmel/common/services/spi</Value>
+            <Value>../3rd-party/Atmel/common/utils</Value>
+            <Value>../3rd-party/Atmel/xmega/boards</Value>
+            <Value>../3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/cpu</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/nvm</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/pmic</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/rtc32</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/sleep</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/tc</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/usart</Value>
+            <Value>../3rd-party/Atmel/xmega/utils</Value>
+            <Value>../3rd-party/Atmel/xmega/utils/preprocessor</Value>
+          </ListValues>
+        </avrgcccpp.compiler.directories.IncludePaths>
+        <avrgcccpp.compiler.warnings.AllWarnings>True</avrgcccpp.compiler.warnings.AllWarnings>
+        <avrgcccpp.linker.general.DoNotUseStandardStartFiles>True</avrgcccpp.linker.general.DoNotUseStandardStartFiles>
+        <avrgcccpp.linker.general.DoNotUseDefaultLibraries>True</avrgcccpp.linker.general.DoNotUseDefaultLibraries>
+        <avrgcccpp.linker.general.NoStartupOrDefaultLibs>True</avrgcccpp.linker.general.NoStartupOrDefaultLibs>
+        <avrgcccpp.linker.libraries.Libraries>
+          <ListValues>
+            <Value>avrxmega6g1-4qt-k-0rs</Value>
+          </ListValues>
+        </avrgcccpp.linker.libraries.Libraries>
+        <avrgcccpp.linker.libraries.LibrarySearchPaths>
+          <ListValues>
+            <Value>../3rd-party/Atmel/xmega/lib</Value>
+            <Value>../3rd-party/Atmel/xmega/lib/qtouch</Value>
+          </ListValues>
+        </avrgcccpp.linker.libraries.LibrarySearchPaths>
+        <avrgcccpp.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>..</Value>
+            <Value>../3rd-party/Atmel</Value>
+            <Value>../3rd-party/Atmel/common/boards</Value>
+            <Value>../3rd-party/Atmel/common/components/display/st7565r</Value>
+            <Value>../3rd-party/Atmel/common/services/clock</Value>
+            <Value>../3rd-party/Atmel/common/services/delay</Value>
+            <Value>../3rd-party/Atmel/common/services/gpio</Value>
+            <Value>../3rd-party/Atmel/common/services/ioport</Value>
+            <Value>../3rd-party/Atmel/common/services/sleepmgr</Value>
+            <Value>../3rd-party/Atmel/common/services/spi</Value>
+            <Value>../3rd-party/Atmel/common/utils</Value>
+            <Value>../3rd-party/Atmel/xmega/boards</Value>
+            <Value>../3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/cpu</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/nvm</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/pmic</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/rtc32</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/sleep</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/tc</Value>
+            <Value>../3rd-party/Atmel/xmega/drivers/usart</Value>
+            <Value>../3rd-party/Atmel/xmega/utils</Value>
+            <Value>../3rd-party/Atmel/xmega/utils/preprocessor</Value>
+          </ListValues>
+        </avrgcccpp.assembler.general.IncludePaths>
+        <avrgcccpp.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcccpp.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcccpp.compiler.optimization.PackStructureMembers>True</avrgcccpp.compiler.optimization.PackStructureMembers>
+        <avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcccpp.compiler.optimization.level>Optimize for size (-Os)</avrgcccpp.compiler.optimization.level>
+      </AvrGccCpp>
+    </ToolchainSettings>
+    <UsesExternalMakeFile>False</UsesExternalMakeFile>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+    <ExternalMakeFilePath></ExternalMakeFilePath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGccCpp>
+  <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>BOARD=XMEGA_A3BU_XPLAINED</Value>
+      <Value>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</Value>
+      <Value>IOPORT_XMEGA_COMPAT</Value>
+      <Value>NUMBER_OF_PORTS=1</Value>
+      <Value>QTOUCH_STUDIO_MASKS=1</Value>
+      <Value>QT_DELAY_CYCLES=1</Value>
+      <Value>QT_NUM_CHANNELS=4</Value>
+      <Value>SNS=F</Value>
+      <Value>SNSK=F</Value>
+      <Value>_QTOUCH_</Value>
+      <Value>_SNS1_SNSK1_SAME_PORT_</Value>
+      <Value>DEBUG</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>..</Value>
+      <Value>../3rd-party/Atmel</Value>
+      <Value>../3rd-party/Atmel/common/boards</Value>
+      <Value>../3rd-party/Atmel/common/components/display/st7565r</Value>
+      <Value>../3rd-party/Atmel/common/services/clock</Value>
+      <Value>../3rd-party/Atmel/common/services/delay</Value>
+      <Value>../3rd-party/Atmel/common/services/gpio</Value>
+      <Value>../3rd-party/Atmel/common/services/ioport</Value>
+      <Value>../3rd-party/Atmel/common/services/sleepmgr</Value>
+      <Value>../3rd-party/Atmel/common/services/spi</Value>
+      <Value>../3rd-party/Atmel/common/utils</Value>
+      <Value>../3rd-party/Atmel/xmega/boards</Value>
+      <Value>../3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/cpu</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/nvm</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/pmic</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/rtc32</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/sleep</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/tc</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/usart</Value>
+      <Value>../3rd-party/Atmel/xmega/utils</Value>
+      <Value>../3rd-party/Atmel/xmega/utils/preprocessor</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcccpp.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcccpp.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>BOARD=XMEGA_A3BU_XPLAINED</Value>
+      <Value>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</Value>
+      <Value>IOPORT_XMEGA_COMPAT</Value>
+      <Value>NUMBER_OF_PORTS=1</Value>
+      <Value>QTOUCH_STUDIO_MASKS=1</Value>
+      <Value>QT_DELAY_CYCLES=1</Value>
+      <Value>QT_NUM_CHANNELS=4</Value>
+      <Value>SNS=F</Value>
+      <Value>SNSK=F</Value>
+      <Value>_QTOUCH_</Value>
+      <Value>_SNS1_SNSK1_SAME_PORT_</Value>
+      <Value>DEBUG</Value>
+    </ListValues>
+  </avrgcccpp.compiler.symbols.DefSymbols>
+  <avrgcccpp.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>..</Value>
+      <Value>../3rd-party/Atmel</Value>
+      <Value>../3rd-party/Atmel/common/boards</Value>
+      <Value>../3rd-party/Atmel/common/components/display/st7565r</Value>
+      <Value>../3rd-party/Atmel/common/services/clock</Value>
+      <Value>../3rd-party/Atmel/common/services/delay</Value>
+      <Value>../3rd-party/Atmel/common/services/gpio</Value>
+      <Value>../3rd-party/Atmel/common/services/ioport</Value>
+      <Value>../3rd-party/Atmel/common/services/sleepmgr</Value>
+      <Value>../3rd-party/Atmel/common/services/spi</Value>
+      <Value>../3rd-party/Atmel/common/utils</Value>
+      <Value>../3rd-party/Atmel/xmega/boards</Value>
+      <Value>../3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/cpu</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/nvm</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/pmic</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/rtc32</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/sleep</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/tc</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/usart</Value>
+      <Value>../3rd-party/Atmel/xmega/utils</Value>
+      <Value>../3rd-party/Atmel/xmega/utils/preprocessor</Value>
+    </ListValues>
+  </avrgcccpp.compiler.directories.IncludePaths>
+  <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>
+  <avrgcccpp.compiler.optimization.PackStructureMembers>True</avrgcccpp.compiler.optimization.PackStructureMembers>
+  <avrgcccpp.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcccpp.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcccpp.compiler.optimization.DebugLevel>Default (-g2)</avrgcccpp.compiler.optimization.DebugLevel>
+  <avrgcccpp.compiler.warnings.AllWarnings>True</avrgcccpp.compiler.warnings.AllWarnings>
+  <avrgcccpp.linker.libraries.Libraries>
+    <ListValues>
+      <Value>avrxmega6g1-4qt-k-0rs</Value>
+    </ListValues>
+  </avrgcccpp.linker.libraries.Libraries>
+  <avrgcccpp.linker.libraries.LibrarySearchPaths>
+    <ListValues>
+      <Value>../3rd-party/Atmel/xmega/lib</Value>
+      <Value>../3rd-party/Atmel/xmega/lib/qtouch</Value>
+    </ListValues>
+  </avrgcccpp.linker.libraries.LibrarySearchPaths>
+  <avrgcccpp.assembler.general.AssemblerFlags>-DBOARD=XMEGA_A3BU_XPLAINED -DCONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA -DIOPORT_XMEGA_COMPAT -DNUMBER_OF_PORTS=1 -DQTOUCH_STUDIO_MASKS=1 -DQT_DELAY_CYCLES=1 -DQT_NUM_CHANNELS=4 -DSNS=F -DSNSK=F -D_QTOUCH_ -D_SNS1_SNSK1_SAME_PORT_</avrgcccpp.assembler.general.AssemblerFlags>
+  <avrgcccpp.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>..</Value>
+      <Value>../3rd-party/Atmel</Value>
+      <Value>../3rd-party/Atmel/common/boards</Value>
+      <Value>../3rd-party/Atmel/common/components/display/st7565r</Value>
+      <Value>../3rd-party/Atmel/common/services/clock</Value>
+      <Value>../3rd-party/Atmel/common/services/delay</Value>
+      <Value>../3rd-party/Atmel/common/services/gpio</Value>
+      <Value>../3rd-party/Atmel/common/services/ioport</Value>
+      <Value>../3rd-party/Atmel/common/services/sleepmgr</Value>
+      <Value>../3rd-party/Atmel/common/services/spi</Value>
+      <Value>../3rd-party/Atmel/common/utils</Value>
+      <Value>../3rd-party/Atmel/xmega/boards</Value>
+      <Value>../3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/cpu</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/nvm</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/pmic</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/rtc32</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/sleep</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/tc</Value>
+      <Value>../3rd-party/Atmel/xmega/drivers/usart</Value>
+      <Value>../3rd-party/Atmel/xmega/utils</Value>
+      <Value>../3rd-party/Atmel/xmega/utils/preprocessor</Value>
+    </ListValues>
+  </avrgcccpp.assembler.general.IncludePaths>
+  <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
+</AvrGccCpp>
+    </ToolchainSettings>
+    <UsesExternalMakeFile>False</UsesExternalMakeFile>
+    <BuildTarget>all</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="3rd-party\" />
+    <Folder Include="3rd-party\Atmel\" />
+    <Folder Include="3rd-party\Atmel\common\" />
+    <Folder Include="3rd-party\Atmel\common\boards\" />
+    <Folder Include="3rd-party\Atmel\common\components\" />
+    <Folder Include="3rd-party\Atmel\common\components\display\" />
+    <Folder Include="3rd-party\Atmel\common\components\display\st7565r\" />
+    <Folder Include="3rd-party\Atmel\common\services\" />
+    <Folder Include="3rd-party\Atmel\common\services\clock\" />
+    <Folder Include="3rd-party\Atmel\common\services\clock\xmega\" />
+    <Folder Include="3rd-party\Atmel\common\services\delay\" />
+    <Folder Include="3rd-party\Atmel\common\services\delay\xmega\" />
+    <Folder Include="3rd-party\Atmel\common\services\gpio\" />
+    <Folder Include="3rd-party\Atmel\common\services\gpio\xmega_gpio\" />
+    <Folder Include="3rd-party\Atmel\common\services\ioport\" />
+    <Folder Include="3rd-party\Atmel\common\services\ioport\xmega\" />
+    <Folder Include="3rd-party\Atmel\common\services\sleepmgr\" />
+    <Folder Include="3rd-party\Atmel\common\services\sleepmgr\xmega\" />
+    <Folder Include="3rd-party\Atmel\common\services\spi\" />
+    <Folder Include="3rd-party\Atmel\common\services\spi\xmega_usart_spi\" />
+    <Folder Include="3rd-party\Atmel\common\utils\" />
+    <Folder Include="3rd-party\Atmel\common\utils\interrupt\" />
+    <Folder Include="3rd-party\Atmel\xmega\" />
+    <Folder Include="3rd-party\Atmel\xmega\boards\" />
+    <Folder Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\" />
+    <Folder Include="3rd-party\Atmel\xmega\drivers\" />
+    <Folder Include="3rd-party\Atmel\xmega\drivers\cpu\" />
+    <Folder Include="3rd-party\Atmel\xmega\drivers\nvm\" />
+    <Folder Include="3rd-party\Atmel\xmega\drivers\pmic\" />
+    <Folder Include="3rd-party\Atmel\xmega\drivers\qtouch\" />
+    <Folder Include="3rd-party\Atmel\xmega\drivers\rtc32\" />
+    <Folder Include="3rd-party\Atmel\xmega\drivers\sleep\" />
+    <Folder Include="3rd-party\Atmel\xmega\drivers\tc\" />
+    <Folder Include="3rd-party\Atmel\xmega\drivers\usart\" />
+    <Folder Include="3rd-party\Atmel\xmega\lib\" />
+    <Folder Include="3rd-party\Atmel\xmega\lib\qtouch\" />
+    <Folder Include="3rd-party\Atmel\xmega\utils\" />
+    <Folder Include="3rd-party\Atmel\xmega\utils\assembler\" />
+    <Folder Include="3rd-party\Atmel\xmega\utils\bit_handling\" />
+    <Folder Include="3rd-party\Atmel\xmega\utils\preprocessor\" />
+    <Folder Include="cameras\" />
+    <Folder Include="cameras\CanonEOS7D\" />
+    <Folder Include="displays\" />
+    <Folder Include="displays\NHD-C12832A1ZFSW-FBW-3V3\" />
+    <Folder Include="fonts\" />
+    <Folder Include="fonts\BMPlain\" />
+    <Folder Include="fonts\BMRizer\" />
+    <Folder Include="fonts\FreePixel\" />
+    <Folder Include="fonts\PressStart2P\" />
+    <Folder Include="fonts\Symbols\" />
+    <Folder Include="fonts\Volter\" />
+    <Folder Include="managers\" />
+    <Folder Include="pages\" />
+    <Folder Include="pages\128x32\" />
+    <Folder Include="storage\" />
+    <Folder Include="storage\AT45DB642D\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="3rd-party\Atmel\common\boards\board.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\components\display\st7565r\st7565r.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\components\display\st7565r\st7565r.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\clock\osc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\clock\pll.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\clock\sysclk.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\clock\xmega\osc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\clock\xmega\pll.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\clock\xmega\sysclk.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\clock\xmega\sysclk.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\delay\delay.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\delay\xmega\cycle_counter.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\gpio\gpio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\gpio\xmega_gpio\xmega_gpio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\ioport\ioport.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\ioport\xmega\ioport.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\ioport\xmega\ioport_compat.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\ioport\xmega\ioport_compat.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\sleepmgr\sleepmgr.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\sleepmgr\xmega\sleepmgr.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\sleepmgr\xmega\sleepmgr.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\spi\usart_spi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\spi\xmega_usart_spi\usart_spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\services\spi\xmega_usart_spi\usart_spi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\utils\interrupt.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\utils\interrupt\interrupt_avr8.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\common\utils\parts.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\conf_board.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\conf_clock.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\conf_rtc32.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\conf_sleepmgr.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\conf_st7565r.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\conf_usart_spi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\led.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\boards\xmega_a3bu_xplained\xmega_a3bu_xplained.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\cpu\ccp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\cpu\ccp.s">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\cpu\xmega_reset_cause.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\nvm\nvm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\nvm\nvm.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\nvm\nvm_asm.s">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\pmic\pmic.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\qtouch\qt_asm_xmega.s">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\qtouch\touch.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\qtouch\touch_api.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\qtouch\touch_qt_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\rtc32\rtc32.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\rtc32\rtc32.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\sleep\sleep.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\tc\tc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\tc\tc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\usart\usart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\drivers\usart\usart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\assembler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\assembler\gas.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\bit_handling\clz_ctz.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\compiler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\preprocessor\mrepeat.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\preprocessor\preprocessor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\preprocessor\stringz.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\preprocessor\tpaste.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\progmem.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3rd-party\Atmel\xmega\utils\status_codes.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="asf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="BackertrapAdaApp.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="BackertrapAdaApp.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="cameras\Camera.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="cameras\Camera.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="cameras\CanonEOS7D\Camera.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="cameras\CanonEOS7D\Camera.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="compiler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="defines.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="displays\Display.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="displays\Display.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="displays\NHD-C12832A1ZFSW-FBW-3V3\Display.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="displays\NHD-C12832A1ZFSW-FBW-3V3\Display.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\BMPlain\font.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\BMPlain\font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\BMRizer\font.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\BMRizer\font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\font.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\FreePixel\font.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\FreePixel\font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\PressStart2P\font.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\PressStart2P\font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\Symbols\font.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\Symbols\font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\Volter\font.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fonts\Volter\font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\ButtonManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\ButtonManager.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\DisplayManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\DisplayManager.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\FontManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\FontManager.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\PageManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\PageManager.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\PowerManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\PowerManager.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\SensorManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\SensorManager.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\StorageManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\StorageManager.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\TimerManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="managers\TimerManager.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pages\128x32\BootPage.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pages\128x32\BootPage.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pages\Page.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="pages\Page.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="storage\AT45DB642D\Storage.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="storage\AT45DB642D\Storage.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="storage\Storage.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="storage\Storage.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="3rd-party\Atmel\xmega\drivers\qtouch\license.txt">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="3rd-party\Atmel\xmega\lib\qtouch\libavrxmega6g1-4qt-k-0rs.a">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="Makefile">
+      <SubType>compile</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+</Project>
