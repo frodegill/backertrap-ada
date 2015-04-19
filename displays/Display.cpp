@@ -177,3 +177,38 @@ U16 Display::DrawText(S16 x, S16 y, U8 PROGMEM_PTR_T str_p, DrawMode mode, const
 	
 	return text_width;
 }
+
+U16 Display::DrawNumber(S16 x, S16 y, S16 n, DrawMode mode, const Font& font) //returns width of number (as text)
+{
+	U16 text_width = 0;
+
+	U16 display_width = GetWidth();
+	U16 display_height = GetHeight();
+	U16 exp = 10000;
+	bool printing = false;
+	if ((y+font.GetFontHeight())>=0 && y<static_cast<S16>(display_height))
+	{
+		if (0 > n)
+		{
+			text_width += DrawChar(x, y, '-', mode, font);
+			n = -n;
+		}
+
+		U8 ch;
+		while (0<exp && (x+text_width)<display_width)
+		{
+			ch = n/exp;
+			n -= ch*exp;
+			ch += '0';
+			exp /= 10;
+
+			if (printing || '0'!=ch || 0==exp)
+			{
+				text_width += DrawChar(x+text_width, y, ch, mode, font);
+				printing = true;
+			}
+		}
+	}
+	
+	return text_width;
+}
