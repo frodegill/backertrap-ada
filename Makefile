@@ -102,25 +102,15 @@ INC_PATH = \
        -isystem ./3rd-party/Atmel \
        -isystem ./3rd-party/Atmel/common/boards \
        -isystem ./3rd-party/Atmel/common/components/display/st7565r \
-       -isystem ./3rd-party/Atmel/common/services/calendar \
        -isystem ./3rd-party/Atmel/common/services/clock \
        -isystem ./3rd-party/Atmel/common/services/delay \
-       -isystem ./3rd-party/Atmel/common/services/gfx_mono \
        -isystem ./3rd-party/Atmel/common/services/gpio \
        -isystem ./3rd-party/Atmel/common/services/ioport \
        -isystem ./3rd-party/Atmel/common/services/sleepmgr \
        -isystem ./3rd-party/Atmel/common/services/spi \
-       -isystem ./3rd-party/Atmel/common/services/usb \
-       -isystem ./3rd-party/Atmel/common/services/usb/class/cdc \
-       -isystem ./3rd-party/Atmel/common/services/usb/class/cdc/device \
-       -isystem ./3rd-party/Atmel/common/services/usb/udc \
        -isystem ./3rd-party/Atmel/common/utils \
-       -isystem ./3rd-party/Atmel/xmega/applications/xmega_a3bu_xplained_demo \
-       -isystem ./3rd-party/Atmel/xmega/applications/xmega_a3bu_xplained_demo/atxmega256a3bu_xmega_a3bu_xplained \
-       -isystem ./3rd-party/Atmel/xmega/applications/xmega_a3bu_xplained_demo/qtouch \
        -isystem ./3rd-party/Atmel/xmega/boards \
        -isystem ./3rd-party/Atmel/xmega/boards/xmega_a3bu_xplained \
-       -isystem ./3rd-party/Atmel/xmega/drivers/adc \
        -isystem ./3rd-party/Atmel/xmega/drivers/cpu \
        -isystem ./3rd-party/Atmel/xmega/drivers/nvm \
        -isystem ./3rd-party/Atmel/xmega/drivers/pmic \
@@ -128,10 +118,8 @@ INC_PATH = \
        -isystem ./3rd-party/Atmel/xmega/drivers/sleep \
        -isystem ./3rd-party/Atmel/xmega/drivers/tc \
        -isystem ./3rd-party/Atmel/xmega/drivers/usart \
-       -isystem ./3rd-party/Atmel/xmega/drivers/usb \
        -isystem ./3rd-party/Atmel/xmega/utils \
-       -isystem ./3rd-party/Atmel/xmega/utils/preprocessor \
-       -isystem ./3rd-party/Atmel/xmega/applications/xmega_a3bu_xplained_demo/atxmega256a3bu_xmega_a3bu_xplained/gcc
+       -isystem ./3rd-party/Atmel/xmega/utils/preprocessor
 
 # Library paths from the top-level source directory
 LIB_PATH = -L./3rd-party/Atmel/xmega/lib \
@@ -174,7 +162,6 @@ CFLAGS =
 CPPFLAGS = \
        -D BOARD=$(BOARD) \
        -D CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA \
-       -D GFX_MONO_C12832_A1Z=1 \
        -D IOPORT_XMEGA_COMPAT \
        -D NUMBER_OF_PORTS=1 \
        -D QTOUCH_STUDIO_MASKS=1 \
