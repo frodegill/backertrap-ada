@@ -134,7 +134,7 @@ U16 Display::DrawChar(S16 x, S16 y, U8 ch, DrawMode mode, const Font& font) //re
   ch_height = ch_height&0x0F;
 
 	U8 row, col, bit, ch_data;
-	for (row=ch_vertical_offset; row<(ch_vertical_offset+ch_height); row++)
+	for (row=0; row<ch_height; row++)
 	{
 		ch_data = font.GetFontdataByte(ch_offset, pos++);
 		bit = 7;
@@ -142,13 +142,16 @@ U16 Display::DrawChar(S16 x, S16 y, U8 ch, DrawMode mode, const Font& font) //re
 		{
 			if (ch_data&(1<<bit))
 			{
-				DrawPixel(x+col, y+row, mode);
+				DrawPixel(x+col, y+ch_vertical_offset+row, mode);
 			}
 			
 			if (bit==0)
 			{
-				bit = 7;
-				ch_data = font.GetFontdataByte(ch_offset, pos++);
+				if ((col+1)<ch_width) //If we are at the end of a byte, and have more columns, read next byte
+				{
+					bit = 7;
+					ch_data = font.GetFontdataByte(ch_offset, pos++);
+				}
 			}
 			else
 			{
