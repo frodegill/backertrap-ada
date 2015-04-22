@@ -9,7 +9,10 @@ class PowerManager
 public:
 	PowerManager();
 	~PowerManager();
-	
+
+public:
+	void RegisterActivity();
+
 };
 
 #endif // _POWER_MANAGER_H_

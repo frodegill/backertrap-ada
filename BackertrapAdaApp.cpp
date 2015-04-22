@@ -95,6 +95,7 @@ bool BackertrapAdaApp::Init()
 
 void BackertrapAdaApp::Run()
 {
+	m_power_manager.RegisterActivity(); //Activate backlight and backlight timeout
 	m_page_manager.PushPage(Page::BOOTPAGE);
 	
 	while(true)

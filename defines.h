@@ -5,7 +5,8 @@
 // See LICENSE file for GPLv3 license
 
 
-#define MAX_PAGE_STACK_SIZE (16)
+#define MAX_PAGE_STACK_SIZE         (16)
+#define MAX_TIMED_EVENTS_STACK_SIZE (16)
 
 #ifndef UNUSED_PARAM
 # define UNUSED_PARAM(x)

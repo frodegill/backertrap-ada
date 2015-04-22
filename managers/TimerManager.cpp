@@ -9,6 +9,7 @@
 
 
 TimerManager::TimerManager()
+: m_timed_events_list_length(0)
 {
 }
 
@@ -32,4 +33,12 @@ bool TimerManager::Init()
 	}
 
   return true;
+}
+
+void TimerManager::SetTimeout(TimerId UNUSED_PARAM(id), U32 UNUSED_PARAM(delay), Unit UNUSED_PARAM(unit))
+{
+}
+
+void TimerManager::ResetTimeout(TimerId UNUSED_PARAM(id), U32 UNUSED_PARAM(delay), Unit UNUSED_PARAM(unit))
+{
 }
