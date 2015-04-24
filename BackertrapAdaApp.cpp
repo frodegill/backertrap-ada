@@ -100,6 +100,7 @@ void BackertrapAdaApp::Run()
 	
 	while(true)
 	{
+		m_power_manager.SleepIDLE();
 	}
 }
 

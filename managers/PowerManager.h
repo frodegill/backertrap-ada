@@ -13,6 +13,8 @@ public:
 public:
 	void RegisterActivity();
 
+	void SleepIDLE() const;
+
 };
 
 #endif // _POWER_MANAGER_H_
