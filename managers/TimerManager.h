@@ -6,6 +6,10 @@
 
 #include "../defines.h"
 
+#define MICROSECOND_OFFSET (1000L)
+#define MILLISECOND_OFFSET (1000L*1000L)
+#define SECOND_OFFSET      (1000L*1000L*1000L)
+
 
 class TimerManager
 {
@@ -27,7 +31,7 @@ private:
 	struct TimedEvent
 	{
 		TimerId m_id;
-		U32     m_time;
+		U64     m_time;
 	};
 	
 public:
@@ -42,7 +46,12 @@ public:
 	void ClearTimeout(TimerId id);
 
 private:
-	TimedEvent m_timed_events[ MAX_TIMED_EVENTS_STACK_SIZE];
+	U64  Now() const;
+	bool InsertEvent(U8 index, const TimedEvent& event);
+	bool RemoveEvent(U8 index);
+
+private:
+	TimedEvent m_timed_events[MAX_TIMED_EVENTS_STACK_SIZE];
 	U8         m_timed_events_list_length;
 };
 

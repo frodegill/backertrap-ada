@@ -35,10 +35,82 @@ bool TimerManager::Init()
   return true;
 }
 
-void TimerManager::SetTimeout(TimerId UNUSED_PARAM(id), U32 UNUSED_PARAM(delay), Unit UNUSED_PARAM(unit))
+void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit)
 {
+	TimedEvent event;
+	event.m_id = id;
+	event.m_time = Now();
+	switch(unit)
+	{
+		case MICROSECOND: event.m_time += delay*MICROSECOND_OFFSET; break;
+		case MILLISECOND: event.m_time += delay*MILLISECOND_OFFSET; break;
+		case SECOND:      event.m_time += delay*SECOND_OFFSET; break;
+		default: break;
+	}
+	
+	U8 index = 0;
+	while (index<m_timed_events_list_length && m_timed_events[index].m_time<event.m_time)
+		index++;
+
+	InsertEvent(index, event);
 }
 
-void TimerManager::ResetTimeout(TimerId UNUSED_PARAM(id), U32 UNUSED_PARAM(delay), Unit UNUSED_PARAM(unit))
+void TimerManager::ResetTimeout(TimerId id, U32 delay, Unit unit)
 {
+	ClearTimeout(id);
+	SetTimeout(id, delay, unit);
+}
+
+void TimerManager::ClearTimeout(TimerId id)
+{
+	U8 i;
+	for (i=0; i<m_timed_events_list_length; i++)
+	{
+		while(i<m_timed_events_list_length && //m_timed_events_list_length will be changed in RemoveEvent
+		      m_timed_events[i].m_id==id)
+		{
+			RemoveEvent(i);
+		}
+	}
+}
+
+U64 TimerManager::Now() const
+{
+	return 0; //ToDo
+}
+
+bool TimerManager::InsertEvent(U8 index, const TimedEvent& event)
+{
+	if (MAX_TIMED_EVENTS_STACK_SIZE == m_timed_events_list_length ||
+	    index > m_timed_events_list_length)
+	{
+		return false;
+	}
+
+	U8 i;
+	for (i=m_timed_events_list_length; i>index; i--)
+	{
+		m_timed_events[i] = m_timed_events[i-1];
+	}
+
+	m_timed_events[index] = event;
+	m_timed_events_list_length++;
+	return true;
+}
+
+bool TimerManager::RemoveEvent(U8 index)
+{
+	if (index >= m_timed_events_list_length)
+	{
+		return false;
+	}
+	
+	U8 i;
+	for (i=index; i<(m_timed_events_list_length-1); i++)
+	{
+		m_timed_events[i] = m_timed_events[i+1];
+	}
+	
+	m_timed_events_list_length--;
+	return true;
 }
