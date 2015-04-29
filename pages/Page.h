@@ -13,12 +13,15 @@ public:
 	enum VTABLE_FUNC
 	{
 		OnActivatedFunc,
-		OnDeactivatedFunc
+		OnDeactivatedFunc,
+		OnButtonDownFunc,
+		OnButtonUpFunc
 	};
 
 	enum PageId
 	{
-		BOOTPAGE
+		BOOTPAGE,
+		MAINPAGE
 	};
 
 public:
@@ -30,6 +33,8 @@ public:
 public: //Atmel - Why no virtual!?!
 	void OnActivated() {m_vtable(this, OnActivatedFunc, NULL);}
 	void OnDeactivated() {m_vtable(this, OnDeactivatedFunc, NULL);}
+	void OnButtonDown(U8 button) {m_vtable(this, OnButtonDownFunc, &button);}
+	void OnButtonUp(U8 button) {m_vtable(this, OnButtonUpFunc, &button);}
 
 private:
 	int (* m_vtable)(void* page, VTABLE_FUNC vfunc, void* param);

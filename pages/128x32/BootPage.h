@@ -15,7 +15,7 @@ public:
 
 public:
 	void OnActivated();
-	void OnDeactivated();
+	void OnButtonDown(U8 button);
 
 };
 

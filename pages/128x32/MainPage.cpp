@@ -2,48 +2,55 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for GPLv3 license
 
-#include "BootPage.h"
+#include "MainPage.h"
 #include "../../BackertrapAdaApp.h"
 
 
-static PROGMEM_DECLARE(U8, BACKERTRAP_ADA_p[])   = "Backertrap Ada";
-static PROGMEM_DECLARE(U8, PRESS_ANY_BUTTON_p[]) = "[Press any button]";
+static PROGMEM_DECLARE(U8, LASER_p[])   = "Laser";
+static PROGMEM_DECLARE(U8, SOUND_p[])   = "Sound";
+static PROGMEM_DECLARE(U8, TIMELAPSE_p[])   = "Timelapse";
+static PROGMEM_DECLARE(U8, SETTINGS_p[])   = "Settings";
 
 
-int BootPage128x32VTable(void* page, Page::VTABLE_FUNC vfunc, void* param)
+int MainPage128x32VTable(void* page, Page::VTABLE_FUNC vfunc, void* param)
 {
-	BootPage128x32* native_page = static_cast<BootPage128x32*>(page);
+	MainPage128x32* native_page = static_cast<MainPage128x32*>(page);
 	switch(vfunc)
 	{
 		case Page::OnActivatedFunc:
 			native_page->OnActivated();
 			break;
 
+		case Page::OnDeactivatedFunc:
+			native_page->OnDeactivated();
+			break;
+
 		case Page::OnButtonDownFunc:
 			native_page->OnButtonDown(*reinterpret_cast<U8*>(param));
 			break;
 
-		default: break;
+		case Page::OnButtonUpFunc:
+			native_page->OnButtonUp(*reinterpret_cast<U8*>(param));
+			break;
 	}
 	return 0;
 }
 
 
-BootPage128x32::BootPage128x32()
-: Page(::BootPage128x32VTable, Page::BOOTPAGE)
+MainPage128x32::MainPage128x32()
+: Page(::MainPage128x32VTable, Page::MAINPAGE)
 {
 }
 
-BootPage128x32::~BootPage128x32()
+MainPage128x32::~MainPage128x32()
 {
 }
 
-void BootPage128x32::OnActivated()
+void MainPage128x32::OnActivated()
 {
 	Display* display = APP()->GetDisplayManager()->GetDisplay();
 	const Font* symbols = APP()->GetFontManager()->GetFont(FontManager::SYMBOLS);
 	const Font* generic12px = APP()->GetFontManager()->GetFont(FontManager::GENERIC_12PX);
-	const Font* generic7px = APP()->GetFontManager()->GetFont(FontManager::GENERIC_7PX);
 
 	display->ClearFramebuffer();
 
@@ -52,13 +59,19 @@ void BootPage128x32::OnActivated()
 	display->DrawChar(0,   27, SymbolsFont::OK,   Display::OR, *symbols);
 	display->DrawChar(123, 27, SymbolsFont::DOWN, Display::OR, *symbols);
 
-	display->DrawText(16, 6, &BACKERTRAP_ADA_p[0], Display::OR, *generic12px);
-	display->DrawText(16, 20, &PRESS_ANY_BUTTON_p[0], Display::OR, *generic7px);
+	display->DrawText(16, 6, &LASER_p[0], Display::OR, *generic12px);
 
 	display->SwapBuffers();
 }
 
-void BootPage128x32::OnButtonDown(U8 button)
+void MainPage128x32::OnDeactivated()
 {
-	APP()->GetPageManager()->PushPage(Page::MAINPAGE);
+}
+
+void MainPage128x32::OnButtonDown(U8 button)
+{
+}
+
+void MainPage128x32::OnButtonUp(U8 button)
+{
 }
