@@ -21,8 +21,6 @@ public:
 public:
 	void PushPage(Page::PageId id);
 	void PopPage();
-
-private:
 	Page* GetCurrentPage();
 
 private:
