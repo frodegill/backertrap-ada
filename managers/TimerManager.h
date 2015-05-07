@@ -6,32 +6,57 @@
 
 #include "../defines.h"
 
-#define MICROSECOND_OFFSET (1000L)
-#define MILLISECOND_OFFSET (1000L*1000L)
-#define SECOND_OFFSET      (1000L*1000L*1000L)
-
+#define NANOSECONDS_PER_MICROSECOND  (1000L)
+#define MICROSECONDS_PER_MILLISECOND (1000L)
+#define MILLISECONDS_PER_SECOND      (1000L)
+#define NANOSECONDS_PER_MILLISECOND  (NANOSECONDS_PER_MICROSECOND*MICROSECONDS_PER_MILLISECOND)
+#define NANOSECONDS_PER_SECOND       (NANOSECONDS_PER_MILLISECOND*MILLISECONDS_PER_SECOND)
+#define MICROSECONDS_PER_SECOND      (MICROSECONDS_PER_MILLISECOND*MILLISECONDS_PER_SECOND)
+#define SECONDS_PER_MINUTE (60)
+#define MINUTES_PER_HOUR   (60)
+#define SECONDS_PER_HOUR   (SECONDS_PER_MINUTE*MINUTES_PER_HOUR)
 
 class TimerManager
 {
 public:
 	enum TimerId
 	{
-		BACKLIGHT_TIMEOUT
+		BACKLIGHT_TIMEOUT,
+		PROGRAM_WAIT_TIMEOUT
+	};
+
+	enum Compare
+	{
+		BEFORE,
+		EQUAL,
+		AFTER
 	};
 
 	enum Unit
 	{
+		HOUR,
+		MINUTE,
 		SECOND,
 		MILLISECOND,
 		MICROSECOND,
 		NANOSECOND
 	};
 
+	struct Time
+	{
+		U32 m_seconds;
+		U32 m_nanoseconds;
+		
+		TimerManager::Compare Compare(const Time& other_time);
+		void Reset() {m_seconds = m_nanoseconds = 0;}
+		bool IsValid() const {return m_seconds!=0 || m_nanoseconds!=0;}
+	};
+
 private:
 	struct TimedEvent
 	{
 		TimerId m_id;
-		U64     m_time;
+		Time    m_time;
 	};
 	
 public:
@@ -45,8 +70,11 @@ public:
 	void ResetTimeout(TimerId id, U32 delay, Unit unit);
 	void ClearTimeout(TimerId id);
 
+public:
+	void Now(Time& time) const;
+	void IncrementTime(Time& time, U32 offset, Unit unit) const;
+
 private:
-	U64  Now() const;
 	bool InsertEvent(U8 index, const TimedEvent& event);
 	bool RemoveEvent(U8 index);
 

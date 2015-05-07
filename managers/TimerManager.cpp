@@ -8,6 +8,28 @@
 #include "../3rd-party/Atmel/xmega/drivers/rtc32/rtc32.h"
 
 
+TimerManager::Compare TimerManager::Time::Compare(const Time& other_time)
+{
+	if (m_seconds < other_time.m_seconds)
+	{
+		return BEFORE;
+	}
+	else if (m_seconds > other_time.m_seconds)
+	{
+		return AFTER;
+	}
+	else if (m_nanoseconds < other_time.m_nanoseconds)
+	{
+		return BEFORE;
+	}
+	else if (m_nanoseconds > other_time.m_nanoseconds)
+	{
+		return AFTER;
+	}
+	return EQUAL;
+}
+
+
 TimerManager::TimerManager()
 : m_timed_events_list_length(0)
 {
@@ -39,17 +61,11 @@ void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit)
 {
 	TimedEvent event;
 	event.m_id = id;
-	event.m_time = Now();
-	switch(unit)
-	{
-		case MICROSECOND: event.m_time += delay*MICROSECOND_OFFSET; break;
-		case MILLISECOND: event.m_time += delay*MILLISECOND_OFFSET; break;
-		case SECOND:      event.m_time += delay*SECOND_OFFSET; break;
-		default: break;
-	}
-	
+	Now(event.m_time);
+	IncrementTime(event.m_time, delay, unit);
+
 	U8 index = 0;
-	while (index<m_timed_events_list_length && m_timed_events[index].m_time<event.m_time)
+	while (index<m_timed_events_list_length && BEFORE == m_timed_events[index].m_time.Compare(event.m_time))
 		index++;
 
 	InsertEvent(index, event);
@@ -74,9 +90,66 @@ void TimerManager::ClearTimeout(TimerId id)
 	}
 }
 
-U64 TimerManager::Now() const
+void TimerManager::Now(Time& time) const
 {
-	return 0; //ToDo
+	time.m_seconds = rtc_get_time();
+	time.m_nanoseconds = 0; //ToDo
+}
+
+void TimerManager::IncrementTime(Time& time, U32 offset, Unit unit) const
+{
+	U32 units_per_second;
+	U32 nanoseconds_per_unit;
+	switch(unit)
+	{
+		case NANOSECOND:  units_per_second=NANOSECONDS_PER_SECOND; nanoseconds_per_unit=1; break;
+		case MICROSECOND: units_per_second=MICROSECONDS_PER_SECOND; nanoseconds_per_unit=NANOSECONDS_PER_MICROSECOND; break;
+		case MILLISECOND: units_per_second=MILLISECONDS_PER_SECOND; nanoseconds_per_unit=NANOSECONDS_PER_MILLISECOND; break;
+		default: units_per_second=nanoseconds_per_unit=0; break;
+	}
+	
+	switch(unit)
+	{
+		case NANOSECOND:
+		case MICROSECOND:
+		case MILLISECOND:
+		{
+			U32 offset_seconds;
+			if (offset >= units_per_second)
+			{
+				offset_seconds = offset/units_per_second;
+				offset -= offset_seconds*units_per_second;
+				time.m_seconds += offset_seconds;
+			}
+			time.m_nanoseconds += offset*nanoseconds_per_unit;
+			while (time.m_nanoseconds >= NANOSECONDS_PER_SECOND)
+			{
+				time.m_seconds += 1;
+				time.m_nanoseconds -= NANOSECONDS_PER_SECOND;
+			}
+			break;
+		}
+
+		case SECOND:
+		{
+			time.m_seconds += offset;
+			break;
+		}
+
+		case MINUTE:
+		{
+			time.m_seconds += offset*SECONDS_PER_MINUTE;
+			break;
+		}
+
+		case HOUR:
+		{
+			time.m_seconds += offset*SECONDS_PER_HOUR;
+			break;
+		}
+
+		default: break;
+	}
 }
 
 bool TimerManager::InsertEvent(U8 index, const TimedEvent& event)
