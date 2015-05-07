@@ -6,6 +6,7 @@
 
 #include "managers/ButtonManager.h"
 #include "managers/DisplayManager.h"
+#include "managers/ExecutionManager.h"
 #include "managers/FontManager.h"
 #include "managers/PageManager.h"
 #include "managers/PowerManager.h"
@@ -25,6 +26,7 @@ public:
 public:
 	ButtonManager* GetButtonManager() {return &m_button_manager;}
 	DisplayManager* GetDisplayManager() {return &m_display_manager;}
+	ExecutionManager* GetExecutionManager() {return &m_execution_manager;}
 	FontManager* GetFontManager() {return &m_font_manager;}
 	PageManager* GetPageManager() {return &m_page_manager;}
 	PowerManager* GetPowerManager() {return &m_power_manager;}
@@ -32,13 +34,14 @@ public:
 	TimerManager* GetTimerManager() {return &m_timer_manager;}
 	
 private:
-	ButtonManager  m_button_manager;
-	DisplayManager m_display_manager;
-	FontManager    m_font_manager;
-	PageManager    m_page_manager;
-	PowerManager   m_power_manager;
-	SensorManager  m_sensor_manager;
-	TimerManager   m_timer_manager;
+	ButtonManager    m_button_manager;
+	DisplayManager   m_display_manager;
+	ExecutionManager m_execution_manager;
+	FontManager      m_font_manager;
+	PageManager      m_page_manager;
+	PowerManager     m_power_manager;
+	SensorManager    m_sensor_manager;
+	TimerManager     m_timer_manager;
 };
 
 BackertrapAdaApp* APP();
