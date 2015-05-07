@@ -23,7 +23,7 @@ int BootPage128x32VTable(void* page, Page::VTABLE_FUNC vfunc, void* param)
 			native_page->OnButtonDown(*reinterpret_cast<U8*>(param));
 			break;
 
-		default: break;
+		default:  break;
 	}
 	return 0;
 }
