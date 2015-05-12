@@ -6,6 +6,8 @@
 
 #include "../defines.h"
 
+#include "../managers/TimerManager.h"
+
 
 class Camera
 {
@@ -53,6 +55,9 @@ public: //Atmel - Why no virtual!?!
 	void SetAperture(double aperture) {m_vtable(this, SetApertureFunc, &aperture);}
 	void SetShutter(double shutter) {m_vtable(this, SetShutterFunc, &shutter);}
 	void TakePicture()  {m_vtable(this, TakePictureFunc, NULL);}
+
+	void TriggerCamera(const TimerManager::Time& shutter) const; //Quick'n'dirty triggering of camera 
+	void TimerCallback();
 
 public:
 	U8 PROGMEM_PTR_T GetShutterText(ShutterTime shutter) const;

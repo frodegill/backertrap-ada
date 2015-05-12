@@ -4,6 +4,8 @@
 
 #include "Camera.h"
 
+#include "../BackertrapAdaApp.h"
+
 
 static PROGMEM_DECLARE(U8, SHUTTER_1_4000_p[]) = "1/4000";
 static PROGMEM_DECLARE(U8, SHUTTER_1_2000_p[]) = "1/2000";
@@ -73,6 +75,17 @@ static PROGMEM_DECLARE(U8, g_shutter_time_p[]) = { //Accurate, logaritmic shutte
 Camera::Camera(int (*vtable)(void* camera, VTABLE_FUNC vfunc, void* param))
 : m_vtable(vtable)
 {
+}
+
+void Camera::TriggerCamera(const TimerManager::Time& shutter) const
+{
+	APP()->GetGPIOManager()->SetPinState(DEFAULT_CAMERA_PIN, HIGH);
+	APP()->GetTimerManager()->ResetTimeout(TimerManager::CAMERA_TRIGGERED_TIMEOUT, shutter);
+}
+
+void Camera::TimerCallback()
+{
+	APP()->GetGPIOManager()->SetPinState(DEFAULT_CAMERA_PIN, LOW);
 }
 
 U8 PROGMEM_PTR_T Camera::GetShutterText(ShutterTime shutter) const
