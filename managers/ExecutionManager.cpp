@@ -5,6 +5,7 @@
 #include "ExecutionManager.h"
 
 #include "../BackertrapAdaApp.h"
+#include "../cameras/Camera.h"
 
 
 ExecutionManager::ExecutionManager()
@@ -67,10 +68,10 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 
 		case TRIGGER_FLASH: break; //ToDo
 
-		case ADJUST_EXPOSURE_PLUS2: m_shuttertime_index += 3; break; //Half stop, where a whole stop is 6
-		case ADJUST_EXPOSURE_PLUS3: m_shuttertime_index += 2; break; //A third of a stop, where a whole stop is 6
-		case ADJUST_EXPOSURE_MINUS2: m_shuttertime_index -= 3; break; //Half stop, where a whole stop is 6
-		case ADJUST_EXPOSURE_MINUS3: m_shuttertime_index -= 2; break; //A third of a stop, where a whole stop is 6
+		case ADJUST_EXPOSURE_PLUS2: m_shuttertime_index += MIN(MAX_SHUTTER_INDEX-m_shuttertime_index,3); break; //Half stop, where a whole stop is 6
+		case ADJUST_EXPOSURE_PLUS3: m_shuttertime_index += MIN(MAX_SHUTTER_INDEX-m_shuttertime_index,2); break; //A third of a stop, where a whole stop is 6
+		case ADJUST_EXPOSURE_MINUS2: m_shuttertime_index -= MIN(m_shuttertime_index-MIN_SHUTTER_INDEX,3); break; //Half stop, where a whole stop is 6
+		case ADJUST_EXPOSURE_MINUS3: m_shuttertime_index -= MIN(m_shuttertime_index-MIN_SHUTTER_INDEX,2); break; //A third of a stop, where a whole stop is 6
 
 		case SET_SHUTTER_TIME: m_shuttertime_index = GetByte(m_instruction_pointer);
 		                       break;

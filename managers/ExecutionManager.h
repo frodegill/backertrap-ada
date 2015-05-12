@@ -54,12 +54,6 @@ public:
 		WAIT_MINUTES
 	};
 
-	enum ShutterTime
-	{
-		MIN_SHUTTER = 0,
-		DEFAULT_SHUTTERTIME, //ToDo
-		MAX_SHUTTER = 255
-	};
 
 private:
 	struct LoopContext

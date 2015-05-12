@@ -14,6 +14,9 @@
 # define UNUSED_PARAM(x)
 #endif
 
+#define MAX(a,b) (a>b?a:b)
+#define MIN(a,b) (a<b?a:b)
+
 #if defined(_ASSERT_ENABLE_)
 # define ASSERT_PARAM(x) x
 #else
