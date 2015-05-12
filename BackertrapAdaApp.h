@@ -11,6 +11,7 @@
 #include "managers/PageManager.h"
 #include "managers/PowerManager.h"
 #include "managers/SensorManager.h"
+#include "managers/StorageManager.h"
 #include "managers/TimerManager.h"
 
 
@@ -31,6 +32,7 @@ public:
 	PageManager* GetPageManager() {return &m_page_manager;}
 	PowerManager* GetPowerManager() {return &m_power_manager;}
 	SensorManager* GetSensorManager() {return &m_sensor_manager;}
+	StorageManager* GetStorageManager() {return &m_storage_manager;}
 	TimerManager* GetTimerManager() {return &m_timer_manager;}
 	
 private:
@@ -41,6 +43,7 @@ private:
 	PageManager      m_page_manager;
 	PowerManager     m_power_manager;
 	SensorManager    m_sensor_manager;
+	StorageManager   m_storage_manager;
 	TimerManager     m_timer_manager;
 };
 

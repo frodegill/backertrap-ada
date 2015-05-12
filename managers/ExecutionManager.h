@@ -69,7 +69,7 @@ public:
 	~ExecutionManager();
 
 public:
-	void LoadProgram(U8 id);
+	bool LoadProgram(U8 id);
 	void StartExecutingProgram();
 	void StopExecutingProgram();
 	void ResumeExecutingProgram();

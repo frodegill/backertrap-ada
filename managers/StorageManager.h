@@ -16,7 +16,10 @@ class StorageManager
 public:
 	StorageManager();
 	~StorageManager();
-	
+
+public:
+	bool LoadProgram(U8 program_id) const;
+
 };
 
 #endif // _STORAGE_MANAGER_H_

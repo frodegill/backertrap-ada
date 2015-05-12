@@ -22,9 +22,9 @@ ExecutionManager::~ExecutionManager()
 {
 }
 
-void ExecutionManager::LoadProgram(U8 id)
+bool ExecutionManager::LoadProgram(U8 id)
 {
-	//ToDo
+	return APP()->GetStorageManager()->LoadProgram(id);
 }
 
 void ExecutionManager::StartExecutingProgram()
@@ -45,7 +45,7 @@ void ExecutionManager::StartExecutingProgram()
 void ExecutionManager::StopExecutingProgram()
 {
 	APP()->GetTimerManager()->ClearTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT);
-	//ToDo
+	//ToDo?
 	m_execute_state = STOPPED;
 }
 
