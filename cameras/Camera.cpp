@@ -79,3 +79,17 @@ U8 PROGMEM_PTR_T Camera::GetShutterText(ShutterTime shutter) const
 {
 	return g_shutter_time_strings_p[shutter];
 }
+
+void Camera::GetShutterSpeed(U8 shutter_index, U8& seconds, U16& microseconds_16bit)
+{
+	if (MIN_SHUTTER_INDEX>shutter_index || MAX_SHUTTER_INDEX>shutter_index)
+	{
+		seconds = 0;
+		microseconds_16bit = 0;
+	}
+	else
+	{
+		seconds = PROGMEM_READ_BYTE((U8 PROGMEM_PTR_T)(&g_shutter_time_p[shutter_index++]));
+		microseconds_16bit = PROGMEM_READ_WORD((U8 PROGMEM_PTR_T)(&g_shutter_time_p[shutter_index]));
+	}
+}

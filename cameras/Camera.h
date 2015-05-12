@@ -36,6 +36,7 @@ public:
 	};
 #define MIN_SHUTTER_INDEX (Camera::MIN_SHUTTER*6+0)
 #define MAX_SHUTTER_INDEX (Camera::MAX_SHUTTER*6+5)
+#define DEFAULT_SHUTTER_INDEX (Camera::DEFAULT_SHUTTERTIME*6+0)
 
 public:
 	enum VTABLE_FUNC
@@ -55,6 +56,7 @@ public: //Atmel - Why no virtual!?!
 
 public:
 	U8 PROGMEM_PTR_T GetShutterText(ShutterTime shutter) const;
+	void GetShutterSpeed(U8 shutter_index, U8& seconds, U16& microseconds_16bit); //microseconds returned is in range 0-65535 (where 65536 is one second)
 
 private:
 	int (* m_vtable)(void* camera, VTABLE_FUNC vfunc, void* param);

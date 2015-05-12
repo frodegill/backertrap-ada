@@ -29,7 +29,7 @@ void ExecutionManager::LoadProgram(U8 id)
 
 void ExecutionManager::StartExecutingProgram()
 {
-	m_shuttertime_index = 0;
+	m_shuttertime_index = DEFAULT_SHUTTER_INDEX;
 
 	m_loop_context_index = 0;
 	m_loop_context[m_loop_context_index].m_start_of_loop_pointer = 0;
