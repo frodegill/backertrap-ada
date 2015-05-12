@@ -13,6 +13,10 @@ public:
 	GPIOManager();
 	~GPIOManager();
 
+public:
+	void SetPinState(U8 pin, U8 state);
+	U8   GetPinState(U8 pin) const;
+
 };
 
 #endif // _GPIO_MANAGER_H_

@@ -83,10 +83,6 @@ private:
 	void PopLoopContext();
 
 private:
-	void SetPinState(U8 pin, U8 state);
-	U8   GetPinState(U8 pin) const;
-
-private:
 	U8           m_program[MAX_PROGRAM_SIZE];
 	LoopContext  m_loop_context[MAX_PROGRAM_LOOP_CONTEXT_SIZE];
 	U8           m_loop_context_index;

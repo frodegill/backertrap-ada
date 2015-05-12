@@ -8,6 +8,7 @@
 #include "managers/DisplayManager.h"
 #include "managers/ExecutionManager.h"
 #include "managers/FontManager.h"
+#include "managers/GPIOManager.h"
 #include "managers/PageManager.h"
 #include "managers/PowerManager.h"
 #include "managers/SensorManager.h"
@@ -29,6 +30,7 @@ public:
 	DisplayManager* GetDisplayManager() {return &m_display_manager;}
 	ExecutionManager* GetExecutionManager() {return &m_execution_manager;}
 	FontManager* GetFontManager() {return &m_font_manager;}
+	GPIOManager* GetGPIOManager() {return &m_gpio_manager;}
 	PageManager* GetPageManager() {return &m_page_manager;}
 	PowerManager* GetPowerManager() {return &m_power_manager;}
 	SensorManager* GetSensorManager() {return &m_sensor_manager;}
@@ -40,6 +42,7 @@ private:
 	DisplayManager   m_display_manager;
 	ExecutionManager m_execution_manager;
 	FontManager      m_font_manager;
+	GPIOManager      m_gpio_manager;
 	PageManager      m_page_manager;
 	PowerManager     m_power_manager;
 	SensorManager    m_sensor_manager;

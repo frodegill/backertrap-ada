@@ -12,3 +12,14 @@ GPIOManager::GPIOManager()
 GPIOManager::~GPIOManager()
 {
 }
+
+void GPIOManager::SetPinState(U8 UNUSED_PARAM(pin), U8 UNUSED_PARAM(state))
+{
+	//ToDo
+}
+
+U8 GPIOManager::GetPinState(U8 UNUSED_PARAM(pin)) const
+{
+	//TODO
+	return LOW;
+}
