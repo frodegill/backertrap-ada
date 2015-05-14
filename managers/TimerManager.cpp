@@ -57,6 +57,11 @@ bool TimerManager::Init()
   return true;
 }
 
+void TimerManager::SetTimeout(TimerId UNUSED_PARAM(id), const Time& UNUSED_PARAM(delay))
+{
+	//TODO
+}
+
 void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit)
 {
 	TimedEvent event;
@@ -69,6 +74,11 @@ void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit)
 		index++;
 
 	InsertEvent(index, event);
+}
+
+void TimerManager::ResetTimeout(TimerId UNUSED_PARAM(id), const Time& UNUSED_PARAM(delay))
+{
+	//TODO
 }
 
 void TimerManager::ResetTimeout(TimerId id, U32 delay, Unit unit)

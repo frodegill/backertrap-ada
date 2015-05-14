@@ -22,6 +22,8 @@ public:
 	enum TimerId
 	{
 		BACKLIGHT_TIMEOUT,
+		CAMERA_TRIGGERED_TIMEOUT,
+		FLASH_TRIGGERED_TIMEOUT,
 		PROGRAM_WAIT_TIMEOUT
 	};
 
@@ -66,7 +68,9 @@ public:
   bool Init();
 
 public:
+	void SetTimeout(TimerId id, const Time& delay);
 	void SetTimeout(TimerId id, U32 delay, Unit unit);
+	void ResetTimeout(TimerId id, const Time& delay);
 	void ResetTimeout(TimerId id, U32 delay, Unit unit);
 	void ClearTimeout(TimerId id);
 

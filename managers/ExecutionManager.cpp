@@ -5,6 +5,7 @@
 #include "ExecutionManager.h"
 
 #include "../BackertrapAdaApp.h"
+#include "../cameras/Camera.h"
 
 
 ExecutionManager::ExecutionManager()
@@ -21,14 +22,14 @@ ExecutionManager::~ExecutionManager()
 {
 }
 
-void ExecutionManager::LoadProgram(U8 id)
+bool ExecutionManager::LoadProgram(U8 id)
 {
-	//ToDo
+	return APP()->GetStorageManager()->LoadProgram(id);
 }
 
 void ExecutionManager::StartExecutingProgram()
 {
-	m_shuttertime_index = 0;
+	m_shuttertime_index = DEFAULT_SHUTTER_INDEX;
 
 	m_loop_context_index = 0;
 	m_loop_context[m_loop_context_index].m_start_of_loop_pointer = 0;
@@ -44,7 +45,7 @@ void ExecutionManager::StartExecutingProgram()
 void ExecutionManager::StopExecutingProgram()
 {
 	APP()->GetTimerManager()->ClearTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT);
-	//ToDo
+	//ToDo?
 	m_execute_state = STOPPED;
 }
 
@@ -67,18 +68,18 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 
 		case TRIGGER_FLASH: break; //ToDo
 
-		case ADJUST_EXPOSURE_PLUS2: m_shuttertime_index += 3; break; //Half stop, where a whole stop is 6
-		case ADJUST_EXPOSURE_PLUS3: m_shuttertime_index += 2; break; //A third of a stop, where a whole stop is 6
-		case ADJUST_EXPOSURE_MINUS2: m_shuttertime_index -= 3; break; //Half stop, where a whole stop is 6
-		case ADJUST_EXPOSURE_MINUS3: m_shuttertime_index -= 2; break; //A third of a stop, where a whole stop is 6
+		case ADJUST_EXPOSURE_PLUS2: m_shuttertime_index += MIN(MAX_SHUTTER_INDEX-m_shuttertime_index,3); break; //Half stop, where a whole stop is 6
+		case ADJUST_EXPOSURE_PLUS3: m_shuttertime_index += MIN(MAX_SHUTTER_INDEX-m_shuttertime_index,2); break; //A third of a stop, where a whole stop is 6
+		case ADJUST_EXPOSURE_MINUS2: m_shuttertime_index -= MIN(m_shuttertime_index-MIN_SHUTTER_INDEX,3); break; //Half stop, where a whole stop is 6
+		case ADJUST_EXPOSURE_MINUS3: m_shuttertime_index -= MIN(m_shuttertime_index-MIN_SHUTTER_INDEX,2); break; //A third of a stop, where a whole stop is 6
 
 		case SET_SHUTTER_TIME: m_shuttertime_index = GetByte(m_instruction_pointer);
 		                       break;
 
-		case SET_PIN_LOW: SetPinState(GetByte(m_instruction_pointer), LOW);
+		case SET_PIN_LOW: APP()->GetGPIOManager()->SetPinState(GetByte(m_instruction_pointer), LOW);
 		                  break;
 
-		case SET_PIN_HIGH: SetPinState(GetByte(m_instruction_pointer), HIGH);
+		case SET_PIN_HIGH: APP()->GetGPIOManager()->SetPinState(GetByte(m_instruction_pointer), HIGH);
 		                   break;
 
 		case WAIT_NANO: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::NANOSECOND);
@@ -119,7 +120,7 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 		                  }
 		                  break;
 		                  
-		case UNTIL_PIN_LOW: if (GetPinState(GetByte(m_instruction_pointer)) != LOW)
+		case UNTIL_PIN_LOW: if (APP()->GetGPIOManager()->GetPinState(GetByte(m_instruction_pointer)) != LOW)
 		                    {
 			                    m_instruction_pointer = m_loop_context[m_loop_context_index].m_start_of_loop_pointer;
 		                    }
@@ -129,7 +130,7 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 		                    }
 		                    break;
 
-		case UNTIL_PIN_HIGH: if (GetPinState(GetByte(m_instruction_pointer)) != HIGH)
+		case UNTIL_PIN_HIGH: if (APP()->GetGPIOManager()->GetPinState(GetByte(m_instruction_pointer)) != HIGH)
 		                     {
 			                     m_instruction_pointer = m_loop_context[m_loop_context_index].m_start_of_loop_pointer;
 		                     }
@@ -221,15 +222,4 @@ void ExecutionManager::PopLoopContext()
 	{
 		m_loop_context_index--;
 	}
-}
-
-void ExecutionManager::SetPinState(U8 UNUSED_PARAM(pin), U8 UNUSED_PARAM(state))
-{
-	//ToDo
-}
-
-U8 ExecutionManager::GetPinState(U8 UNUSED_PARAM(pin)) const
-{
-	//TODO
-	return LOW;
 }

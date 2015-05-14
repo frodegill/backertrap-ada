@@ -4,6 +4,8 @@
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for GPLv3 license
 
+#define DEFAULT_CAMERA_PIN (1)
+#define DEFAULT_FLASH_PIN  (2)
 
 #define MAX_PAGE_STACK_SIZE            (16)
 #define MAX_TIMED_EVENTS_STACK_SIZE    (16)
@@ -13,6 +15,9 @@
 #ifndef UNUSED_PARAM
 # define UNUSED_PARAM(x)
 #endif
+
+#define MAX(a,b) (a>b?a:b)
+#define MIN(a,b) (a<b?a:b)
 
 #if defined(_ASSERT_ENABLE_)
 # define ASSERT_PARAM(x) x

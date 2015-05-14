@@ -1,5 +1,5 @@
-#ifndef _CAMERA_CANONEOS7D_H_
-#define _CAMERA_CANONEOS7D_H_
+#ifndef _CAMERA_DUMMY_H_
+#define _CAMERA_DUMMY_H_
 
 // Copyright (C) 2015  Frode Roxrud Gill
 // See LICENSE file for GPLv3 license
@@ -7,11 +7,13 @@
 #include "../Camera.h"
 
 
-class CameraCanonEOS7D : public Camera
+// A class implementing a camera without any kind of protocol or intelligence
+
+class CameraDummy : public Camera
 {
 public:
-	CameraCanonEOS7D();
-	~CameraCanonEOS7D();
+	CameraDummy();
+	~CameraDummy();
 
 public:
 	void SetAperture(double UNUSED_PARAM(aperture)) {}
@@ -20,4 +22,4 @@ public:
 
 };
 
-#endif // _CAMERA_CANONEOS7D_H_
+#endif // _CAMERA_DUMMY_H_

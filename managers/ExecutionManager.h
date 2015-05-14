@@ -54,12 +54,6 @@ public:
 		WAIT_MINUTES
 	};
 
-	enum ShutterTime
-	{
-		MIN_SHUTTER = 0,
-		DEFAULT_SHUTTERTIME, //ToDo
-		MAX_SHUTTER = 255
-	};
 
 private:
 	struct LoopContext
@@ -75,7 +69,7 @@ public:
 	~ExecutionManager();
 
 public:
-	void LoadProgram(U8 id);
+	bool LoadProgram(U8 id);
 	void StartExecutingProgram();
 	void StopExecutingProgram();
 	void ResumeExecutingProgram();
@@ -87,10 +81,6 @@ private:
 	U16 GetWord(U8& instruction_pointer) const;
 	void PushLoopContext();
 	void PopLoopContext();
-
-private:
-	void SetPinState(U8 pin, U8 state);
-	U8   GetPinState(U8 pin) const;
 
 private:
 	U8           m_program[MAX_PROGRAM_SIZE];
