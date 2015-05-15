@@ -5,7 +5,6 @@
 #include "ExecutionManager.h"
 
 #include "../BackertrapAdaApp.h"
-#include "../cameras/Camera.h"
 
 
 ExecutionManager::ExecutionManager()
@@ -64,9 +63,14 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 	TimerManager::Time time;
 	switch(m_program[m_instruction_pointer++])
 	{
-		case TRIGGER_CAMERA: break; //ToDo
+		case TRIGGER_CAMERA: APP()->GetCameraManager()->GetDefaultCamera()->GetShutterSpeed(m_shuttertime_index, time);
+		                     APP()->GetCameraManager()->GetDefaultCamera()->TriggerCamera(time);
+		                     m_execute_state = PAUSED;
+		                     break;
 
-		case TRIGGER_FLASH: break; //ToDo
+		case TRIGGER_FLASH: APP()->GetFlashManager()->GetDefaultFlash()->TriggerFlash();
+		                    m_execute_state = PAUSED;
+		                    break;
 
 		case ADJUST_EXPOSURE_PLUS2: m_shuttertime_index += MIN(MAX_SHUTTER_INDEX-m_shuttertime_index,3); break; //Half stop, where a whole stop is 6
 		case ADJUST_EXPOSURE_PLUS3: m_shuttertime_index += MIN(MAX_SHUTTER_INDEX-m_shuttertime_index,2); break; //A third of a stop, where a whole stop is 6
