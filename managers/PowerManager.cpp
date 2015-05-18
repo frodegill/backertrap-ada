@@ -24,7 +24,7 @@ void PowerManager::OnTimerEvent(TimerManager::TimerId id, U8 UNUSED_PARAM(param>
 {
 	switch(id)
 	{
-		case TimerManager::BACKLIGHT_TIMEOUT: break; //ToDo
+		case TimerManager::BACKLIGHT_TIMEOUT: APP()->GetDisplayManager()->GetDisplay()->SetBacklightStatus(Display::OFF); break;
 		default: break;
 	}
 }
