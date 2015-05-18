@@ -35,6 +35,80 @@ TimerManager::Compare TimerManager::Time::Compare(const Time& other_time)
 	return EQUAL;
 }
 
+void TimerManager::Time::Now()
+{
+	m_seconds = rtc_get_time();
+	m_nanoseconds = 0; //TODO
+}
+
+void TimerManager::Time::IncrementTime(const Time& offset)
+{
+	m_nanoseconds += offset.m_nanoseconds;
+	while (m_nanoseconds >= NANOSECONDS_PER_SECOND)
+	{
+		m_seconds += 1;
+		m_nanoseconds -= NANOSECONDS_PER_SECOND;
+	}
+	m_seconds += offset.m_seconds;
+}
+
+void TimerManager::Time::IncrementTime(U32 offset, Unit unit)
+{
+	U32 units_per_second;
+	U32 nanoseconds_per_unit;
+	switch(unit)
+	{
+		case NANOSECOND:  units_per_second=NANOSECONDS_PER_SECOND; nanoseconds_per_unit=1; break;
+		case MICROSECOND: units_per_second=MICROSECONDS_PER_SECOND; nanoseconds_per_unit=NANOSECONDS_PER_MICROSECOND; break;
+		case MILLISECOND: units_per_second=MILLISECONDS_PER_SECOND; nanoseconds_per_unit=NANOSECONDS_PER_MILLISECOND; break;
+		default: units_per_second=nanoseconds_per_unit=0; break;
+	}
+	
+	switch(unit)
+	{
+		case NANOSECOND:
+		case MICROSECOND:
+		case MILLISECOND:
+		{
+			U32 offset_seconds;
+			if (offset >= units_per_second)
+			{
+				offset_seconds = offset/units_per_second;
+				offset -= offset_seconds*units_per_second;
+				m_seconds += offset_seconds;
+			}
+			m_nanoseconds += offset*nanoseconds_per_unit;
+			while (m_nanoseconds >= NANOSECONDS_PER_SECOND)
+			{
+				m_seconds += 1;
+				m_nanoseconds -= NANOSECONDS_PER_SECOND;
+			}
+			break;
+		}
+
+		case SECOND:
+		{
+			m_seconds += offset;
+			break;
+		}
+
+		case MINUTE:
+		{
+			m_seconds += offset*SECONDS_PER_MINUTE;
+			break;
+		}
+
+		case HOUR:
+		{
+			m_seconds += offset*SECONDS_PER_HOUR;
+			break;
+		}
+
+		default: break;
+	}
+}
+
+
 
 TimerManager::TimerManager()
 : m_timed_events_list_length(0)
@@ -77,8 +151,8 @@ void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit, void (* callback
 {
 	TimedEvent event;
 	event.m_id = id;
-	Now(event.m_time);
-	IncrementTime(event.m_time, delay, unit);
+	event.m_time.Now();
+	event.m_time.IncrementTime(delay, unit);
 	event.m_callback = callback;
 	event.m_calling_object = calling_object;
 	event.m_param = param;
@@ -111,68 +185,6 @@ void TimerManager::ClearTimeout(TimerId id)
 		{
 			RemoveEvent(i);
 		}
-	}
-}
-
-void TimerManager::Now(Time& time) const
-{
-	time.m_seconds = rtc_get_time();
-	time.m_nanoseconds = 0; //ToDo
-}
-
-void TimerManager::IncrementTime(Time& time, U32 offset, Unit unit) const
-{
-	U32 units_per_second;
-	U32 nanoseconds_per_unit;
-	switch(unit)
-	{
-		case NANOSECOND:  units_per_second=NANOSECONDS_PER_SECOND; nanoseconds_per_unit=1; break;
-		case MICROSECOND: units_per_second=MICROSECONDS_PER_SECOND; nanoseconds_per_unit=NANOSECONDS_PER_MICROSECOND; break;
-		case MILLISECOND: units_per_second=MILLISECONDS_PER_SECOND; nanoseconds_per_unit=NANOSECONDS_PER_MILLISECOND; break;
-		default: units_per_second=nanoseconds_per_unit=0; break;
-	}
-	
-	switch(unit)
-	{
-		case NANOSECOND:
-		case MICROSECOND:
-		case MILLISECOND:
-		{
-			U32 offset_seconds;
-			if (offset >= units_per_second)
-			{
-				offset_seconds = offset/units_per_second;
-				offset -= offset_seconds*units_per_second;
-				time.m_seconds += offset_seconds;
-			}
-			time.m_nanoseconds += offset*nanoseconds_per_unit;
-			while (time.m_nanoseconds >= NANOSECONDS_PER_SECOND)
-			{
-				time.m_seconds += 1;
-				time.m_nanoseconds -= NANOSECONDS_PER_SECOND;
-			}
-			break;
-		}
-
-		case SECOND:
-		{
-			time.m_seconds += offset;
-			break;
-		}
-
-		case MINUTE:
-		{
-			time.m_seconds += offset*SECONDS_PER_MINUTE;
-			break;
-		}
-
-		case HOUR:
-		{
-			time.m_seconds += offset*SECONDS_PER_HOUR;
-			break;
-		}
-
-		default: break;
 	}
 }
 
