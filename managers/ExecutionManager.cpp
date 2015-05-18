@@ -7,6 +7,12 @@
 #include "../BackertrapAdaApp.h"
 
 
+void ExecutionManagerTimerCallback(TimerManager::TimerId id, void* calling_object, U8 param)
+{
+	static_cast<ExecutionManager*>(calling_object)->OnTimerEvent(id, param);
+}
+
+
 ExecutionManager::ExecutionManager()
 : m_execute_state(STOPPED)
 {
@@ -19,6 +25,11 @@ ExecutionManager::ExecutionManager()
 
 ExecutionManager::~ExecutionManager()
 {
+}
+
+void ExecutionManager::OnTimerEvent(TimerManager::TimerId UNUSED_PARAM(id), U8 UNUSED_PARAM(param))
+{
+	//TODO
 }
 
 bool ExecutionManager::LoadProgram(U8 id)
@@ -86,23 +97,23 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 		case SET_PIN_HIGH: APP()->GetGPIOManager()->SetPinState(GetByte(m_instruction_pointer), HIGH);
 		                   break;
 
-		case WAIT_NANO: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::NANOSECOND);
+		case WAIT_NANO: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::NANOSECOND, ::ExecutionManagerTimerCallback, this, 0);
 		                 m_execute_state = PAUSED;
 		                 break;
 
-		case WAIT_MICRO: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::MICROSECOND);
+		case WAIT_MICRO: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::MICROSECOND, ::ExecutionManagerTimerCallback, this, 0);
 		                 m_execute_state = PAUSED;
 		                 break;
 
-		case WAIT_MILLI: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::MILLISECOND);
+		case WAIT_MILLI: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::MILLISECOND, ::ExecutionManagerTimerCallback, this, 0);
 		                 m_execute_state = PAUSED;
 		                 break;
 
-		case WAIT_SECOND: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::SECOND);
+		case WAIT_SECOND: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::SECOND, ::ExecutionManagerTimerCallback, this, 0);
 		                  m_execute_state = PAUSED;
 		                  break;
 
-		case WAIT_MINUTES: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, 60 * GetWord(m_instruction_pointer), TimerManager::SECOND);
+		case WAIT_MINUTES: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, 60 * GetWord(m_instruction_pointer), TimerManager::SECOND, ::ExecutionManagerTimerCallback, this, 0);
 		                   m_execute_state = PAUSED;
 		                   break;
 
@@ -124,6 +135,7 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 		                  }
 		                  break;
 		                  
+		case AND_PIN_LOW:
 		case UNTIL_PIN_LOW: if (APP()->GetGPIOManager()->GetPinState(GetByte(m_instruction_pointer)) != LOW)
 		                    {
 			                    m_instruction_pointer = m_loop_context[m_loop_context_index].m_start_of_loop_pointer;
@@ -134,6 +146,7 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 		                    }
 		                    break;
 
+		case AND_PIN_HIGH:
 		case UNTIL_PIN_HIGH: if (APP()->GetGPIOManager()->GetPinState(GetByte(m_instruction_pointer)) != HIGH)
 		                     {
 			                     m_instruction_pointer = m_loop_context[m_loop_context_index].m_start_of_loop_pointer;

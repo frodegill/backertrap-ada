@@ -16,8 +16,11 @@ class Flash
 public:
 	Flash();
 
-	void TriggerFlash() const; //Quick'n'dirty triggering of flash
-	void TimerCallback();
+public:
+	void OnTimerEvent(TimerManager::TimerId id, U8 param);
+
+public:
+	void TriggerFlash(); //Quick'n'dirty triggering of flash
 
 };
 

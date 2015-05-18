@@ -7,17 +7,27 @@
 #include "../BackertrapAdaApp.h"
 
 
+void FlashTimerCallback(TimerManager::TimerId id, void* calling_object, U8 param)
+{
+	static_cast<Flash*>(calling_object)->OnTimerEvent(id, param);
+}
+
+
 Flash::Flash()
 {
 }
 
-void Flash::TriggerFlash() const
+void Flash::OnTimerEvent(TimerManager::TimerId id, U8 param)
 {
-	APP()->GetGPIOManager()->SetPinState(DEFAULT_FLASH_PIN, HIGH);
-	APP()->GetTimerManager()->ResetTimeout(TimerManager::FLASH_TRIGGERED_TIMEOUT, DEFAULT_FLASH_DURATION_MS, TimerManager::MILLISECOND);
+	switch(id)
+	{
+		case TimerManager::FLASH_TRIGGERED_TIMEOUT: APP()->GetGPIOManager()->SetPinState(param, LOW); break;
+		default: break;
+	}
 }
 
-void Flash::TimerCallback()
+void Flash::TriggerFlash()
 {
-	APP()->GetGPIOManager()->SetPinState(DEFAULT_FLASH_PIN, LOW);
+	APP()->GetGPIOManager()->SetPinState(DEFAULT_FLASH_PIN, HIGH);
+	APP()->GetTimerManager()->ResetTimeout(TimerManager::FLASH_TRIGGERED_TIMEOUT, DEFAULT_FLASH_DURATION_MS, TimerManager::MILLISECOND, ::FlashTimerCallback, this, DEFAULT_FLASH_PIN);
 }

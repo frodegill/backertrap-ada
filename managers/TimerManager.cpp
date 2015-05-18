@@ -8,6 +8,12 @@
 #include "../3rd-party/Atmel/xmega/drivers/rtc32/rtc32.h"
 
 
+void TimerManagerTimerCallback(TimerManager::TimerId id, void* calling_object, U8 param)
+{
+	static_cast<TimerManager*>(calling_object)->OnTimerEvent(id, param);
+}
+
+
 TimerManager::Compare TimerManager::Time::Compare(const Time& other_time)
 {
 	if (m_seconds < other_time.m_seconds)
@@ -57,17 +63,25 @@ bool TimerManager::Init()
   return true;
 }
 
+void TimerManager::OnTimerEvent(TimerId UNUSED_PARAM(id), U8 UNUSED_PARAM(param))
+{
+	//TODO
+}
+
 void TimerManager::SetTimeout(TimerId UNUSED_PARAM(id), const Time& UNUSED_PARAM(delay))
 {
 	//TODO
 }
 
-void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit)
+void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param)
 {
 	TimedEvent event;
 	event.m_id = id;
 	Now(event.m_time);
 	IncrementTime(event.m_time, delay, unit);
+	event.m_callback = callback;
+	event.m_calling_object = calling_object;
+	event.m_param = param;
 
 	U8 index = 0;
 	while (index<m_timed_events_list_length && BEFORE == m_timed_events[index].m_time.Compare(event.m_time))
@@ -81,10 +95,10 @@ void TimerManager::ResetTimeout(TimerId UNUSED_PARAM(id), const Time& UNUSED_PAR
 	//TODO
 }
 
-void TimerManager::ResetTimeout(TimerId id, U32 delay, Unit unit)
+void TimerManager::ResetTimeout(TimerId id, U32 delay, Unit unit, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param)
 {
 	ClearTimeout(id);
-	SetTimeout(id, delay, unit);
+	SetTimeout(id, delay, unit, callback, calling_object, param);
 }
 
 void TimerManager::ClearTimeout(TimerId id)

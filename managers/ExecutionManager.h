@@ -38,6 +38,8 @@ public:
 		UNTIL_PIN_HIGH, //End loop
 		WAIT_FOR_PIN_LOW,
 		WAIT_FOR_PIN_HIGH,
+		AND_PIN_LOW, //Combine with UNTIL_PIN_LOW, UNTIL_PIN_HIGH, WAIT_FOR_PIN_LOW or WAIT_FOR_PIN_HIGH
+		AND_PIN_HIGH, //Combine with UNTIL_PIN_LOW, UNTIL_PIN_HIGH, WAIT_FOR_PIN_LOW or WAIT_FOR_PIN_HIGH
 		SET_SHUTTER_TIME,
 		//OpCodes with 16-bit data
 		UNTIL_TIME_NANO = 128, //End loop
@@ -67,6 +69,9 @@ private:
 public:
 	ExecutionManager();
 	~ExecutionManager();
+
+public:
+	void OnTimerEvent(TimerManager::TimerId id, U8 param);
 
 public:
 	bool LoadProgram(U8 id);

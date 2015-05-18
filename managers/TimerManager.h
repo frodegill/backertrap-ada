@@ -59,6 +59,9 @@ private:
 	{
 		TimerId m_id;
 		Time    m_time;
+		void (* m_callback)(TimerId id, void* calling_object, U8 param);
+		void*   m_calling_object;
+		U8      m_param;
 	};
 	
 public:
@@ -68,10 +71,13 @@ public:
   bool Init();
 
 public:
+	void OnTimerEvent(TimerId id, U8 param);
+
+public:
 	void SetTimeout(TimerId id, const Time& delay);
-	void SetTimeout(TimerId id, U32 delay, Unit unit);
+	void SetTimeout(TimerId id, U32 delay, Unit unit, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param);
 	void ResetTimeout(TimerId id, const Time& delay);
-	void ResetTimeout(TimerId id, U32 delay, Unit unit);
+	void ResetTimeout(TimerId id, U32 delay, Unit unit, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param);
 	void ClearTimeout(TimerId id);
 
 public:
