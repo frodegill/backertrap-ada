@@ -56,13 +56,15 @@ public:
 public:
 	Camera(int (*vtable)(void* camera, VTABLE_FUNC vfunc, void* param));
 
+public:
+	void OnTimerEvent(TimerManager::TimerId id, U8 param);
+
 public: //Atmel - Why no virtual!?!
 	void SetAperture(double aperture) {m_vtable(this, SetApertureFunc, &aperture);}
 	void SetShutter(double shutter) {m_vtable(this, SetShutterFunc, &shutter);}
 	void TakePicture()  {m_vtable(this, TakePictureFunc, NULL);}
 
-	void TriggerCamera(const TimerManager::Time& shutter) const; //Quick'n'dirty triggering of camera 
-	void TimerCallback();
+	void TriggerCamera(const TimerManager::Time& shutter); //Quick'n'dirty triggering of camera 
 
 public:
 	U8 PROGMEM_PTR_T GetShutterText(ShutterTime shutter) const;

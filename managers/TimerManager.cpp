@@ -35,25 +35,16 @@ TimerManager::Compare TimerManager::Time::Compare(const Time& other_time)
 	return EQUAL;
 }
 
-void TimerManager::Time::Now()
+void TimerManager::Time::SetNow()
 {
 	m_seconds = rtc_get_time();
 	m_nanoseconds = 0; //TODO
 }
 
-void TimerManager::Time::IncrementTime(const Time& offset)
+void TimerManager::Time::SetByOffset(U32 offset, Unit unit)
 {
-	m_nanoseconds += offset.m_nanoseconds;
-	while (m_nanoseconds >= NANOSECONDS_PER_SECOND)
-	{
-		m_seconds += 1;
-		m_nanoseconds -= NANOSECONDS_PER_SECOND;
-	}
-	m_seconds += offset.m_seconds;
-}
+	Reset();
 
-void TimerManager::Time::IncrementTime(U32 offset, Unit unit)
-{
 	U32 units_per_second;
 	U32 nanoseconds_per_unit;
 	switch(unit)
@@ -108,6 +99,17 @@ void TimerManager::Time::IncrementTime(U32 offset, Unit unit)
 	}
 }
 
+void TimerManager::Time::IncrementTime(const Time& offset)
+{
+	m_nanoseconds += offset.m_nanoseconds;
+	while (m_nanoseconds >= NANOSECONDS_PER_SECOND)
+	{
+		m_seconds += 1;
+		m_nanoseconds -= NANOSECONDS_PER_SECOND;
+	}
+	m_seconds += offset.m_seconds;
+}
+
 
 
 TimerManager::TimerManager()
@@ -142,17 +144,12 @@ void TimerManager::OnTimerEvent(TimerId UNUSED_PARAM(id), U8 UNUSED_PARAM(param)
 	//TODO
 }
 
-void TimerManager::SetTimeout(TimerId UNUSED_PARAM(id), const Time& UNUSED_PARAM(delay))
-{
-	//TODO
-}
-
-void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param)
+void TimerManager::SetTimeout(TimerId id, const Time& delay, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param)
 {
 	TimedEvent event;
 	event.m_id = id;
-	event.m_time.Now();
-	event.m_time.IncrementTime(delay, unit);
+	event.m_time.SetNow();
+	event.m_time.IncrementTime(delay);
 	event.m_callback = callback;
 	event.m_calling_object = calling_object;
 	event.m_param = param;
@@ -164,9 +161,29 @@ void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit, void (* callback
 	InsertEvent(index, event);
 }
 
-void TimerManager::ResetTimeout(TimerId UNUSED_PARAM(id), const Time& UNUSED_PARAM(delay))
+void TimerManager::SetTimeout(TimerId id, U32 delay, Unit unit, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param)
 {
-	//TODO
+	TimedEvent event;
+	event.m_id = id;
+	event.m_time.SetNow();
+	Time offset;
+	offset.SetByOffset(delay, unit);
+	event.m_time.IncrementTime(offset);
+	event.m_callback = callback;
+	event.m_calling_object = calling_object;
+	event.m_param = param;
+
+	U8 index = 0;
+	while (index<m_timed_events_list_length && BEFORE == m_timed_events[index].m_time.Compare(event.m_time))
+		index++;
+
+	InsertEvent(index, event);
+}
+
+void TimerManager::ResetTimeout(TimerId id, const Time& delay, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param)
+{
+	ClearTimeout(id);
+	SetTimeout(id, delay, callback, calling_object, param);
 }
 
 void TimerManager::ResetTimeout(TimerId id, U32 delay, Unit unit, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param)

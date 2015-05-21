@@ -90,20 +90,30 @@ static PROGMEM_DECLARE(U8, g_shutter_time_p[]) = { //Accurate, logaritmic shutte
 };
 
 
+void CameraTimerCallback(TimerManager::TimerId id, void* calling_object, U8 param)
+{
+	static_cast<Camera*>(calling_object)->OnTimerEvent(id, param);
+}
+
+
 Camera::Camera(int (*vtable)(void* camera, VTABLE_FUNC vfunc, void* param))
 : m_vtable(vtable)
 {
 }
 
-void Camera::TriggerCamera(const TimerManager::Time& shutter) const
+void Camera::OnTimerEvent(TimerManager::TimerId id, U8 param)
 {
-	APP()->GetGPIOManager()->SetPinState(DEFAULT_CAMERA_PIN, HIGH);
-	APP()->GetTimerManager()->ResetTimeout(TimerManager::CAMERA_TRIGGERED_TIMEOUT, shutter);
+	switch(id)
+	{
+		case TimerManager::CAMERA_TRIGGERED_TIMEOUT: APP()->GetGPIOManager()->SetPinState(param, LOW); break;
+		default: break;
+	}
 }
 
-void Camera::TimerCallback()
+void Camera::TriggerCamera(const TimerManager::Time& shutter)
 {
-	APP()->GetGPIOManager()->SetPinState(DEFAULT_CAMERA_PIN, LOW);
+	APP()->GetGPIOManager()->SetPinState(DEFAULT_CAMERA_PIN, HIGH);
+	APP()->GetTimerManager()->ResetTimeout(TimerManager::CAMERA_TRIGGERED_TIMEOUT, shutter, ::CameraTimerCallback, this, DEFAULT_CAMERA_PIN);
 }
 
 U8 PROGMEM_PTR_T Camera::GetShutterText(ShutterTime shutter) const

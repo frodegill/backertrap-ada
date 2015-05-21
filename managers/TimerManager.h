@@ -50,9 +50,9 @@ public:
 		U32 m_nanoseconds;
 		
 public:
-		void Now();
+		void SetNow();
+		void SetByOffset(U32 offset, Unit unit);
 		void IncrementTime(const Time& offset);
-		void IncrementTime(U32 offset, Unit unit);
 		void Reset() {m_seconds = m_nanoseconds = 0;}
 		bool IsValid() const {return m_seconds!=0 || m_nanoseconds!=0;}
 		TimerManager::Compare Compare(const Time& other_time);
@@ -78,9 +78,9 @@ public:
 	void OnTimerEvent(TimerId id, U8 param);
 
 public:
-	void SetTimeout(TimerId id, const Time& delay);
+	void SetTimeout(TimerId id, const Time& delay, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param);
 	void SetTimeout(TimerId id, U32 delay, Unit unit, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param);
-	void ResetTimeout(TimerId id, const Time& delay);
+	void ResetTimeout(TimerId id, const Time& delay, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param);
 	void ResetTimeout(TimerId id, U32 delay, Unit unit, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param);
 	void ClearTimeout(TimerId id);
 

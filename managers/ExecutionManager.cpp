@@ -163,7 +163,7 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 		case UNTIL_TIME_SECOND:
 		case UNTIL_TIME_MINUTES:
 		case UNTIL_TIME_HOURS:
-		                      time.Now();
+		                      time.SetNow();
 		                      if (!m_loop_context[m_loop_context_index].m_end_time.IsValid())
 		                      {
 			                      TimerManager::Unit unit;
@@ -177,8 +177,8 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 			                        case UNTIL_TIME_MINUTES: unit = TimerManager::MINUTE; break;
 			                        case UNTIL_TIME_HOURS:   unit = TimerManager::HOUR; break;
 			                      }
-			                      m_loop_context[m_loop_context_index].m_end_time = m_loop_context[m_loop_context_index].m_start_time;
-			                      m_loop_context[m_loop_context_index].m_end_time.IncrementTime(GetWord(m_instruction_pointer), unit);
+			                      m_loop_context[m_loop_context_index].m_end_time.SetByOffset(GetWord(m_instruction_pointer), unit);
+			                      m_loop_context[m_loop_context_index].m_end_time.IncrementTime(m_loop_context[m_loop_context_index].m_start_time);
 		                      }
 		                      if (TimerManager::AFTER == m_loop_context[m_loop_context_index].m_end_time.Compare(time))
 		                      {
@@ -222,7 +222,7 @@ void ExecutionManager::PushLoopContext()
 	}
 	else
 	{
-		m_loop_context[m_loop_context_index].m_start_time.Now();
+		m_loop_context[m_loop_context_index].m_start_time.SetNow();
 		m_loop_context[m_loop_context_index].m_end_time.Reset();
 		m_loop_context[m_loop_context_index].m_counter = 0;
 		m_loop_context[m_loop_context_index].m_start_of_loop_pointer = m_instruction_pointer;
