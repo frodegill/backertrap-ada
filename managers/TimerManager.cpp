@@ -141,7 +141,11 @@ bool TimerManager::Init()
 
 void TimerManager::OnTimerEvent(TimerId UNUSED_PARAM(id), U8 UNUSED_PARAM(param))
 {
-	//TODO
+	while(0<m_timed_events_list_length /* && AFTER!=now.Compare(m_timed_events.m_time TODO*/)
+	{
+		m_timed_events[0].m_callback(m_timed_events[0].m_id, m_timed_events[0].m_calling_object, m_timed_events[0].m_param);
+		RemoveEvent(0);
+	}
 }
 
 void TimerManager::SetTimeout(TimerId id, const Time& delay, void (* callback)(TimerId id, void* calling_object, U8 param), void* calling_object, U8 param)
