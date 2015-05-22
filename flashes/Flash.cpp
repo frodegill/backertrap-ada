@@ -21,7 +21,12 @@ void Flash::OnTimerEvent(TimerManager::TimerId id, U8 param)
 {
 	switch(id)
 	{
-		case TimerManager::FLASH_TRIGGERED_TIMEOUT: APP()->GetGPIOManager()->SetPinState(param, LOW); break;
+		case TimerManager::FLASH_TRIGGERED_TIMEOUT:
+		{
+			APP()->GetGPIOManager()->SetPinState(param, LOW);
+			APP()->GetExecutionManager()->ResumeExecutingProgram();
+			break;
+		}
 		default: break;
 	}
 }

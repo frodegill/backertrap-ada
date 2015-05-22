@@ -29,7 +29,10 @@ ExecutionManager::~ExecutionManager()
 
 void ExecutionManager::OnTimerEvent(TimerManager::TimerId UNUSED_PARAM(id), U8 UNUSED_PARAM(param))
 {
-	//TODO
+	if (PAUSED == m_execute_state)
+	{
+		ResumeExecutingProgram();
+	}
 }
 
 bool ExecutionManager::LoadProgram(U8 id)
@@ -55,7 +58,7 @@ void ExecutionManager::StartExecutingProgram()
 void ExecutionManager::StopExecutingProgram()
 {
 	APP()->GetTimerManager()->ClearTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT);
-	//ToDo?
+	//TODO pull pins low?
 	m_execute_state = STOPPED;
 }
 
@@ -64,6 +67,7 @@ void ExecutionManager::ResumeExecutingProgram()
 	if (STOPPED == m_execute_state)
 		return;
 
+	m_execute_state = RUNNING;
 	while(RUNNING == ExecuteNextOpCode())
 	{
 	}
@@ -76,11 +80,11 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 	{
 		case TRIGGER_CAMERA: APP()->GetCameraManager()->GetDefaultCamera()->GetShutterSpeed(m_shuttertime_index, time);
 		                     APP()->GetCameraManager()->GetDefaultCamera()->TriggerCamera(time);
-		                     m_execute_state = PAUSED;
+		                     m_execute_state = PAUSED; //Will resume in Camera timer callback
 		                     break;
 
 		case TRIGGER_FLASH: APP()->GetFlashManager()->GetDefaultFlash()->TriggerFlash();
-		                    m_execute_state = PAUSED;
+		                    m_execute_state = PAUSED; //Will resume in Trigger timer callback
 		                    break;
 
 		case ADJUST_EXPOSURE_PLUS2: m_shuttertime_index += MIN(MAX_SHUTTER_INDEX-m_shuttertime_index,3); break; //Half stop, where a whole stop is 6
@@ -98,23 +102,23 @@ ExecutionManager::ExecuteState ExecutionManager::ExecuteNextOpCode()
 		                   break;
 
 		case WAIT_NANO: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::NANOSECOND, ::ExecutionManagerTimerCallback, this, 0);
-		                 m_execute_state = PAUSED;
+		                 m_execute_state = PAUSED; //Will resume in timer callback
 		                 break;
 
 		case WAIT_MICRO: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::MICROSECOND, ::ExecutionManagerTimerCallback, this, 0);
-		                 m_execute_state = PAUSED;
+		                 m_execute_state = PAUSED; //Will resume in timer callback
 		                 break;
 
 		case WAIT_MILLI: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::MILLISECOND, ::ExecutionManagerTimerCallback, this, 0);
-		                 m_execute_state = PAUSED;
+		                 m_execute_state = PAUSED; //Will resume in timer callback
 		                 break;
 
 		case WAIT_SECOND: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, GetWord(m_instruction_pointer), TimerManager::SECOND, ::ExecutionManagerTimerCallback, this, 0);
-		                  m_execute_state = PAUSED;
+		                  m_execute_state = PAUSED; //Will resume in timer callback
 		                  break;
 
 		case WAIT_MINUTES: APP()->GetTimerManager()->SetTimeout(TimerManager::PROGRAM_WAIT_TIMEOUT, 60 * GetWord(m_instruction_pointer), TimerManager::SECOND, ::ExecutionManagerTimerCallback, this, 0);
-		                   m_execute_state = PAUSED;
+		                   m_execute_state = PAUSED; //Will resume in timer callback
 		                   break;
 
 		case WAIT_FOR_PIN_LOW: break; //ToDo
