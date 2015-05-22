@@ -13,13 +13,16 @@ GPIOManager::~GPIOManager()
 {
 }
 
-void GPIOManager::SetPinState(U8 UNUSED_PARAM(pin), U8 UNUSED_PARAM(state))
+void GPIOManager::SetPinState(U8 pin, U8 state)
 {
-	//ToDo
+	switch(state)
+	{
+		case LOW: gpio_set_pin_low(pin); break;
+		case HIGH: gpio_set_pin_high(pin); break;
+	}
 }
 
-U8 GPIOManager::GetPinState(U8 UNUSED_PARAM(pin)) const
+U8 GPIOManager::GetPinState(U8 pin) const
 {
-	//TODO
-	return LOW;
+	return ioport_pin_is_low(pin) ? LOW : HIGH;
 }
