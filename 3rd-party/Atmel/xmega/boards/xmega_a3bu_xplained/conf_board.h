@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Board configuration
+ * \brief XMEGA-A3BU Xplained board configuration template
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,17 +38,36 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * \asf_license_stop
- *
  */
 /*
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
-#ifndef CONF_BOARD_H_INCLUDED
-#define CONF_BOARD_H_INCLUDED
 
+#ifndef CONF_BOARD_H
+#define CONF_BOARD_H
+
+// Initialize IO pins for the LCD controller
 #define CONF_BOARD_C12832A1Z
 
-// Enable AT45DBX Component.
+// Initialize IO pins for the DataFlash
 #define CONF_BOARD_AT45DBX
 
-#endif /* CONF_BOARD_H_INCLUDED */
+// Initialize IO pins for use with Analog Comparator
+#define CONF_BOARD_ENABLE_AC_PINS
+
+// Initialize IO pins for use with USART 0 on port C
+#define CONF_BOARD_ENABLE_USARTC0
+
+// Initialize IO pins for use with USART 0 on port D
+#define CONF_BOARD_ENABLE_USARTD0
+
+// Initialize IO pins for use with USART 0 on port E
+#define CONF_BOARD_ENABLE_USARTE0
+
+// Enable Sensors Xplained board interface
+//#define SENSORS_XPLAINED_BOARD
+
+// Enable AT86RFx interface
+//#define CONF_BOARD_AT86RFX
+
+#endif // CONF_BOARD_H
