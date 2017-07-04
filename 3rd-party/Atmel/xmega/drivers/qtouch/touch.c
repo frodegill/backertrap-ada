@@ -107,7 +107,7 @@ static void config_sensor(void)
 	qt_enable_key(CHANNEL_0, NO_AKS_GROUP, 10, HYST_6_25);
 }
 
-static void touch_timer_callback( void )
+static void touch_timer_callback(void)
 {
 	time_to_measure_touch = true;
 	current_time_ms_touch += qt_measurement_period_msec;

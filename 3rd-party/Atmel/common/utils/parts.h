@@ -3,7 +3,7 @@
  *
  * \brief Atmel part identification macros
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2017 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -425,6 +425,7 @@
 		AVR8_PART_IS_DEFINED(ATmega164PA) || \
 		AVR8_PART_IS_DEFINED(ATmega324A)  || \
 		AVR8_PART_IS_DEFINED(ATmega324PA) || \
+		AVR8_PART_IS_DEFINED(ATmega324PB) || \
 		AVR8_PART_IS_DEFINED(ATmega644)   || \
 		AVR8_PART_IS_DEFINED(ATmega644A)  || \
 		AVR8_PART_IS_DEFINED(ATmega644PA) || \
@@ -448,12 +449,15 @@
 		AVR8_PART_IS_DEFINED(ATmega48)    || \
 		AVR8_PART_IS_DEFINED(ATmega48A)   || \
 		AVR8_PART_IS_DEFINED(ATmega48PA)  || \
+		AVR8_PART_IS_DEFINED(ATmega48PB)  || \
 		AVR8_PART_IS_DEFINED(ATmega88)    || \
 		AVR8_PART_IS_DEFINED(ATmega88A)   || \
 		AVR8_PART_IS_DEFINED(ATmega88PA)  || \
+		AVR8_PART_IS_DEFINED(ATmega88PB)  || \
 		AVR8_PART_IS_DEFINED(ATmega168)   || \
 		AVR8_PART_IS_DEFINED(ATmega168A)  || \
 		AVR8_PART_IS_DEFINED(ATmega168PA) || \
+		AVR8_PART_IS_DEFINED(ATmega168PB) || \
 		AVR8_PART_IS_DEFINED(ATmega328)   || \
 		AVR8_PART_IS_DEFINED(ATmega328P)  || \
 		AVR8_PART_IS_DEFINED(ATmega328PB) \
@@ -622,65 +626,6 @@
 /** megaAVR product line */
 #define MEGA (MEGA_XX0_1 || MEGA_XX4 || MEGA_XX8 || MEGA_XX || MEGA_RF || \
 	MEGA_UNSPECIFIED)
-
-/** @} */
-
-/**
- * \defgroup tiny_part_macros_group tinyAVR parts
- *
- * @{
- */
-
-/**
- * \name tinyAVR groups
- * @{
- */
-
-/** Devices added to complete tinyAVR offering.
- *  Please do not use this group symbol as it is not intended
- *  to be permanent: the devices should be regrouped.
- */
-#define TINY_UNCATEGORIZED ( \
-		AVR8_PART_IS_DEFINED(ATtiny10)    || \
-		AVR8_PART_IS_DEFINED(ATtiny13)    || \
-		AVR8_PART_IS_DEFINED(ATtiny13A)   || \
-		AVR8_PART_IS_DEFINED(ATtiny1634)  || \
-		AVR8_PART_IS_DEFINED(ATtiny167)   || \
-		AVR8_PART_IS_DEFINED(ATtiny20)    || \
-		AVR8_PART_IS_DEFINED(ATtiny2313)  || \
-		AVR8_PART_IS_DEFINED(ATtiny2313A) || \
-		AVR8_PART_IS_DEFINED(ATtiny24)    || \
-		AVR8_PART_IS_DEFINED(ATtiny24A)   || \
-		AVR8_PART_IS_DEFINED(ATtiny25)    || \
-		AVR8_PART_IS_DEFINED(ATtiny26)    || \
-		AVR8_PART_IS_DEFINED(ATtiny261)   || \
-		AVR8_PART_IS_DEFINED(ATtiny261A)  || \
-		AVR8_PART_IS_DEFINED(ATtiny4)     || \
-		AVR8_PART_IS_DEFINED(ATtiny40)    || \
-		AVR8_PART_IS_DEFINED(ATtiny4313)  || \
-		AVR8_PART_IS_DEFINED(ATtiny43U)   || \
-		AVR8_PART_IS_DEFINED(ATtiny44)    || \
-		AVR8_PART_IS_DEFINED(ATtiny44A)   || \
-		AVR8_PART_IS_DEFINED(ATtiny45)    || \
-		AVR8_PART_IS_DEFINED(ATtiny461)   || \
-		AVR8_PART_IS_DEFINED(ATtiny461A)  || \
-		AVR8_PART_IS_DEFINED(ATtiny48)    || \
-		AVR8_PART_IS_DEFINED(ATtiny5)     || \
-		AVR8_PART_IS_DEFINED(ATtiny828)   || \
-		AVR8_PART_IS_DEFINED(ATtiny84)    || \
-		AVR8_PART_IS_DEFINED(ATtiny84A)   || \
-		AVR8_PART_IS_DEFINED(ATtiny85)    || \
-		AVR8_PART_IS_DEFINED(ATtiny861)   || \
-		AVR8_PART_IS_DEFINED(ATtiny861A)  || \
-		AVR8_PART_IS_DEFINED(ATtiny87)    || \
-		AVR8_PART_IS_DEFINED(ATtiny88)    || \
-		AVR8_PART_IS_DEFINED(ATtiny9)        \
-	)
-
-/** @} */
-
-/** tinyAVR product line */
-#define TINY (TINY_UNCATEGORIZED)
 
 /** @} */
 
@@ -977,12 +922,30 @@
 /** @} */
 
 /**
+ * \name SAMR30 series
+ * @{
+ */
+#define SAMR30G ( \
+		SAM_PART_IS_DEFINED(SAMR30G18A) \
+	)
+
+#define SAMR30E ( \
+		SAM_PART_IS_DEFINED(SAMR30E18A) \
+	)
+/** @} */
+
+/**
  * \name SAMB11 series
  * @{
  */
 #define SAMB11G ( \
-		SAM_PART_IS_DEFINED(SAMB11G18A) \
+		SAM_PART_IS_DEFINED(SAMB11G18A) || \
+		SAM_PART_IS_DEFINED(SAMB11ZR) \
 	)
+#define BTLC1000 ( \
+		SAM_PART_IS_DEFINED(BTLC1000WLCSP) \
+	)
+
 /** @} */
 
 /**
@@ -1019,6 +982,10 @@
 		SAM_PART_IS_DEFINED(SAMD10D13AM) || \
 		SAM_PART_IS_DEFINED(SAMD10D14AM) \
 	)
+
+#define SAMD10DU ( \
+		SAM_PART_IS_DEFINED(SAMD10D14AU) \
+	)
 /** @} */
 
 /**
@@ -1035,6 +1002,10 @@
 
 #define SAMD11DM ( \
 		SAM_PART_IS_DEFINED(SAMD11D14AM) \
+	)
+
+#define SAMD11DU ( \
+		SAM_PART_IS_DEFINED(SAMD11D14AU) \
 	)
 /** @} */
 
@@ -1111,49 +1082,47 @@
 /** @} */
 
 /**
- * \name SAMDA0 series
- * @{
- */
-#define SAMDA0J ( \
-		SAM_PART_IS_DEFINED(SAMDA0J14A) || \
-		SAM_PART_IS_DEFINED(SAMDA0J15A) || \
-		SAM_PART_IS_DEFINED(SAMDA0J16A) \
-	)
-
-#define SAMDA0G ( \
-		SAM_PART_IS_DEFINED(SAMDA0G14A) || \
-		SAM_PART_IS_DEFINED(SAMDA0G15A) || \
-		SAM_PART_IS_DEFINED(SAMDA0G16A) \
-	)
-
-#define SAMDA0E ( \
-		SAM_PART_IS_DEFINED(SAMDA0E14A) || \
-		SAM_PART_IS_DEFINED(SAMDA0E15A) || \
-		SAM_PART_IS_DEFINED(SAMDA0E16A) \
-	)
-/** @} */
-
-/**
  * \name SAMDA1 series
  * @{
  */
 #define SAMDA1J ( \
 		SAM_PART_IS_DEFINED(SAMDA1J14A) || \
+		SAM_PART_IS_DEFINED(SAMDA1J15B) || \
 		SAM_PART_IS_DEFINED(SAMDA1J15A) || \
-		SAM_PART_IS_DEFINED(SAMDA1J16A) \
+		SAM_PART_IS_DEFINED(SAMDA1J15B) || \
+		SAM_PART_IS_DEFINED(SAMDA1J16A) || \
+		SAM_PART_IS_DEFINED(SAMDA1J16B) \
 	)
 
 #define SAMDA1G ( \
 		SAM_PART_IS_DEFINED(SAMDA1G14A) || \
+		SAM_PART_IS_DEFINED(SAMDA1G14B) || \
 		SAM_PART_IS_DEFINED(SAMDA1G15A) || \
-		SAM_PART_IS_DEFINED(SAMDA1G16A) \
+		SAM_PART_IS_DEFINED(SAMDA1G15B) || \
+		SAM_PART_IS_DEFINED(SAMDA1G16A) || \
+		SAM_PART_IS_DEFINED(SAMDA1G16B) \
 	)
 
 #define SAMDA1E ( \
 		SAM_PART_IS_DEFINED(SAMDA1E14A) || \
+		SAM_PART_IS_DEFINED(SAMDA1E14B) || \
 		SAM_PART_IS_DEFINED(SAMDA1E15A) || \
-		SAM_PART_IS_DEFINED(SAMDA1E16A) \
+		SAM_PART_IS_DEFINED(SAMDA1E15B) || \
+		SAM_PART_IS_DEFINED(SAMDA1E16A) || \
+		SAM_PART_IS_DEFINED(SAMDA1E16B) \
 	)
+/** @} */
+
+/**
+ * \name SAMHA1 series
+ * @{
+ */
+#define SAMHA1G ( \
+		SAM_PART_IS_DEFINED(SAMHA1G14A) || \
+		SAM_PART_IS_DEFINED(SAMHA1G15A) || \
+		SAM_PART_IS_DEFINED(SAMHA1G16A) \
+	)
+
 /** @} */
 
 /**
@@ -1530,13 +1499,16 @@
 #define SAMD09 (SAMD09C || SAMD09D)
 
 /** SAMD10 Family */
-#define SAMD10 (SAMD10C || SAMD10DS || SAMD10DM)
+#define SAMD10 (SAMD10C || SAMD10DS || SAMD10DM || SAMD10DU)
 
 /** SAMD11 Family */
-#define SAMD11 (SAMD11C || SAMD11DS || SAMD11DM)
+#define SAMD11 (SAMD11C || SAMD11DS || SAMD11DM || SAMD11DU)
 
 /** SAMDA1 Family */
 #define SAMDA1 (SAMDA1J || SAMDA1G || SAMDA1E)
+
+/** SAMHA1 Family */
+#define SAMHA1 (SAMHA1G)
 
 /** SAMD Family */
 #define SAMD   (SAMD20 || SAMD21 || SAMD09 || SAMD10 || SAMD11 || SAMDA1)
@@ -1544,8 +1516,11 @@
 /** SAMR21 Family */
 #define SAMR21 (SAMR21G || SAMR21E)
 
+/** SAMR30 Family */
+#define SAMR30 (SAMR30G || SAMR30E)
+
 /** SAMB11 Family */
-#define SAMB11 (SAMB11G)
+#define SAMB11 (SAMB11G || BTLC1000)
 
 /** SAML21 Family */
 #define SAML21 (SAML21J || SAML21G || SAML21E)
@@ -1602,7 +1577,7 @@
 
 /** SAM0 product line (cortex-m0+) */
 #define SAM0 (SAMD20 || SAMD21 || SAMR21 || SAMD10 || SAMD11 || SAML21 ||\
-		SAMDA1 || SAMC20 || SAMC21 || SAML22 || SAMD09)
+		SAMDA1 || SAMC20 || SAMC21 || SAML22 || SAMD09 || SAMR30 || SAMHA1)
 
 /** @} */
 
